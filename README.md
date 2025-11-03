@@ -6,6 +6,7 @@
 
 
 ### CocoaTouch Swift frameworks:
-| Name                   | Version | Description                                           |
-|------------------------|-----------------------------------------------------------------|
-|                        |         |                                                       |
+| Name                        | Version  | Description                              |
+|-----------------------------|----------|------------------------------------------|
+| [StoreKit2](storekit2/)     | 18.2.0.1 | Java Bindings for StoreKit2              |
+| [StoreKit2kt](storekit2kt/) | 18.2.0.1 | Kotlin extensions for StoreKit2 bindings |
