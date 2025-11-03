@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- invoked by Github action once PR to Main is opened -->
+    <!-- all CocoaPods are being built as sanity step -->
+    <groupId>com.mobidevelop.robovm</groupId>
+    <version>2.3.23.0</version>
+    <artifactId>cocoatouch-swift-build-only</artifactId>
+    <name>CocoaTouch Swift Pods Parent</name>
+    <packaging>pom</packaging>
+
+
+    <!-- list of modules to build  -->
+    <modules>
+    </modules>
+
+</project>
