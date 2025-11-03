@@ -1,0 +1,9 @@
+<config>
+    <frameworks>
+        <framework>StoreKit</framework>
+        <framework>StoreKitRvm</framework>
+    </frameworks>
+    <frameworkPaths>
+        <path>libs/</path>
+    </frameworkPaths>
+</config>
