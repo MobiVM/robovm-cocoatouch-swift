@@ -13,7 +13,9 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-
+    defaults:
+      run:
+        working-directory: "${{ github.event.inputs.dirName}}"
     env:
       MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
       MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
@@ -30,8 +32,6 @@ jobs:
           server-id: sonatype-nexus-snapshots
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
-      - name: change directory 
-        run: cd "${{ github.event.inputs.dirName}}"
       - name: Maven clean, install
         run: mvn -T 10 clean install
       - name: Maven deploy
