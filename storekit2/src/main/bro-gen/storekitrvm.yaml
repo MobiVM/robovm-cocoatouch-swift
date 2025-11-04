@@ -1,0 +1,373 @@
+package: org.robovm.pods.cocoatouch.storekitrvm
+include: [foundation, uikit, coregraphics, coreanimation]
+clang_args: ['-x', 'objective-c']
+framework: StoreKitRvm
+headers:
+    - StoreKitRvm-Swift.h
+
+typedefs:
+
+private_typedefs:
+
+enums:
+    RvmProduct_SubscriptionInfo_RenewalInfo_PriceIncreaseStatus: {}
+    RvmExternalPurchaseCustomLink_NoticeResult: {}
+    RvmExternalPurchaseCustomLink_NoticeType: {}
+    RvmPaymentMethodBinding_PaymentMethodBindingError: { nserror: true }
+    RvmProduct_PromotionInfo_Visibility: {}
+    RvmProduct_SubscriptionPeriod_Unit: {}
+    RvmProduct_PurchaseError: { nserror: true }
+    RvmTransaction_RefundRequestError: { nserror: true }
+    RvmTransaction_RefundRequestStatus: {}
+    RvmStoreKitError: { nserror: true }
+
+classes:
+    RvmTask: {}
+    RvmECDSASignature: {}
+    RvmFormatStyle_Currency: {}
+    RvmAsyncIterator:
+        methods:
+            '-initWithNextProducer:':
+                exclude: true
+            '-nextWithCompletionHandler:':
+                name: next
+    RvmAsyncSequence:
+        methods:
+            '-initWithIteratorProducer:':
+                exclude: true
+    RvmAppStore: #since 15.0
+        methods:
+            '+presentOfferCodeRedeemSheetIn:completionHandler:':
+                name: presentOfferCodeRedeemSheet
+            '+syncWithCompletionHandler:':
+                name: sync
+            '+showManageSubscriptionsIn:completionHandler:':
+                name: showManageSubscriptions
+            '+showManageSubscriptionsIn:subscriptionGroupID:completionHandler:':
+                name: showManageSubscriptions
+    RvmAppStore_Environment:
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmAppTransaction:
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '+getSharedWithCompletionHandler:':
+                name: getShared
+            '+refreshWithCompletionHandler:':
+                name: refresh
+    RvmExternalLinkAccount: #since 16.0
+        methods:
+            '+canOpenWithCompletionHandler:':
+                name: canOpen
+            '+openWithCompletionHandler:':
+                name: open
+    RvmExternalPurchase: #since 15.4
+        methods:
+            '+presentNoticeSheetWithCompletionHandler:':
+                name: presentNoticeSheet
+            '+canPresentWithCompletionHandler:':
+                name: canPresent
+    RvmExternalPurchaseCustomLink: #since 18.1
+        methods:
+            '+isEligibleWithCompletionHandler:':
+                name: isEligible
+            '+showNoticeWithType:completionHandler:':
+                name: showNotice
+            '+tokenFor:completionHandler:':
+                name: getToken
+    RvmExternalPurchaseCustomLink_Token:
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmExternalPurchaseLink: #since 15.4
+        methods:
+            '+canOpenWithCompletionHandler:':
+                name: canOpen
+            '+openWithCompletionHandler:':
+                name: open
+            '+eligibleURLsWithCompletionHandler:':
+                name: eligibleURLs
+            '+openWithUrl:completionHandler:':
+                name: open
+    RvmExternalPurchase_NoticeResult: {}
+    RvmExternalPurchase_NoticeResult_Canceled: {}
+    RvmMessage: #since 16.0
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-displayIn:error:':
+                name: display
+                throws: NSErrorException
+    RvmMessage_Reason: #since 16.0
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmPaymentMethodBinding: #since 16.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-bindWithCompletionHandler:':
+                name: bind
+            '+createWithId:completionHandler:':
+                name: create
+    RvmProduct: #since 15.0
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-latestTransactionWithCompletionHandler:':
+                name: getLatestTransaction
+            '-currentEntitlementWithCompletionHandler:':
+                name: getCurrentEntitlement
+            '-purchaseWithOptions:completionHandler:':
+                name: purchase
+            '-purchaseWithConfirmIn:options:completionHandler:':
+                name: purchase
+            '-purchaseWithConfirmInVc:options:completionHandler:':
+                name: purchase
+            '+productsFor:completionHandler:':
+                name: getProducts
+    RvmProduct_ProductType:
+        methods:
+            '-isEqual:': { exclude: true }
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+    RvmProduct_PromotionInfo: #since 16.4
+        methods:
+            '-isEqual:': { exclude: true }
+            '-updateWithCompletionHandler:':
+                name: update
+            '+getCurrentOrderWithCompletionHandler:':
+                name: getCurrentOrder
+            '+updateProductOrderByID:completionHandler:':
+                name: updateProductOrder
+            '+updateProductVisibility:for:completionHandler:':
+                name: updateProductVisibility
+            '+updateAll:completionHandler:':
+                name: updateAll
+    RvmProduct_PurchaseOption:
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '+customStringWithKey:value:':
+                name: customString
+            '+customNumberWithKey:value:':
+                name: customNumber
+            '+customBoolWithKey:value:':
+                name: customBool
+            '+customDataWithKey:value:':
+                name: customData
+            '+onStorefrontChangeWithShouldContinuePurchase:':
+                name: onStorefrontChange
+            '+promotionalOfferWithOfferID:keyID:nonce:signature:timestamp:':
+                name: promotionalOffer
+            '+promotionalOfferWithOfferID:signature:':
+                name: promotionalOffer
+    RvmProduct_PurchaseResult: {}
+    RvmProduct_PurchaseResult_success:
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo:
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-isEligibleForIntroOfferWithCompletionHandler:':
+                name: isEligibleForIntroOffer
+            '+isEligibleForIntroOfferFor:completionHandler:':
+                name: isEligibleForIntroOffer
+            '-statusWithCompletionHandler:':
+                name: getStatus
+            '+statusFor:completionHandler:':
+                name: getStatus
+    RvmProduct_SubscriptionInfo_RenewalInfo:
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo_RenewalInfo_ExpirationReason:
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo_RenewalState:
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo_Status:
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo_Status_Pair: {}
+    RvmProduct_SubscriptionOffer:
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionOffer_OfferType:
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionOffer_PaymentMode:
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionPeriod:
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-dateRangeWithReferenceDate:':
+                name: getDateRange
+    RvmTransaction_Offer_PaymentMode:
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmStorefront: #since 15.0
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '+currentWithCompletionHandler:':
+                name: getCurrent
+    RvmTransaction: #since 15.0
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-finishWithCompletionHandler:':
+                name: finish
+            '-subscriptionStatusWithCompletionHandler:':
+                name: getSubscriptionStatus
+            '-beginRefundRequestIn:completionHandler:':
+                name: beginRefundRequest
+            '+beginRefundRequestFor:in:completionHandler:':
+                name: beginRefundRequest
+            '+currentEntitlementFor:completionHandler:':
+                name: getCurrentEntitlement
+            '+currentEntitlementCancelableFor:completionHandler:':
+                name: currentEntitlementCancelable
+            '+latestFor:completionHandler:':
+                name: getLatest
+            '+latestCancelableFor:completionHandler:':
+                name: getLatestCancelable
+    RvmTransaction_OfferType:
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_OwnershipType:
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-initWithRawValue:':
+                name: init
+    RvmTransaction_Reason: #since 17.0
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_RevocationReason:
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_Transactions: { }
+    RvmVerificationResult_AppTransaction:
+        properties:
+            'description': { exclude: true }
+        methods:
+            '-getPayloadValueAndReturnError:':
+                name: getPayloadValue
+                throws: NSErrorException
+    RvmVerificationResult_RenewalInfo: #since 15.0
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-getPayloadValueAndReturnError:':
+                name: getPayloadValue
+                throws: NSErrorException
+    RvmVerificationResult_Transaction:
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-getPayloadValueAndReturnError:':
+                name: getPayloadValue
+                throws: NSErrorException
+    RvmExternalPurchase_NoticeResult_Continued: #since 17.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo_Signature: #since 17.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_Offer: #since 17.2
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmPurchaseIntent: #since 16.4
+        methods:
+            '-isEqual:': { exclude: true }
+
+protocols:
+
+functions:
+
+
+    # Make sure we don't miss any functions if new ones are introduced in a later version
+    (.*):
+        class: __FixMe
+        name: 'Function_#{g[0]}'
+
+values:
+
+    # Make sure we don't miss any values if new ones are introduced in a later version
+    (.*):
+        class: __FixMe
+        name: 'Value_#{g[0]}'
+
+constants:
+    SWIFT_.*:
+        exclude: true
+
+    # Make sure we don't miss any constants if new ones are introduced in a later version
+    (.*):
+        class: __FixMe
+        name: 'Constant__#{g[0]}'

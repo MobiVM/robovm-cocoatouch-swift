@@ -1,0 +1,6 @@
+.idea/
+src/main/native/StoreKitRvm.xcodeproj/xcuserdata
+src/main/native/StoreKitRvm.xcodeproj/project.xcworkspace
+src/main/native/build
+src/main/robopods/META-INF/robovm/ios/libs/
+target
