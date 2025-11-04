@@ -9,7 +9,7 @@
     <artifactId>robopods-swift-storekit2-kt</artifactId>
     <name>CocoaTouch StoreKit2 bindings -- kotlin extensions (iOS 18.2.0) </name>
     <packaging>jar</packaging>
-    <version>18.2.0.1-SNAPSHOT</version>
+    <version>18.2.0.1</version>
 
     <licenses>
         <license>
@@ -23,7 +23,7 @@
         <dependency>
             <groupId>com.mobidevelop.robovm</groupId>
             <artifactId>robopods-swift-storekit2</artifactId>
-            <version>18.2.0.1-SNAPSHOT</version>                    <!-- IMPORTAND: not forget to update it here -->
+            <version>18.2.0.1</version>  <!-- IMPORTANT: not forget to update it here -->
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
