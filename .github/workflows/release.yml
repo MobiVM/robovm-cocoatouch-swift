@@ -18,7 +18,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-26
     defaults:
       run:
         working-directory: "${{ github.event.inputs.dirName}}"
