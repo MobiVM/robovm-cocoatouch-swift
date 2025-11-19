@@ -1,0 +1,64 @@
+package: org.robovm.pods.cocoatouch.declaredagereange
+include: [ foundation, uikit, coregraphics, coreanimation ]
+clang_args: [ '-x', 'objective-c' ]
+framework: DeclaredAgeRangeRvm
+headers:
+    - DeclaredAgeRangeRvm-Swift.h
+
+typedefs:
+
+private_typedefs:
+
+enums:
+    RvmAgeRangeService_Error: { nserror: true }
+    RvmAgeRangeService_AgeRangeDeclaration: { }
+
+classes:
+    RvmAgeRangeService: #since 26.0
+        methods:
+            '-requestAgeRangeWithAgeGates:::in:completionHandler:':
+                visibility: protected
+                name: requestAgeRange
+    RvmAgeRangeService_AgeRange:
+        properties:
+          'lowerBound':
+              visibility: protected
+              name: lowerBound0
+          'upperBound':
+              visibility: protected
+              name: upperBound0
+          'ageRangeDeclaration':
+              visibility: protected
+              name: ageRangeDeclaration0
+    RvmAgeRangeService_ParentalControls:
+        properties:
+            'description':
+                getter: description
+        methods:
+            '-containsWithOther:':
+                name: contains
+    RvmAgeRangeService_Response: { }
+    RvmAgeRangeService_Response_sharing: { }
+
+protocols:
+
+functions:
+    # Make sure we don't miss any functions if new ones are introduced in a later version
+    (.*):
+        class: __FixMe
+        name: 'Function_#{g[0]}'
+
+values:
+    # Make sure we don't miss any values if new ones are introduced in a later version
+    (.*):
+        class: __FixMe
+        name: 'Value_#{g[0]}'
+
+constants:
+    SWIFT_.*:
+        exclude: true
+
+    # Make sure we don't miss any constants if new ones are introduced in a later version
+    (.*):
+        class: __FixMe
+        name: 'Constant__#{g[0]}'

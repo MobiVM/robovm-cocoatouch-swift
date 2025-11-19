@@ -17,6 +17,7 @@
     <modules>
         <module>storekit2</module>
         <module>storekit2kt</module>
+        <module>declaredagerange</module>
     </modules>
 
 </project>
