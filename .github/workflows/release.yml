@@ -35,6 +35,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: temurin
+          cache: 'maven'
           java-version: '19'
           server-id: sonatype-nexus-snapshots
           server-username: MAVEN_USERNAME

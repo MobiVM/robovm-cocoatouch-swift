@@ -6,14 +6,16 @@ on:
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 17
-        uses: actions/setup-java@v1
+      - name: Set up JDK 19
+        uses: actions/setup-java@v5
         with:
-          java-version: '17'
+          distribution: temurin
+          cache: 'maven'
+          java-version: '19'
 
       - name: build
         run: mvn -T 10 -f build-on-pr-pom.xml clean install
