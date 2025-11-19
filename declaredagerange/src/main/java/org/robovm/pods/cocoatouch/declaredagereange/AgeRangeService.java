@@ -29,6 +29,7 @@ import org.robovm.apple.uikit.*;
  * @since Available in iOS 26.0 and later.
  */
 @Library(Library.INTERNAL) @NativeClass("RvmAgeRangeService")
+@ForceLinkClass(AgeRangeService.Error.class)
 public class AgeRangeService extends NSObject {
     static { ObjCRuntime.bind(AgeRangeService.class); }
 

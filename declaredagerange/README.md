@@ -35,6 +35,28 @@ dependencies {
 }
 ```
 
+### Code sample
+
+`com.apple.developer.declared-age-range` [has to be added](https://developer.apple.com/documentation/bundleresources/entitlements/com.apple.developer.declared-age-range?language=objc) to entitlement list:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>com.apple.developer.declared-age-range</key>
+        <true/>
+    </dict>
+</plist>
+```
+
+Entitlement file has to be configured in `robovm.xml`:
+```xml
+<config>
+    ...
+    <iosEntitlementsPList>Entitlements.plist.xml</iosEntitlementsPList>
+</config>
+```
+
 API can be used in a way similar to Apple's documentation:
 
 ```java
