@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.robovm.pods.cocoatouch.declaredagereange;
+package org.robovm.pods.cocoatouch.declared_age_range;
 
 /*<imports>*/
 import java.io.*;
@@ -37,30 +37,26 @@ import org.robovm.apple.coreanimation.*;
 
 /*</javadoc>*/
 /*<annotations>*/@Library(Library.INTERNAL) @NativeClass/*</annotations>*/
-/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmAgeRangeService_AgeRange/*</name>*/ 
+/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmAgeRangeService_Response/*</name>*/ 
     extends /*<extends>*/NSObject/*</extends>*/ 
     /*<implements>*//*</implements>*/ {
 
-    /*<ptr>*/public static class RvmAgeRangeService_AgeRangePtr extends Ptr<RvmAgeRangeService_AgeRange, RvmAgeRangeService_AgeRangePtr> {}/*</ptr>*/
-    /*<bind>*/static { ObjCRuntime.bind(RvmAgeRangeService_AgeRange.class); }/*</bind>*/
+    /*<ptr>*/public static class RvmAgeRangeService_ResponsePtr extends Ptr<RvmAgeRangeService_Response, RvmAgeRangeService_ResponsePtr> {}/*</ptr>*/
+    /*<bind>*/static { ObjCRuntime.bind(RvmAgeRangeService_Response.class); }/*</bind>*/
     /*<constants>*//*</constants>*/
     /*<constructors>*/
-    protected RvmAgeRangeService_AgeRange() {}
-    protected RvmAgeRangeService_AgeRange(Handle h, long handle) { super(h, handle); }
-    protected RvmAgeRangeService_AgeRange(SkipInit skipInit) { super(skipInit); }
+    public RvmAgeRangeService_Response() {}
+    protected RvmAgeRangeService_Response(Handle h, long handle) { super(h, handle); }
+    protected RvmAgeRangeService_Response(SkipInit skipInit) { super(skipInit); }
     /*</constructors>*/
     /*<properties>*/
-    @Property(selector = "lowerBound")
-    protected native NSNumber getLowerBound0();
-    @Property(selector = "upperBound")
-    protected native NSNumber getUpperBound0();
-    @Property(selector = "ageRangeDeclaration")
-    protected native RvmAgeRangeService_AgeRangeDeclaration getAgeRangeDeclaration0();
-    @Property(selector = "activeParentalControls")
-    public native RvmAgeRangeService_ParentalControls getActiveParentalControls();
+    
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/
-    
+    @Method(selector = "unknown")
+    public static native RvmAgeRangeService_Response unknown();
+    @Method(selector = "declinedSharing")
+    public static native RvmAgeRangeService_Response declinedSharing();
     /*</methods>*/
 }

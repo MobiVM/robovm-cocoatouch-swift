@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.robovm.pods.cocoatouch.declaredagereange;
+package org.robovm.pods.cocoatouch.declared_age_range;
 
 import org.robovm.objc.*;
 import org.robovm.objc.annotation.*;
