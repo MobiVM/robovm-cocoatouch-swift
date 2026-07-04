@@ -1,0 +1,11 @@
+<config>
+    <frameworks>
+        <framework>DeclaredAgeRangeRvm</framework>
+    </frameworks>
+    <weakFrameworks>
+        <framework>DeclaredAgeRange</framework>
+    </weakFrameworks>
+    <frameworkPaths>
+        <path>libs/</path>
+    </frameworkPaths>
+</config>

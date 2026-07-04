@@ -1,0 +1,6 @@
+.idea/
+src/main/native/DeclaredAgeRangeRvm.xcodeproj/xcuserdata
+src/main/native/DeclaredAgeRangeRvm.xcodeproj/project.xcworkspace
+src/main/native/build
+src/main/robopods/META-INF/robovm/ios/libs/
+target
