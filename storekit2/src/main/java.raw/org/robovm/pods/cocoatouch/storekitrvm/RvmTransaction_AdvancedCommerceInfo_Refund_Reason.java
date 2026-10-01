@@ -34,22 +34,24 @@ import org.robovm.apple.coreanimation.*;
 /*</imports>*/
 
 /*<javadoc>*/
-
+/**
+ * @since Available in iOS 18.4 and later.
+ */
 /*</javadoc>*/
 /*<annotations>*/@Library(Library.INTERNAL) @NativeClass/*</annotations>*/
-/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_OwnershipType/*</name>*/ 
+/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_AdvancedCommerceInfo_Refund_Reason/*</name>*/ 
     extends /*<extends>*/NSObject/*</extends>*/ 
     /*<implements>*//*</implements>*/ {
 
-    /*<ptr>*/public static class RvmTransaction_OwnershipTypePtr extends Ptr<RvmTransaction_OwnershipType, RvmTransaction_OwnershipTypePtr> {}/*</ptr>*/
-    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_OwnershipType.class); }/*</bind>*/
+    /*<ptr>*/public static class RvmTransaction_AdvancedCommerceInfo_Refund_ReasonPtr extends Ptr<RvmTransaction_AdvancedCommerceInfo_Refund_Reason, RvmTransaction_AdvancedCommerceInfo_Refund_ReasonPtr> {}/*</ptr>*/
+    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_AdvancedCommerceInfo_Refund_Reason.class); }/*</bind>*/
     /*<constants>*//*</constants>*/
     /*<constructors>*/
-    protected RvmTransaction_OwnershipType() {}
-    protected RvmTransaction_OwnershipType(Handle h, long handle) { super(h, handle); }
-    protected RvmTransaction_OwnershipType(SkipInit skipInit) { super(skipInit); }
+    protected RvmTransaction_AdvancedCommerceInfo_Refund_Reason() {}
+    protected RvmTransaction_AdvancedCommerceInfo_Refund_Reason(Handle h, long handle) { super(h, handle); }
+    protected RvmTransaction_AdvancedCommerceInfo_Refund_Reason(SkipInit skipInit) { super(skipInit); }
     @Method(selector = "initWithRawValue:")
-    public RvmTransaction_OwnershipType(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
+    public RvmTransaction_AdvancedCommerceInfo_Refund_Reason(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
     /*</constructors>*/
     /*<properties>*/
     @Property(selector = "rawValue")
@@ -59,11 +61,17 @@ import org.robovm.apple.coreanimation.*;
     /*<methods>*/
     @Method(selector = "initWithRawValue:")
     protected native @Pointer long init(String rawValue);
-    @Method(selector = "purchased")
-    public static native RvmTransaction_OwnershipType purchased();
-    @Method(selector = "familyShared")
-    public static native RvmTransaction_OwnershipType familyShared();
-    @Method(selector = "assigned")
-    public static native RvmTransaction_OwnershipType assigned();
+    @Method(selector = "legal")
+    public static native RvmTransaction_AdvancedCommerceInfo_Refund_Reason legal();
+    @Method(selector = "modifyItems")
+    public static native RvmTransaction_AdvancedCommerceInfo_Refund_Reason modifyItems();
+    @Method(selector = "unintended")
+    public static native RvmTransaction_AdvancedCommerceInfo_Refund_Reason unintended();
+    @Method(selector = "unfulfilled")
+    public static native RvmTransaction_AdvancedCommerceInfo_Refund_Reason unfulfilled();
+    @Method(selector = "unsatisfied")
+    public static native RvmTransaction_AdvancedCommerceInfo_Refund_Reason unsatisfied();
+    @Method(selector = "other")
+    public static native RvmTransaction_AdvancedCommerceInfo_Refund_Reason other();
     /*</methods>*/
 }

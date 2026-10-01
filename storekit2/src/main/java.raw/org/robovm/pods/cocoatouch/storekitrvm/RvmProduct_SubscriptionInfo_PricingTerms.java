@@ -34,34 +34,40 @@ import org.robovm.apple.coreanimation.*;
 /*</imports>*/
 
 /*<javadoc>*/
-
+/**
+ * @since Available in iOS 26.4 and later.
+ */
 /*</javadoc>*/
 /*<annotations>*/@Library(Library.INTERNAL) @NativeClass/*</annotations>*/
-/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_Offer_PaymentMode/*</name>*/ 
+/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmProduct_SubscriptionInfo_PricingTerms/*</name>*/ 
     extends /*<extends>*/NSObject/*</extends>*/ 
     /*<implements>*//*</implements>*/ {
 
-    /*<ptr>*/public static class RvmTransaction_Offer_PaymentModePtr extends Ptr<RvmTransaction_Offer_PaymentMode, RvmTransaction_Offer_PaymentModePtr> {}/*</ptr>*/
-    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_Offer_PaymentMode.class); }/*</bind>*/
+    /*<ptr>*/public static class RvmProduct_SubscriptionInfo_PricingTermsPtr extends Ptr<RvmProduct_SubscriptionInfo_PricingTerms, RvmProduct_SubscriptionInfo_PricingTermsPtr> {}/*</ptr>*/
+    /*<bind>*/static { ObjCRuntime.bind(RvmProduct_SubscriptionInfo_PricingTerms.class); }/*</bind>*/
     /*<constants>*//*</constants>*/
     /*<constructors>*/
-    protected RvmTransaction_Offer_PaymentMode() {}
-    protected RvmTransaction_Offer_PaymentMode(Handle h, long handle) { super(h, handle); }
-    protected RvmTransaction_Offer_PaymentMode(SkipInit skipInit) { super(skipInit); }
+    protected RvmProduct_SubscriptionInfo_PricingTerms() {}
+    protected RvmProduct_SubscriptionInfo_PricingTerms(Handle h, long handle) { super(h, handle); }
+    protected RvmProduct_SubscriptionInfo_PricingTerms(SkipInit skipInit) { super(skipInit); }
     /*</constructors>*/
     /*<properties>*/
-    @Property(selector = "rawValue")
-    public native String getRawValue();
+    @Property(selector = "billingPrice")
+    public native NSDecimalNumber getBillingPrice();
+    @Property(selector = "billingDisplayPrice")
+    public native String getBillingDisplayPrice();
+    @Property(selector = "billingPeriod")
+    public native RvmProduct_SubscriptionPeriod getBillingPeriod();
+    @Property(selector = "billingPlanType")
+    public native RvmProduct_SubscriptionInfo_BillingPlanType getBillingPlanType();
+    @Property(selector = "commitmentInfo")
+    public native RvmProduct_SubscriptionInfo_CommitmentInfo getCommitmentInfo();
+    @Property(selector = "subscriptionOffers")
+    public native NSArray<RvmProduct_SubscriptionOffer> getSubscriptionOffers();
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/
-    @Method(selector = "freeTrial")
-    public static native RvmTransaction_Offer_PaymentMode freeTrial();
-    @Method(selector = "payAsYouGo")
-    public static native RvmTransaction_Offer_PaymentMode payAsYouGo();
-    @Method(selector = "payUpFront")
-    public static native RvmTransaction_Offer_PaymentMode payUpFront();
-    @Method(selector = "oneTime")
-    public static native RvmTransaction_Offer_PaymentMode oneTime();
+    @Method(selector = "offersOfType:")
+    public native NSArray<RvmProduct_SubscriptionOffer> offersOfType(RvmProduct_SubscriptionOffer_OfferType type);
     /*</methods>*/
 }

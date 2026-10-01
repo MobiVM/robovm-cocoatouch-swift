@@ -34,34 +34,35 @@ import org.robovm.apple.coreanimation.*;
 /*</imports>*/
 
 /*<javadoc>*/
-
+/**
+ * @since Available in iOS 26.4 and later.
+ */
 /*</javadoc>*/
 /*<annotations>*/@Library(Library.INTERNAL) @NativeClass/*</annotations>*/
-/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_Offer_PaymentMode/*</name>*/ 
+/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_CommitmentInfo/*</name>*/ 
     extends /*<extends>*/NSObject/*</extends>*/ 
     /*<implements>*//*</implements>*/ {
 
-    /*<ptr>*/public static class RvmTransaction_Offer_PaymentModePtr extends Ptr<RvmTransaction_Offer_PaymentMode, RvmTransaction_Offer_PaymentModePtr> {}/*</ptr>*/
-    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_Offer_PaymentMode.class); }/*</bind>*/
+    /*<ptr>*/public static class RvmTransaction_CommitmentInfoPtr extends Ptr<RvmTransaction_CommitmentInfo, RvmTransaction_CommitmentInfoPtr> {}/*</ptr>*/
+    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_CommitmentInfo.class); }/*</bind>*/
     /*<constants>*//*</constants>*/
     /*<constructors>*/
-    protected RvmTransaction_Offer_PaymentMode() {}
-    protected RvmTransaction_Offer_PaymentMode(Handle h, long handle) { super(h, handle); }
-    protected RvmTransaction_Offer_PaymentMode(SkipInit skipInit) { super(skipInit); }
+    protected RvmTransaction_CommitmentInfo() {}
+    protected RvmTransaction_CommitmentInfo(Handle h, long handle) { super(h, handle); }
+    protected RvmTransaction_CommitmentInfo(SkipInit skipInit) { super(skipInit); }
     /*</constructors>*/
     /*<properties>*/
-    @Property(selector = "rawValue")
-    public native String getRawValue();
+    @Property(selector = "billingPeriodNumber")
+    public native long getBillingPeriodNumber();
+    @Property(selector = "totalBillingPeriods")
+    public native long getTotalBillingPeriods();
+    @Property(selector = "expirationDate")
+    public native NSDate getExpirationDate();
+    @Property(selector = "price")
+    public native NSDecimalNumber getPrice();
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/
-    @Method(selector = "freeTrial")
-    public static native RvmTransaction_Offer_PaymentMode freeTrial();
-    @Method(selector = "payAsYouGo")
-    public static native RvmTransaction_Offer_PaymentMode payAsYouGo();
-    @Method(selector = "payUpFront")
-    public static native RvmTransaction_Offer_PaymentMode payUpFront();
-    @Method(selector = "oneTime")
-    public static native RvmTransaction_Offer_PaymentMode oneTime();
+    
     /*</methods>*/
 }

@@ -34,22 +34,24 @@ import org.robovm.apple.coreanimation.*;
 /*</imports>*/
 
 /*<javadoc>*/
-
+/**
+ * @since Available in iOS 26.2 and later.
+ */
 /*</javadoc>*/
 /*<annotations>*/@Library(Library.INTERNAL) @NativeClass/*</annotations>*/
-/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_OwnershipType/*</name>*/ 
+/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status/*</name>*/ 
     extends /*<extends>*/NSObject/*</extends>*/ 
     /*<implements>*//*</implements>*/ {
 
-    /*<ptr>*/public static class RvmTransaction_OwnershipTypePtr extends Ptr<RvmTransaction_OwnershipType, RvmTransaction_OwnershipTypePtr> {}/*</ptr>*/
-    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_OwnershipType.class); }/*</bind>*/
+    /*<ptr>*/public static class RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_StatusPtr extends Ptr<RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status, RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_StatusPtr> {}/*</ptr>*/
+    /*<bind>*/static { ObjCRuntime.bind(RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status.class); }/*</bind>*/
     /*<constants>*//*</constants>*/
     /*<constructors>*/
-    protected RvmTransaction_OwnershipType() {}
-    protected RvmTransaction_OwnershipType(Handle h, long handle) { super(h, handle); }
-    protected RvmTransaction_OwnershipType(SkipInit skipInit) { super(skipInit); }
+    protected RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status() {}
+    protected RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status(Handle h, long handle) { super(h, handle); }
+    protected RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status(SkipInit skipInit) { super(skipInit); }
     @Method(selector = "initWithRawValue:")
-    public RvmTransaction_OwnershipType(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
+    public RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
     /*</constructors>*/
     /*<properties>*/
     @Property(selector = "rawValue")
@@ -59,11 +61,11 @@ import org.robovm.apple.coreanimation.*;
     /*<methods>*/
     @Method(selector = "initWithRawValue:")
     protected native @Pointer long init(String rawValue);
-    @Method(selector = "purchased")
-    public static native RvmTransaction_OwnershipType purchased();
-    @Method(selector = "familyShared")
-    public static native RvmTransaction_OwnershipType familyShared();
-    @Method(selector = "assigned")
-    public static native RvmTransaction_OwnershipType assigned();
+    @Method(selector = "pending")
+    public static native RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status pending();
+    @Method(selector = "accepted")
+    public static native RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status accepted();
+    @Method(selector = "scheduled")
+    public static native RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status scheduled();
     /*</methods>*/
 }

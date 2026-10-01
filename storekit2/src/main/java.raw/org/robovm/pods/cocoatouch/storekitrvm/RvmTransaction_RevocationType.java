@@ -34,20 +34,24 @@ import org.robovm.apple.coreanimation.*;
 /*</imports>*/
 
 /*<javadoc>*/
-
+/**
+ * @since Available in iOS 26.4 and later.
+ */
 /*</javadoc>*/
 /*<annotations>*/@Library(Library.INTERNAL) @NativeClass/*</annotations>*/
-/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_Offer_PaymentMode/*</name>*/ 
+/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_RevocationType/*</name>*/ 
     extends /*<extends>*/NSObject/*</extends>*/ 
     /*<implements>*//*</implements>*/ {
 
-    /*<ptr>*/public static class RvmTransaction_Offer_PaymentModePtr extends Ptr<RvmTransaction_Offer_PaymentMode, RvmTransaction_Offer_PaymentModePtr> {}/*</ptr>*/
-    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_Offer_PaymentMode.class); }/*</bind>*/
+    /*<ptr>*/public static class RvmTransaction_RevocationTypePtr extends Ptr<RvmTransaction_RevocationType, RvmTransaction_RevocationTypePtr> {}/*</ptr>*/
+    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_RevocationType.class); }/*</bind>*/
     /*<constants>*//*</constants>*/
     /*<constructors>*/
-    protected RvmTransaction_Offer_PaymentMode() {}
-    protected RvmTransaction_Offer_PaymentMode(Handle h, long handle) { super(h, handle); }
-    protected RvmTransaction_Offer_PaymentMode(SkipInit skipInit) { super(skipInit); }
+    protected RvmTransaction_RevocationType() {}
+    protected RvmTransaction_RevocationType(Handle h, long handle) { super(h, handle); }
+    protected RvmTransaction_RevocationType(SkipInit skipInit) { super(skipInit); }
+    @Method(selector = "initWithRawValue:")
+    public RvmTransaction_RevocationType(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
     /*</constructors>*/
     /*<properties>*/
     @Property(selector = "rawValue")
@@ -55,13 +59,15 @@ import org.robovm.apple.coreanimation.*;
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/
-    @Method(selector = "freeTrial")
-    public static native RvmTransaction_Offer_PaymentMode freeTrial();
-    @Method(selector = "payAsYouGo")
-    public static native RvmTransaction_Offer_PaymentMode payAsYouGo();
-    @Method(selector = "payUpFront")
-    public static native RvmTransaction_Offer_PaymentMode payUpFront();
-    @Method(selector = "oneTime")
-    public static native RvmTransaction_Offer_PaymentMode oneTime();
+    @Method(selector = "initWithRawValue:")
+    protected native @Pointer long init(String rawValue);
+    @Method(selector = "familyRevocation")
+    public static native RvmTransaction_RevocationType familyRevocation();
+    @Method(selector = "fullRefund")
+    public static native RvmTransaction_RevocationType fullRefund();
+    @Method(selector = "proratedRefund")
+    public static native RvmTransaction_RevocationType proratedRefund();
+    @Method(selector = "assignmentRevocation")
+    public static native RvmTransaction_RevocationType assignmentRevocation();
     /*</methods>*/
 }

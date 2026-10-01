@@ -45,7 +45,8 @@ public enum /*<name>*/RvmStoreKitError/*</name>*/ implements NSErrorCode {
     SystemError(3L),
     NotAvailableInStorefront(4L),
     NotEntitled(5L),
-    Unsupported(6L);
+    Unsupported(6L),
+    InvalidPresentationContext(7L);
     /*</values>*/
 
     /*<bind>*/

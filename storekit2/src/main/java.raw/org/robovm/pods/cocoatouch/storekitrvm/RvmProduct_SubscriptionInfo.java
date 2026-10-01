@@ -64,6 +64,16 @@ import org.robovm.apple.coreanimation.*;
     @Property(selector = "subscriptionPeriod")
     public native RvmProduct_SubscriptionPeriod getSubscriptionPeriod();
     /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Property(selector = "pricingTerms")
+    public native NSArray<RvmProduct_SubscriptionInfo_PricingTerms> getPricingTerms();
+    /**
+     * @since Available in iOS 27.0 and later.
+     */
+    @Property(selector = "bundledSubscriptions")
+    public native NSArray<RvmProduct_SubscriptionInfo_BundledSubscription> getBundledSubscriptions();
+    /**
      * @since Available in iOS 16.4 and later.
      */
     @Property(selector = "groupLevel")
@@ -84,5 +94,10 @@ import org.robovm.apple.coreanimation.*;
     public native RvmTask getStatus(@Block VoidBlock2<NSArray<RvmProduct_SubscriptionInfo_Status>, NSError> completionHandler);
     @Method(selector = "statusFor:completionHandler:")
     public static native RvmTask getStatus(String groupID, @Block VoidBlock2<NSArray<RvmProduct_SubscriptionInfo_Status>, NSError> completionHandler);
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Method(selector = "statusWithTransactionID:completionHandler:")
+    public static native RvmTask status(long transactionID, @Block VoidBlock2<RvmProduct_SubscriptionInfo_Status, NSError> completionHandler);
     /*</methods>*/
 }

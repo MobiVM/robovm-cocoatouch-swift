@@ -35,34 +35,41 @@ import org.robovm.apple.coreanimation.*;
 
 /*<javadoc>*/
 /**
- * @since Available in iOS 17.2 and later.
+ * @since Available in iOS 27.0 and later.
  */
 /*</javadoc>*/
 /*<annotations>*/@Library(Library.INTERNAL) @NativeClass/*</annotations>*/
-/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_Offer/*</name>*/ 
+/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmProduct_SubscriptionInfo_BundledSubscription/*</name>*/ 
     extends /*<extends>*/NSObject/*</extends>*/ 
     /*<implements>*//*</implements>*/ {
 
-    /*<ptr>*/public static class RvmTransaction_OfferPtr extends Ptr<RvmTransaction_Offer, RvmTransaction_OfferPtr> {}/*</ptr>*/
-    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_Offer.class); }/*</bind>*/
+    /*<ptr>*/public static class RvmProduct_SubscriptionInfo_BundledSubscriptionPtr extends Ptr<RvmProduct_SubscriptionInfo_BundledSubscription, RvmProduct_SubscriptionInfo_BundledSubscriptionPtr> {}/*</ptr>*/
+    /*<bind>*/static { ObjCRuntime.bind(RvmProduct_SubscriptionInfo_BundledSubscription.class); }/*</bind>*/
     /*<constants>*//*</constants>*/
     /*<constructors>*/
-    protected RvmTransaction_Offer() {}
-    protected RvmTransaction_Offer(Handle h, long handle) { super(h, handle); }
-    protected RvmTransaction_Offer(SkipInit skipInit) { super(skipInit); }
+    protected RvmProduct_SubscriptionInfo_BundledSubscription() {}
+    protected RvmProduct_SubscriptionInfo_BundledSubscription(Handle h, long handle) { super(h, handle); }
+    protected RvmProduct_SubscriptionInfo_BundledSubscription(SkipInit skipInit) { super(skipInit); }
     /*</constructors>*/
     /*<properties>*/
     @Property(selector = "id")
     public native String getId();
-    @Property(selector = "type")
-    public native RvmTransaction_OfferType getType();
-    @Property(selector = "paymentMode")
-    public native RvmTransaction_Offer_PaymentMode getPaymentMode();
-    /**
-     * @since Available in iOS 18.4 and later.
-     */
-    @Property(selector = "period")
-    public native RvmProduct_SubscriptionPeriod getPeriod();
+    @Property(selector = "displayName")
+    public native String getDisplayName();
+    @Property(selector = "productDescription")
+    public native String getProductDescription();
+    @Property(selector = "price")
+    public native NSDecimalNumber getPrice();
+    @Property(selector = "displayPrice")
+    public native String getDisplayPrice();
+    @Property(selector = "isFamilyShareable")
+    public native boolean isFamilyShareable();
+    @Property(selector = "subscriptionGroupID")
+    public native String getSubscriptionGroupID();
+    @Property(selector = "subscriptionGroupLevel")
+    public native @MachineSizedSInt long getSubscriptionGroupLevel();
+    @Property(selector = "subscriptionGroupDisplayName")
+    public native String getSubscriptionGroupDisplayName();
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/

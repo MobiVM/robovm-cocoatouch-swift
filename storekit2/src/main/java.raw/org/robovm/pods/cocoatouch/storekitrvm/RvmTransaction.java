@@ -83,29 +83,53 @@ import org.robovm.apple.coreanimation.*;
     public native RvmTransaction_Offer getOffer();
     /**
      * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 17.2. 'offerType' has been renamed to 'offer.type': Use the offer property instead
+     * @deprecated Deprecated in iOS 17.2. 'offerType' has been renamed to 'offer.type': Use the offer property instead.
      */
     @Deprecated
     @Property(selector = "offerType")
     public native RvmTransaction_OfferType getOfferType();
     /**
      * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 17.2. 'offerID' has been renamed to 'id': Use the offer property instead
+     * @deprecated Deprecated in iOS 17.2. 'offerID' has been renamed to 'id': Use the offer property instead.
      */
     @Deprecated
     @Property(selector = "offerID")
     public native String getOfferID();
     /**
      * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 17.2. 'offerPaymentModeStringRepresentation' has been renamed to 'offer.paymentMode.rawValue': Use the offer property instead
+     * @deprecated Deprecated in iOS 17.2. 'offerPaymentModeStringRepresentation' has been renamed to 'offer.paymentMode.rawValue': Use the offer property instead.
      */
     @Deprecated
     @Property(selector = "offerPaymentModeStringRepresentation")
     public native String getOfferPaymentModeStringRepresentation();
+    /**
+     * @since Available in iOS 15.0 and later.
+     * @deprecated Deprecated in iOS 18.4. Use the offer property instead.
+     */
+    @Deprecated
+    @Property(selector = "offerPeriodStringRepresentation")
+    public native String getOfferPeriodStringRepresentation();
     @Property(selector = "revocationDate")
     public native NSDate getRevocationDate();
     @Property(selector = "revocationReason")
     public native RvmTransaction_RevocationReason getRevocationReason();
+    /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Property(selector = "revocationType")
+    public native RvmTransaction_RevocationType getRevocationType();
+    /**
+     * @since Available in iOS 15.0 and later.
+     * @deprecated Deprecated in iOS 26.4. Use the revocationType property instead
+     */
+    @Deprecated
+    @Property(selector = "revocationTypeStringRepresentation")
+    public native String getRevocationTypeStringRepresentation();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "revocationPercentage")
+    public native NSDecimalNumber getRevocationPercentage();
     @Property(selector = "productType")
     public native RvmProduct_ProductType getProductType();
     @Property(selector = "appAccountToken")
@@ -139,11 +163,6 @@ import org.robovm.apple.coreanimation.*;
      */
     @Property(selector = "storefront")
     public native RvmStorefront getStorefront();
-    /**
-     * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 17.0. Use the storefront property instead
-     */
-    @Deprecated
     @Property(selector = "storefrontCountryCode")
     public native String getStorefrontCountryCode();
     /**
@@ -163,6 +182,36 @@ import org.robovm.apple.coreanimation.*;
     @Deprecated
     @Property(selector = "currencyCode")
     public native String getCurrencyCode();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "bundleProductID")
+    public native String getBundleProductID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "bundleSubscriptionGroupID")
+    public native String getBundleSubscriptionGroupID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "previousOriginalTransactionID")
+    public native NSNumber getPreviousOriginalTransactionID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "bundleTransactionID")
+    public native String getBundleTransactionID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "bundleOriginalTransactionID")
+    public native String getBundleOriginalTransactionID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "appTransactionID")
+    public native String getAppTransactionID();
     @Property(selector = "deviceVerification")
     public native NSData getDeviceVerification();
     @Property(selector = "deviceVerificationNonce")
@@ -171,8 +220,21 @@ import org.robovm.apple.coreanimation.*;
     public native RvmTransaction_OwnershipType getOwnershipType();
     @Property(selector = "signedDate")
     public native NSDate getSignedDate();
-    @Property(selector = "debugDescription")
-    public native String getDebugDescription();
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Property(selector = "advancedCommerceInfo")
+    public native RvmTransaction_AdvancedCommerceInfo getAdvancedCommerceInfo();
+    /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Property(selector = "billingPlanType")
+    public native RvmProduct_SubscriptionInfo_BillingPlanType getBillingPlanType();
+    /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Property(selector = "commitmentInfo")
+    public native RvmTransaction_CommitmentInfo getCommitmentInfo();
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/
@@ -183,6 +245,16 @@ import org.robovm.apple.coreanimation.*;
      */
     @Method(selector = "subscriptionStatusWithCompletionHandler:")
     public native RvmTask getSubscriptionStatus(@Block VoidBlock1<RvmProduct_SubscriptionInfo_Status> completionHandler);
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Method(selector = "allFor:")
+    public static native RvmAsyncSequence<RvmVerificationResult_Transaction> allFor(String productID);
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Method(selector = "currentEntitlementsFor:")
+    public static native RvmAsyncSequence<RvmVerificationResult_Transaction> currentEntitlementsFor(String productID);
     @Method(selector = "updates")
     public static native RvmAsyncSequence<RvmVerificationResult_Transaction> updates();
     /**
@@ -201,6 +273,11 @@ import org.robovm.apple.coreanimation.*;
     public static native RvmAsyncSequence<RvmVerificationResult_Transaction> all();
     @Method(selector = "currentEntitlements")
     public static native RvmAsyncSequence<RvmVerificationResult_Transaction> currentEntitlements();
+    /**
+     * @since Available in iOS 15.0 and later.
+     * @deprecated Deprecated in iOS 18.4. Use the currentEntitlements(for:) method instead.
+     */
+    @Deprecated
     @Method(selector = "currentEntitlementFor:completionHandler:")
     public static native RvmTask getCurrentEntitlement(String productID, @Block VoidBlock1<RvmVerificationResult_Transaction> completionHandler);
     @Method(selector = "latestFor:completionHandler:")

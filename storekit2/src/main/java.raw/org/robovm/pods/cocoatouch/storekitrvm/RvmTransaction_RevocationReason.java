@@ -59,5 +59,7 @@ import org.robovm.apple.coreanimation.*;
     public static native RvmTransaction_RevocationReason developerIssue();
     @Method(selector = "other")
     public static native RvmTransaction_RevocationReason other();
+    @Method(selector = "upgradedToBundle")
+    public static native RvmTransaction_RevocationReason upgradedToBundle();
     /*</methods>*/
 }

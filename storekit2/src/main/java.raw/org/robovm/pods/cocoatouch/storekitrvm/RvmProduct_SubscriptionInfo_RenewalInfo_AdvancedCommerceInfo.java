@@ -35,34 +35,37 @@ import org.robovm.apple.coreanimation.*;
 
 /*<javadoc>*/
 /**
- * @since Available in iOS 17.2 and later.
+ * @since Available in iOS 18.4 and later.
  */
 /*</javadoc>*/
 /*<annotations>*/@Library(Library.INTERNAL) @NativeClass/*</annotations>*/
-/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_Offer/*</name>*/ 
+/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo/*</name>*/ 
     extends /*<extends>*/NSObject/*</extends>*/ 
     /*<implements>*//*</implements>*/ {
 
-    /*<ptr>*/public static class RvmTransaction_OfferPtr extends Ptr<RvmTransaction_Offer, RvmTransaction_OfferPtr> {}/*</ptr>*/
-    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_Offer.class); }/*</bind>*/
+    /*<ptr>*/public static class RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfoPtr extends Ptr<RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo, RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfoPtr> {}/*</ptr>*/
+    /*<bind>*/static { ObjCRuntime.bind(RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo.class); }/*</bind>*/
     /*<constants>*//*</constants>*/
     /*<constructors>*/
-    protected RvmTransaction_Offer() {}
-    protected RvmTransaction_Offer(Handle h, long handle) { super(h, handle); }
-    protected RvmTransaction_Offer(SkipInit skipInit) { super(skipInit); }
+    protected RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo() {}
+    protected RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo(Handle h, long handle) { super(h, handle); }
+    protected RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo(SkipInit skipInit) { super(skipInit); }
     /*</constructors>*/
     /*<properties>*/
-    @Property(selector = "id")
-    public native String getId();
-    @Property(selector = "type")
-    public native RvmTransaction_OfferType getType();
-    @Property(selector = "paymentMode")
-    public native RvmTransaction_Offer_PaymentMode getPaymentMode();
-    /**
-     * @since Available in iOS 18.4 and later.
-     */
+    @Property(selector = "consistencyToken")
+    public native String getConsistencyToken();
+    @Property(selector = "requestReferenceID")
+    public native String getRequestReferenceID();
+    @Property(selector = "taxCode")
+    public native String getTaxCode();
+    @Property(selector = "productDescription")
+    public native String getProductDescription();
+    @Property(selector = "displayName")
+    public native String getDisplayName();
     @Property(selector = "period")
     public native RvmProduct_SubscriptionPeriod getPeriod();
+    @Property(selector = "items")
+    public native NSArray<RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item> getItems();
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/

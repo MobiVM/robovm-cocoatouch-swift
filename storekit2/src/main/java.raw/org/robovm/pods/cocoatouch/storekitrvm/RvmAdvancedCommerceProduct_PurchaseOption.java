@@ -34,34 +34,29 @@ import org.robovm.apple.coreanimation.*;
 /*</imports>*/
 
 /*<javadoc>*/
-
+/**
+ * @since Available in iOS 18.4 and later.
+ */
 /*</javadoc>*/
 /*<annotations>*/@Library(Library.INTERNAL) @NativeClass/*</annotations>*/
-/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_Offer_PaymentMode/*</name>*/ 
+/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmAdvancedCommerceProduct_PurchaseOption/*</name>*/ 
     extends /*<extends>*/NSObject/*</extends>*/ 
     /*<implements>*//*</implements>*/ {
 
-    /*<ptr>*/public static class RvmTransaction_Offer_PaymentModePtr extends Ptr<RvmTransaction_Offer_PaymentMode, RvmTransaction_Offer_PaymentModePtr> {}/*</ptr>*/
-    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_Offer_PaymentMode.class); }/*</bind>*/
+    /*<ptr>*/public static class RvmAdvancedCommerceProduct_PurchaseOptionPtr extends Ptr<RvmAdvancedCommerceProduct_PurchaseOption, RvmAdvancedCommerceProduct_PurchaseOptionPtr> {}/*</ptr>*/
+    /*<bind>*/static { ObjCRuntime.bind(RvmAdvancedCommerceProduct_PurchaseOption.class); }/*</bind>*/
     /*<constants>*//*</constants>*/
     /*<constructors>*/
-    protected RvmTransaction_Offer_PaymentMode() {}
-    protected RvmTransaction_Offer_PaymentMode(Handle h, long handle) { super(h, handle); }
-    protected RvmTransaction_Offer_PaymentMode(SkipInit skipInit) { super(skipInit); }
+    protected RvmAdvancedCommerceProduct_PurchaseOption() {}
+    protected RvmAdvancedCommerceProduct_PurchaseOption(Handle h, long handle) { super(h, handle); }
+    protected RvmAdvancedCommerceProduct_PurchaseOption(SkipInit skipInit) { super(skipInit); }
     /*</constructors>*/
     /*<properties>*/
-    @Property(selector = "rawValue")
-    public native String getRawValue();
+    
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/
-    @Method(selector = "freeTrial")
-    public static native RvmTransaction_Offer_PaymentMode freeTrial();
-    @Method(selector = "payAsYouGo")
-    public static native RvmTransaction_Offer_PaymentMode payAsYouGo();
-    @Method(selector = "payUpFront")
-    public static native RvmTransaction_Offer_PaymentMode payUpFront();
-    @Method(selector = "oneTime")
-    public static native RvmTransaction_Offer_PaymentMode oneTime();
+    @Method(selector = "onStorefrontChangeWithShouldContinuePurchase:")
+    public static native RvmAdvancedCommerceProduct_PurchaseOption onStorefrontChange(@Block Block1<RvmStorefront, Boolean> shouldContinuePurchase);
     /*</methods>*/
 }

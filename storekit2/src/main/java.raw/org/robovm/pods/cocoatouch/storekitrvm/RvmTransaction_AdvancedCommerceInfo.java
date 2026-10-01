@@ -34,34 +34,45 @@ import org.robovm.apple.coreanimation.*;
 /*</imports>*/
 
 /*<javadoc>*/
-
+/**
+ * @since Available in iOS 18.4 and later.
+ */
 /*</javadoc>*/
 /*<annotations>*/@Library(Library.INTERNAL) @NativeClass/*</annotations>*/
-/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_Offer_PaymentMode/*</name>*/ 
+/*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmTransaction_AdvancedCommerceInfo/*</name>*/ 
     extends /*<extends>*/NSObject/*</extends>*/ 
     /*<implements>*//*</implements>*/ {
 
-    /*<ptr>*/public static class RvmTransaction_Offer_PaymentModePtr extends Ptr<RvmTransaction_Offer_PaymentMode, RvmTransaction_Offer_PaymentModePtr> {}/*</ptr>*/
-    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_Offer_PaymentMode.class); }/*</bind>*/
+    /*<ptr>*/public static class RvmTransaction_AdvancedCommerceInfoPtr extends Ptr<RvmTransaction_AdvancedCommerceInfo, RvmTransaction_AdvancedCommerceInfoPtr> {}/*</ptr>*/
+    /*<bind>*/static { ObjCRuntime.bind(RvmTransaction_AdvancedCommerceInfo.class); }/*</bind>*/
     /*<constants>*//*</constants>*/
     /*<constructors>*/
-    protected RvmTransaction_Offer_PaymentMode() {}
-    protected RvmTransaction_Offer_PaymentMode(Handle h, long handle) { super(h, handle); }
-    protected RvmTransaction_Offer_PaymentMode(SkipInit skipInit) { super(skipInit); }
+    protected RvmTransaction_AdvancedCommerceInfo() {}
+    protected RvmTransaction_AdvancedCommerceInfo(Handle h, long handle) { super(h, handle); }
+    protected RvmTransaction_AdvancedCommerceInfo(SkipInit skipInit) { super(skipInit); }
     /*</constructors>*/
     /*<properties>*/
-    @Property(selector = "rawValue")
-    public native String getRawValue();
+    @Property(selector = "requestReferenceID")
+    public native String getRequestReferenceID();
+    @Property(selector = "estimatedTax")
+    public native NSDecimalNumber getEstimatedTax();
+    @Property(selector = "taxRate")
+    public native NSDecimalNumber getTaxRate();
+    @Property(selector = "taxCode")
+    public native String getTaxCode();
+    @Property(selector = "taxExclusivePrice")
+    public native NSDecimalNumber getTaxExclusivePrice();
+    @Property(selector = "productDescription")
+    public native String getProductDescription();
+    @Property(selector = "displayName")
+    public native String getDisplayName();
+    @Property(selector = "period")
+    public native RvmProduct_SubscriptionPeriod getPeriod();
+    @Property(selector = "items")
+    public native NSArray<RvmTransaction_AdvancedCommerceInfo_Item> getItems();
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/
-    @Method(selector = "freeTrial")
-    public static native RvmTransaction_Offer_PaymentMode freeTrial();
-    @Method(selector = "payAsYouGo")
-    public static native RvmTransaction_Offer_PaymentMode payAsYouGo();
-    @Method(selector = "payUpFront")
-    public static native RvmTransaction_Offer_PaymentMode payUpFront();
-    @Method(selector = "oneTime")
-    public static native RvmTransaction_Offer_PaymentMode oneTime();
+    
     /*</methods>*/
 }
