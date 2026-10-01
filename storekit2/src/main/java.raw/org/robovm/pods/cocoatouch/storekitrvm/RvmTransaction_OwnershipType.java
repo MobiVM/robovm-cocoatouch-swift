@@ -63,5 +63,7 @@ import org.robovm.apple.coreanimation.*;
     public static native RvmTransaction_OwnershipType purchased();
     @Method(selector = "familyShared")
     public static native RvmTransaction_OwnershipType familyShared();
+    @Method(selector = "assigned")
+    public static native RvmTransaction_OwnershipType assigned();
     /*</methods>*/
 }

@@ -15,13 +15,11 @@
  */
 package org.robovm.pods.cocoatouch.storekitrvm;
 
-
-import org.robovm.apple.foundation.NSData;
-import org.robovm.apple.foundation.NSObject;
-import org.robovm.objc.ObjCRuntime;
-import org.robovm.objc.annotation.NativeClass;
-import org.robovm.objc.annotation.Property;
-import org.robovm.rt.bro.annotation.Library;
+import org.robovm.objc.*;
+import org.robovm.objc.annotation.*;
+import org.robovm.rt.bro.annotation.*;
+import org.robovm.rt.bro.ptr.*;
+import org.robovm.apple.foundation.*;
 
 /**
  * @since Available in iOS 13.0 and later.

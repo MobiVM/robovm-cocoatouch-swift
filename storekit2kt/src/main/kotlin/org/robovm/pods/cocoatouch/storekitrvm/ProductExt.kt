@@ -112,10 +112,19 @@ suspend fun ProductKt.SubscriptionInfoKt.getStatus(groupID: String) = suspendCan
     Product.SubscriptionInfo.getStatus(groupID, cont::completionHandler)
 }.toList()
 
+/**
+ * @since Available in iOS 18.4 and later.
+ * @throws NSErrorException
+ */
+suspend fun ProductKt.SubscriptionInfoKt.status(transactionID: Long): Product.SubscriptionInfo.Status? =
+    suspendCancellableTask { cont ->
+        Product.SubscriptionInfo.status(transactionID, cont::completionNullableHandler)
+    }
+
 
 /**
  * workaround: NSSet(collection) will crash if collection is empty
  */
-private fun <T: NSObject> Collection<T>.toNSSet(): NSSet<T> {
+internal fun <T: NSObject> Collection<T>.toNSSet(): NSSet<T> {
     return if (isEmpty()) NSSet() else NSSet(this)
 }

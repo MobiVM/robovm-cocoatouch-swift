@@ -47,7 +47,8 @@ public enum /*<name>*/RvmProduct_PurchaseError/*</name>*/ implements NSErrorCode
     InvalidOfferIdentifier(4L),
     InvalidOfferPrice(5L),
     InvalidOfferSignature(6L),
-    MissingOfferParameters(7L);
+    MissingOfferParameters(7L),
+    PaymentMethodBindingConfigurationRequired(8L);
     /*</values>*/
 
     /*<bind>*/

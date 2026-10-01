@@ -67,5 +67,7 @@ import org.robovm.apple.coreanimation.*;
     public static native RvmProduct_SubscriptionInfo_RenewalInfo_ExpirationReason productUnavailable();
     @Method(selector = "unknown")
     public static native RvmProduct_SubscriptionInfo_RenewalInfo_ExpirationReason unknown();
+    @Method(selector = "unbundled")
+    public static native RvmProduct_SubscriptionInfo_RenewalInfo_ExpirationReason unbundled();
     /*</methods>*/
 }

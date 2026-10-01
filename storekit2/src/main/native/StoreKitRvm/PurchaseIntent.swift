@@ -33,6 +33,10 @@ import StoreKit
     @objc public var offer: RvmProduct.SubscriptionOffer? { raw.offer?.toRvm() }
 
     /// The identifier for the intent
+    @available(iOS 16.4, macOS 14.4, *)
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
+    @available(visionOS, unavailable)
     @objc public var id: String { raw.id }
 }
 
@@ -46,4 +50,17 @@ extension RvmPurchaseIntent {
     ///              launches.
     /// - Note: You may want to delay processing this purchase if it would interrupt the user's interaction with your app.
     @objc public static var intents: RvmAsyncSequence<RvmPurchaseIntent> { PurchaseIntent.intents.toRvm() }
+}
+
+// MARK: Converters
+
+@available(iOS 16.4, macOS 14.4, *)
+extension PurchaseIntent {
+    func toRvm() -> RvmPurchaseIntent { RvmPurchaseIntent(raw: self) }
+}
+
+
+@available(iOS 16.4, macOS 14.4, *)
+extension PurchaseIntent.PurchaseIntents {
+    func toRvm() -> RvmAsyncSequence<RvmPurchaseIntent> { self.toRvm { $0?.toRvm() } }
 }

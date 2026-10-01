@@ -63,5 +63,9 @@ import org.robovm.apple.coreanimation.*;
     public static native RvmProduct_ProductType nonRenewable();
     @Method(selector = "autoRenewable")
     public static native RvmProduct_ProductType autoRenewable();
+    @Method(selector = "subscriptionBundle")
+    public static native RvmProduct_ProductType subscriptionBundle();
+    @Method(selector = "subscriptionSuite")
+    public static native RvmProduct_ProductType subscriptionSuite();
     /*</methods>*/
 }

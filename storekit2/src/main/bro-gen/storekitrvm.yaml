@@ -22,6 +22,165 @@ enums:
     RvmStoreKitError: { nserror: true }
 
 classes:
+    RvmAdvancedCommerceProduct: #since 18.4
+        properties:
+            'hash': { exclude: true }
+            'debugDescription': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '+createWithId:completionHandler:':
+                name: create
+            '-purchaseWithCompactJWS:confirmIn:options:completionHandler:':
+                name: purchase
+            '-latestTransactionWithCompletionHandler:':
+                name: getLatestTransaction
+    RvmAdvancedCommerceProduct_PurchaseOption: #since 18.4
+        properties:
+            'hash': { exclude: true }
+            'debugDescription': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '+onStorefrontChangeWithShouldContinuePurchase:':
+                name: onStorefrontChange
+    RvmAppStoreMerchandisingKind: {} #since 26.0
+    RvmAppStoreMerchandisingKind_PresentationResult: #since 26.0
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmAppStoreMerchandisingKind_PresentationResult_purchaseCompleted: {} #since 26.0
+    RvmAppStore_Platform: #since 18.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-initWithRawValue:':
+                name: init
+    RvmAppTransaction_StoreType: #since 27.0
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-initWithRawValue:':
+                name: init
+    RvmProduct_SubscriptionInfo_BillingPlanType: #since 26.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-initWithRawValue:':
+                name: init
+    RvmProduct_SubscriptionInfo_BundledSubscription: #since 27.0
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo_CommitmentInfo: #since 26.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo_PricingTerms: #since 26.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo: #since 18.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item: #since 18.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo: #since 26.2
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status: #since 26.2
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-initWithRawValue:':
+                name: init
+    RvmProduct_SubscriptionInfo_RenewalInfo_CommitmentInfo: #since 26.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmRedeemOption:
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_AdvancedCommerceInfo: #since 18.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_AdvancedCommerceInfo_Item: #since 18.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_AdvancedCommerceInfo_Item_Details: #since 18.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_AdvancedCommerceInfo_Offer: #since 18.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_AdvancedCommerceInfo_Offer_Reason: #since 18.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-initWithRawValue:':
+                name: init
+    RvmTransaction_AdvancedCommerceInfo_Partner: #since 27.0
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_AdvancedCommerceInfo_Refund: #since 18.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_AdvancedCommerceInfo_Refund_Reason: #since 18.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-initWithRawValue:':
+                name: init
+    RvmTransaction_AdvancedCommerceInfo_Refund_RefundType: #since 18.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-initWithRawValue:':
+                name: init
+    RvmTransaction_CommitmentInfo: #since 26.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+    RvmTransaction_RevocationType: #since 26.4
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
+            '-initWithRawValue:':
+                name: init
     RvmTask: {}
     RvmECDSASignature: {}
     RvmFormatStyle_Currency: {}
@@ -37,6 +196,12 @@ classes:
                 exclude: true
     RvmAppStore: #since 15.0
         methods:
+            '+ageRatingCodeWithCompletionHandler:':
+                name: ageRatingCode
+            '+presentMerchandising:from:completionHandler:':
+                name: presentMerchandising
+            '+presentOfferCodeRedeemSheetFrom:options:completionHandler:':
+                name: presentOfferCodeRedeemSheet
             '+presentOfferCodeRedeemSheetIn:completionHandler:':
                 name: presentOfferCodeRedeemSheet
             '+syncWithCompletionHandler:':
@@ -53,6 +218,7 @@ classes:
             '-isEqual:': { exclude: true }
     RvmAppTransaction:
         properties:
+            'debugDescription': { exclude: true }
             'hash': { exclude: true }
         methods:
             '-isEqual:': { exclude: true }
@@ -95,7 +261,11 @@ classes:
                 name: eligibleURLs
             '+openWithUrl:completionHandler:':
                 name: open
-    RvmExternalPurchase_NoticeResult: {}
+    RvmExternalPurchase_NoticeResult:
+        properties:
+            'hash': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
     RvmExternalPurchase_NoticeResult_Canceled: {}
     RvmMessage: #since 16.0
         properties:
@@ -122,6 +292,7 @@ classes:
                 name: create
     RvmProduct: #since 15.0
         properties:
+            'debugDescription': { exclude: true }
             'hash': { exclude: true }
             'description': { exclude: true }
         methods:
@@ -159,9 +330,14 @@ classes:
                 name: updateAll
     RvmProduct_PurchaseOption:
         properties:
+            'debugDescription': { exclude: true }
             'hash': { exclude: true }
         methods:
             '-isEqual:': { exclude: true }
+            '+promotionalOffer:compactJWS:':
+                name: promotionalOffer
+            '+introductoryOfferEligibilityWithCompactJWS:':
+                name: introductoryOfferEligibility
             '+customStringWithKey:value:':
                 name: customString
             '+customNumberWithKey:value:':
@@ -176,7 +352,12 @@ classes:
                 name: promotionalOffer
             '+promotionalOfferWithOfferID:signature:':
                 name: promotionalOffer
-    RvmProduct_PurchaseResult: {}
+    RvmProduct_PurchaseResult:
+        properties:
+            'hash': { exclude: true }
+            'description': { exclude: true }
+        methods:
+            '-isEqual:': { exclude: true }
     RvmProduct_PurchaseResult_success:
         properties:
             'hash': { exclude: true }
@@ -187,6 +368,8 @@ classes:
             'hash': { exclude: true }
         methods:
             '-isEqual:': { exclude: true }
+            '+statusWithTransactionID:completionHandler:':
+                name: status
             '-isEligibleForIntroOfferWithCompletionHandler:':
                 name: isEligibleForIntroOffer
             '+isEligibleForIntroOfferFor:completionHandler:':
@@ -197,6 +380,7 @@ classes:
                 name: getStatus
     RvmProduct_SubscriptionInfo_RenewalInfo:
         properties:
+            'debugDescription': { exclude: true }
             'hash': { exclude: true }
             'description': { exclude: true }
         methods:
@@ -238,6 +422,7 @@ classes:
             '-isEqual:': { exclude: true }
     RvmProduct_SubscriptionPeriod:
         properties:
+            'debugDescription': { exclude: true }
             'hash': { exclude: true }
         methods:
             '-isEqual:': { exclude: true }
@@ -257,6 +442,7 @@ classes:
                 name: getCurrent
     RvmTransaction: #since 15.0
         properties:
+            'debugDescription': { exclude: true }
             'hash': { exclude: true }
         methods:
             '-isEqual:': { exclude: true }
@@ -304,6 +490,7 @@ classes:
     RvmTransaction_Transactions: { }
     RvmVerificationResult_AppTransaction:
         properties:
+            'debugDescription': { exclude: true }
             'description': { exclude: true }
         methods:
             '-getPayloadValueAndReturnError:':
@@ -311,6 +498,7 @@ classes:
                 throws: NSErrorException
     RvmVerificationResult_RenewalInfo: #since 15.0
         properties:
+            'debugDescription': { exclude: true }
             'hash': { exclude: true }
             'description': { exclude: true }
         methods:
@@ -320,6 +508,7 @@ classes:
                 throws: NSErrorException
     RvmVerificationResult_Transaction:
         properties:
+            'debugDescription': { exclude: true }
             'hash': { exclude: true }
             'description': { exclude: true }
         methods:

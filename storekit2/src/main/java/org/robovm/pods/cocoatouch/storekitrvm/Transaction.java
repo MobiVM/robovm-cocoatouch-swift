@@ -15,40 +15,29 @@
  */
 package org.robovm.pods.cocoatouch.storekitrvm;
 
-
-import org.robovm.apple.foundation.*;
-import org.robovm.apple.uikit.UIWindowScene;
-import org.robovm.objc.ObjCRuntime;
-import org.robovm.objc.annotation.Block;
-import org.robovm.objc.annotation.Method;
-import org.robovm.objc.annotation.NativeClass;
-import org.robovm.objc.annotation.Property;
-import org.robovm.objc.block.VoidBlock1;
-import org.robovm.objc.block.VoidBlock2;
+import org.robovm.objc.*;
+import org.robovm.objc.annotation.*;
+import org.robovm.objc.block.*;
 import org.robovm.rt.annotation.StronglyLinked;
 import org.robovm.rt.bro.Bro;
 import org.robovm.rt.bro.ValuedEnum;
-import org.robovm.rt.bro.annotation.Library;
-import org.robovm.rt.bro.annotation.MachineSizedSInt;
-import org.robovm.rt.bro.annotation.Pointer;
-import org.robovm.rt.bro.ptr.Ptr;
-
-
+import org.robovm.rt.bro.annotation.*;
+import org.robovm.rt.bro.ptr.*;
+import org.robovm.apple.foundation.*;
+import org.robovm.apple.uikit.*;
 
 /**
  * @since Available in iOS 15.0 and later.
  */
 @Library(Library.INTERNAL) @NativeClass("StoreKitRvm.RvmTransaction")
 public class Transaction extends NSObject {
-
     public static class TransactionPtr extends Ptr<Transaction, TransactionPtr> {}
     static { ObjCRuntime.bind(Transaction.class); }
 
     protected Transaction() {}
     protected Transaction(Handle h, long handle) { super(h, handle); }
     protected Transaction(SkipInit skipInit) { super(skipInit); }
-    
-    
+
     @Property(selector = "jsonRepresentation")
     public native NSData getJsonRepresentation();
     @Property(selector = "id")
@@ -80,29 +69,53 @@ public class Transaction extends NSObject {
     public native Offer getOffer();
     /**
      * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 17.2. 'offerType' has been renamed to 'offer.type': Use the offer property instead
+     * @deprecated Deprecated in iOS 17.2. 'offerType' has been renamed to 'offer.type': Use the offer property instead.
      */
     @Deprecated
     @Property(selector = "offerType")
     public native OfferType getOfferType();
     /**
      * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 17.2. 'offerID' has been renamed to 'id': Use the offer property instead
+     * @deprecated Deprecated in iOS 17.2. 'offerID' has been renamed to 'id': Use the offer property instead.
      */
     @Deprecated
     @Property(selector = "offerID")
     public native String getOfferID();
     /**
      * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 17.2. 'offerPaymentModeStringRepresentation' has been renamed to 'offer.paymentMode.rawValue': Use the offer property instead
+     * @deprecated Deprecated in iOS 17.2. 'offerPaymentModeStringRepresentation' has been renamed to 'offer.paymentMode.rawValue': Use the offer property instead.
      */
     @Deprecated
     @Property(selector = "offerPaymentModeStringRepresentation")
     public native String getOfferPaymentModeStringRepresentation();
+    /**
+     * @since Available in iOS 15.0 and later.
+     * @deprecated Deprecated in iOS 18.4. Use the offer property instead.
+     */
+    @Deprecated
+    @Property(selector = "offerPeriodStringRepresentation")
+    public native String getOfferPeriodStringRepresentation();
     @Property(selector = "revocationDate")
     public native NSDate getRevocationDate();
     @Property(selector = "revocationReason")
     public native RevocationReason getRevocationReason();
+    /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Property(selector = "revocationType")
+    public native RevocationType getRevocationType();
+    /**
+     * @since Available in iOS 15.0 and later.
+     * @deprecated Deprecated in iOS 26.4. Use the revocationType property instead
+     */
+    @Deprecated
+    @Property(selector = "revocationTypeStringRepresentation")
+    public native String getRevocationTypeStringRepresentation();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "revocationPercentage")
+    public native NSDecimalNumber getRevocationPercentage();
     @Property(selector = "productType")
     public native Product.ProductType getProductType();
     @Property(selector = "appAccountToken")
@@ -136,11 +149,6 @@ public class Transaction extends NSObject {
      */
     @Property(selector = "storefront")
     public native Storefront getStorefront();
-    /**
-     * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 17.0. Use the storefront property instead
-     */
-    @Deprecated
     @Property(selector = "storefrontCountryCode")
     public native String getStorefrontCountryCode();
     /**
@@ -160,6 +168,36 @@ public class Transaction extends NSObject {
     @Deprecated
     @Property(selector = "currencyCode")
     public native String getCurrencyCode();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "bundleProductID")
+    public native String getBundleProductID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "bundleSubscriptionGroupID")
+    public native String getBundleSubscriptionGroupID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "previousOriginalTransactionID")
+    public native NSNumber getPreviousOriginalTransactionID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "bundleTransactionID")
+    public native String getBundleTransactionID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "bundleOriginalTransactionID")
+    public native String getBundleOriginalTransactionID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "appTransactionID")
+    public native String getAppTransactionID();
     @Property(selector = "deviceVerification")
     public native NSData getDeviceVerification();
     @Property(selector = "deviceVerificationNonce")
@@ -168,9 +206,22 @@ public class Transaction extends NSObject {
     public native OwnershipType getOwnershipType();
     @Property(selector = "signedDate")
     public native NSDate getSignedDate();
-    @Property(selector = "debugDescription")
-    public native String getDebugDescription();
-    
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Property(selector = "advancedCommerceInfo")
+    public native AdvancedCommerceInfo getAdvancedCommerceInfo();
+    /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Property(selector = "billingPlanType")
+    public native Product.SubscriptionInfo.BillingPlanType getBillingPlanType();
+    /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Property(selector = "commitmentInfo")
+    public native CommitmentInfo getCommitmentInfo();
+
     @Method(selector = "finishWithCompletionHandler:")
     public native Task finish(@Block Runnable completionHandler);
     /**
@@ -178,6 +229,18 @@ public class Transaction extends NSObject {
      */
     @Method(selector = "subscriptionStatusWithCompletionHandler:")
     public native Task getSubscriptionStatus(@Block VoidBlock1<Product.SubscriptionInfo.Status> completionHandler);
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Method(selector = "allFor:")
+    public static native AsyncSequence<VerificationResult.Transaction> allFor(String productID);
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Method(selector = "currentEntitlementsFor:")
+    public static native AsyncSequence<VerificationResult.Transaction> currentEntitlementsFor(String productID);
+    @Method(selector = "updates")
+    public static native AsyncSequence<VerificationResult.Transaction> updates();
     /**
      * @since Available in iOS 15.0 and later.
      */
@@ -194,21 +257,276 @@ public class Transaction extends NSObject {
     public static native AsyncSequence<VerificationResult.Transaction> all();
     @Method(selector = "currentEntitlements")
     public static native AsyncSequence<VerificationResult.Transaction> currentEntitlements();
+    /**
+     * @since Available in iOS 15.0 and later.
+     * @deprecated Deprecated in iOS 18.4. Use the currentEntitlements(for:) method instead.
+     */
+    @Deprecated
     @Method(selector = "currentEntitlementFor:completionHandler:")
     public static native Task getCurrentEntitlement(String productID, @Block VoidBlock1<VerificationResult.Transaction> completionHandler);
     @Method(selector = "latestFor:completionHandler:")
     public static native Task getLatest(String productID, @Block VoidBlock1<VerificationResult.Transaction> completionHandler);
     @Method(selector = "unfinished")
     public static native AsyncSequence<VerificationResult.Transaction> unfinished();
-    @Method(selector = "updates")
-    public static native AsyncSequence<VerificationResult.Transaction> updates();
 
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Library(Library.INTERNAL) @NativeClass("RvmTransaction_AdvancedCommerceInfo")
+    public static class AdvancedCommerceInfo extends NSObject {
+        public static class AdvancedCommerceInfoPtr extends Ptr<AdvancedCommerceInfo, AdvancedCommerceInfoPtr> {}
+        static { ObjCRuntime.bind(AdvancedCommerceInfo.class); }
+
+        protected AdvancedCommerceInfo() {}
+        protected AdvancedCommerceInfo(Handle h, long handle) { super(h, handle); }
+        protected AdvancedCommerceInfo(SkipInit skipInit) { super(skipInit); }
+
+        @Property(selector = "requestReferenceID")
+        public native String getRequestReferenceID();
+        @Property(selector = "estimatedTax")
+        public native NSDecimalNumber getEstimatedTax();
+        @Property(selector = "taxRate")
+        public native NSDecimalNumber getTaxRate();
+        @Property(selector = "taxCode")
+        public native String getTaxCode();
+        @Property(selector = "taxExclusivePrice")
+        public native NSDecimalNumber getTaxExclusivePrice();
+        @Property(selector = "productDescription")
+        public native String getProductDescription();
+        @Property(selector = "displayName")
+        public native String getDisplayName();
+        @Property(selector = "period")
+        public native Product.SubscriptionPeriod getPeriod();
+        @Property(selector = "items")
+        public native NSArray<Item> getItems();
+
+        /**
+         * @since Available in iOS 18.4 and later.
+         */
+        @Library(Library.INTERNAL) @NativeClass("RvmTransaction_AdvancedCommerceInfo_Item")
+        public static class Item extends NSObject {
+            public static class ItemPtr extends Ptr<Item, ItemPtr> {}
+            static { ObjCRuntime.bind(Item.class); }
+
+            protected Item() {}
+            protected Item(Handle h, long handle) { super(h, handle); }
+            protected Item(SkipInit skipInit) { super(skipInit); }
+
+            @Property(selector = "details")
+            public native Details getDetails();
+            @Property(selector = "refunds")
+            public native NSArray<Refund> getRefunds();
+            @Property(selector = "revocationDate")
+            public native NSDate getRevocationDate();
+
+            /**
+             * @since Available in iOS 18.4 and later.
+             */
+            @Library(Library.INTERNAL) @NativeClass("RvmTransaction_AdvancedCommerceInfo_Item_Details")
+            public static class Details extends NSObject {
+                public static class DetailsPtr extends Ptr<Details, DetailsPtr> {}
+                static { ObjCRuntime.bind(Details.class); }
+
+                protected Details() {}
+                protected Details(Handle h, long handle) { super(h, handle); }
+                protected Details(SkipInit skipInit) { super(skipInit); }
+
+                @Property(selector = "sku")
+                public native String getSku();
+                @Property(selector = "displayName")
+                public native String getDisplayName();
+                @Property(selector = "productDescription")
+                public native String getProductDescription();
+                @Property(selector = "offer")
+                public native Offer getOffer();
+                @Property(selector = "price")
+                public native NSDecimalNumber getPrice();
+                /**
+                 * @since Available in iOS 27.0 and later.
+                 */
+                @Property(selector = "partners")
+                public native NSArray<Partner> getPartners();
+            }
+        }
+
+        /**
+         * @since Available in iOS 18.4 and later.
+         */
+        @Library(Library.INTERNAL) @NativeClass("RvmTransaction_AdvancedCommerceInfo_Offer")
+        public static class Offer extends NSObject {
+            public static class OfferPtr extends Ptr<Offer, OfferPtr> {}
+            static { ObjCRuntime.bind(Offer.class); }
+
+            protected Offer() {}
+            protected Offer(Handle h, long handle) { super(h, handle); }
+            protected Offer(SkipInit skipInit) { super(skipInit); }
+
+            @Property(selector = "price")
+            public native NSDecimalNumber getPrice();
+            @Property(selector = "period")
+            public native Product.SubscriptionPeriod getPeriod();
+            @Property(selector = "periodCount")
+            public native @MachineSizedSInt long getPeriodCount();
+            @Property(selector = "reason")
+            public native Reason getReason();
+
+            /**
+             * @since Available in iOS 18.4 and later.
+             */
+            @Library(Library.INTERNAL) @NativeClass("RvmTransaction_AdvancedCommerceInfo_Offer_Reason")
+            public static class Reason extends NSObject {
+                public static class ReasonPtr extends Ptr<Reason, ReasonPtr> {}
+                static { ObjCRuntime.bind(Reason.class); }
+
+                protected Reason() {}
+                protected Reason(Handle h, long handle) { super(h, handle); }
+                protected Reason(SkipInit skipInit) { super(skipInit); }
+                @Method(selector = "initWithRawValue:")
+                public Reason(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
+
+                @Property(selector = "rawValue")
+                public native String getRawValue();
+
+                @Method(selector = "initWithRawValue:")
+                protected native @Pointer long init(String rawValue);
+                @Method(selector = "acquisition")
+                public static native Reason acquisition();
+                @Method(selector = "retention")
+                public static native Reason retention();
+                @Method(selector = "winBack")
+                public static native Reason winBack();
+            }
+        }
+
+        /**
+         * @since Available in iOS 27.0 and later.
+         */
+        @Library(Library.INTERNAL) @NativeClass("RvmTransaction_AdvancedCommerceInfo_Partner")
+        public static class Partner extends NSObject {
+            public static class PartnerPtr extends Ptr<Partner, PartnerPtr> {}
+            static { ObjCRuntime.bind(Partner.class); }
+
+            protected Partner() {}
+            protected Partner(Handle h, long handle) { super(h, handle); }
+            protected Partner(SkipInit skipInit) { super(skipInit); }
+
+            @Property(selector = "id")
+            public native String getId();
+            @Property(selector = "name")
+            public native String getName();
+        }
+
+        /**
+         * @since Available in iOS 18.4 and later.
+         */
+        @Library(Library.INTERNAL) @NativeClass("RvmTransaction_AdvancedCommerceInfo_Refund")
+        public static class Refund extends NSObject {
+            public static class RefundPtr extends Ptr<Refund, RefundPtr> {}
+            static { ObjCRuntime.bind(Refund.class); }
+
+            protected Refund() {}
+            protected Refund(Handle h, long handle) { super(h, handle); }
+            protected Refund(SkipInit skipInit) { super(skipInit); }
+
+            @Property(selector = "reason")
+            public native Reason getReason();
+            @Property(selector = "type")
+            public native RefundType getType();
+            @Property(selector = "date")
+            public native NSDate getDate();
+            @Property(selector = "amount")
+            public native NSDecimalNumber getAmount();
+
+            /**
+             * @since Available in iOS 18.4 and later.
+             */
+            @Library(Library.INTERNAL) @NativeClass("RvmTransaction_AdvancedCommerceInfo_Refund_Reason")
+            public static class Reason extends NSObject {
+                public static class ReasonPtr extends Ptr<Reason, ReasonPtr> {}
+                static { ObjCRuntime.bind(Reason.class); }
+
+                protected Reason() {}
+                protected Reason(Handle h, long handle) { super(h, handle); }
+                protected Reason(SkipInit skipInit) { super(skipInit); }
+                @Method(selector = "initWithRawValue:")
+                public Reason(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
+
+                @Property(selector = "rawValue")
+                public native String getRawValue();
+
+                @Method(selector = "initWithRawValue:")
+                protected native @Pointer long init(String rawValue);
+                @Method(selector = "legal")
+                public static native Reason legal();
+                @Method(selector = "modifyItems")
+                public static native Reason modifyItems();
+                @Method(selector = "unintended")
+                public static native Reason unintended();
+                @Method(selector = "unfulfilled")
+                public static native Reason unfulfilled();
+                @Method(selector = "unsatisfied")
+                public static native Reason unsatisfied();
+                @Method(selector = "other")
+                public static native Reason other();
+            }
+
+            /**
+             * @since Available in iOS 18.4 and later.
+             */
+            @Library(Library.INTERNAL) @NativeClass("RvmTransaction_AdvancedCommerceInfo_Refund_RefundType")
+            public static class RefundType extends NSObject {
+                public static class RefundTypePtr extends Ptr<RefundType, RefundTypePtr> {}
+                static { ObjCRuntime.bind(RefundType.class); }
+
+                protected RefundType() {}
+                protected RefundType(Handle h, long handle) { super(h, handle); }
+                protected RefundType(SkipInit skipInit) { super(skipInit); }
+                @Method(selector = "initWithRawValue:")
+                public RefundType(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
+
+                @Property(selector = "rawValue")
+                public native String getRawValue();
+
+                @Method(selector = "initWithRawValue:")
+                protected native @Pointer long init(String rawValue);
+                @Method(selector = "custom")
+                public static native RefundType custom();
+                @Method(selector = "proRated")
+                public static native RefundType proRated();
+                @Method(selector = "full")
+                public static native RefundType full();
+            }
+        }
+    }
+
+    /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Library(Library.INTERNAL) @NativeClass("RvmTransaction_CommitmentInfo")
+    public static class CommitmentInfo extends NSObject{
+
+        public static class CommitmentInfoPtr extends Ptr<CommitmentInfo, CommitmentInfoPtr> {}
+        static { ObjCRuntime.bind(CommitmentInfo.class); }
+
+        protected CommitmentInfo() {}
+        protected CommitmentInfo(Handle h, long handle) { super(h, handle); }
+        protected CommitmentInfo(SkipInit skipInit) { super(skipInit); }
+
+        @Property(selector = "billingPeriodNumber")
+        public native long getBillingPeriodNumber();
+        @Property(selector = "totalBillingPeriods")
+        public native long getTotalBillingPeriods();
+        @Property(selector = "expirationDate")
+        public native NSDate getExpirationDate();
+        @Property(selector = "price")
+        public native NSDecimalNumber getPrice();
+    }
 
     /**
      * @since Available in iOS 17.2 and later.
      */
     @Library(Library.INTERNAL) @NativeClass("RvmTransaction_Offer")
-    public static class Offer extends NSObject   {
+    public static class Offer extends NSObject {
         public static class OfferPtr extends Ptr<Offer, OfferPtr> {}
         static { ObjCRuntime.bind(Offer.class); }
 
@@ -222,6 +540,11 @@ public class Transaction extends NSObject {
         public native OfferType getType();
         @Property(selector = "paymentMode")
         public native PaymentMode getPaymentMode();
+        /**
+         * @since Available in iOS 18.4 and later.
+         */
+        @Property(selector = "period")
+        public native Product.SubscriptionPeriod getPeriod();
 
         @Library(Library.INTERNAL) @NativeClass("RvmTransaction_Offer_PaymentMode")
         public static class PaymentMode extends NSObject {
@@ -241,6 +564,8 @@ public class Transaction extends NSObject {
             public static native PaymentMode payAsYouGo();
             @Method(selector = "payUpFront")
             public static native PaymentMode payUpFront();
+            @Method(selector = "oneTime")
+            public static native PaymentMode oneTime();
         }
     }
 
@@ -286,6 +611,8 @@ public class Transaction extends NSObject {
         public static native OwnershipType purchased();
         @Method(selector = "familyShared")
         public static native OwnershipType familyShared();
+        @Method(selector = "assigned")
+        public static native OwnershipType assigned();
     }
 
     /**
@@ -313,7 +640,8 @@ public class Transaction extends NSObject {
     public enum RefundRequestError implements NSErrorCode {
         Unknown(-1L),
         DuplicateRequest(0L),
-        Failed(1L);
+        Failed(1L),
+        Ineligible(2L);
 
         private final long n;
 
@@ -326,7 +654,7 @@ public class Transaction extends NSObject {
                 }
             }
             throw new IllegalArgumentException("No constant with value " + n + " found in "
-                    + RefundRequestError.class.getName());
+                + RefundRequestError.class.getName());
         }
 
         // bind wrap to include it in compilation as long as nserror enum is used
@@ -336,12 +664,12 @@ public class Transaction extends NSObject {
             protected NSErrorWrap(SkipInit skipInit) {super(skipInit);}
 
             @Override public NSErrorCode getErrorCode() {
-                try {
-                    return  RefundRequestError.valueOf(getCode());
-                } catch (IllegalArgumentException e) {
-                    return null;
-                }
-            }
+                 try {
+                     return  RefundRequestError.valueOf(getCode());
+                 } catch (IllegalArgumentException e) {
+                     return null;
+                 }
+             }
 
             public static String getClassDomain() {
                 /** must be inserted in value section */
@@ -367,10 +695,9 @@ public class Transaction extends NSObject {
                 }
             }
             throw new IllegalArgumentException("No constant with value " + n + " found in "
-                    + RefundRequestStatus.class.getName());
+                + RefundRequestStatus.class.getName());
         }
     }
-
 
     @Library(Library.INTERNAL) @NativeClass("RvmTransaction_RevocationReason")
     public static class RevocationReason extends NSObject {
@@ -388,5 +715,36 @@ public class Transaction extends NSObject {
         public static native RevocationReason developerIssue();
         @Method(selector = "other")
         public static native RevocationReason other();
+        @Method(selector = "upgradedToBundle")
+        public static native RevocationReason upgradedToBundle();
+    }
+
+    /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Library(Library.INTERNAL) @NativeClass("RvmTransaction_RevocationType")
+    public static class RevocationType extends NSObject {
+        public static class RevocationTypePtr extends Ptr<RevocationType, RevocationTypePtr> {}
+        static { ObjCRuntime.bind(RevocationType.class); }
+
+        protected RevocationType() {}
+        protected RevocationType(Handle h, long handle) { super(h, handle); }
+        protected RevocationType(SkipInit skipInit) { super(skipInit); }
+        @Method(selector = "initWithRawValue:")
+        public RevocationType(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
+
+        @Property(selector = "rawValue")
+        public native String getRawValue();
+
+        @Method(selector = "initWithRawValue:")
+        protected native @Pointer long init(String rawValue);
+        @Method(selector = "familyRevocation")
+        public static native RevocationType familyRevocation();
+        @Method(selector = "fullRefund")
+        public static native RevocationType fullRefund();
+        @Method(selector = "proratedRefund")
+        public static native RevocationType proratedRefund();
+        @Method(selector = "assignmentRevocation")
+        public static native RevocationType assignmentRevocation();
     }
 }

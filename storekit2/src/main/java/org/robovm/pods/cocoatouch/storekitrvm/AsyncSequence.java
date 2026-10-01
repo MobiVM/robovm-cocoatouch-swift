@@ -16,23 +16,17 @@
 package org.robovm.pods.cocoatouch.storekitrvm;
 
 
-import org.robovm.apple.foundation.NSError;
-import org.robovm.apple.foundation.NSObject;
-import org.robovm.objc.ObjCRuntime;
-import org.robovm.objc.annotation.Block;
-import org.robovm.objc.annotation.Method;
-import org.robovm.objc.annotation.NativeClass;
-import org.robovm.objc.block.Block0;
-import org.robovm.objc.block.VoidBlock1;
+import org.robovm.objc.*;
+import org.robovm.objc.annotation.*;
 import org.robovm.objc.block.VoidBlock2;
-import org.robovm.rt.bro.annotation.Library;
-import org.robovm.rt.bro.annotation.Pointer;
-
+import org.robovm.rt.bro.annotation.*;
+import org.robovm.rt.bro.ptr.*;
+import org.robovm.apple.foundation.*;
 
 @Library(Library.INTERNAL) @NativeClass("RvmAsyncSequence")
 public class AsyncSequence<T extends NSObject> extends NSObject {
     static { ObjCRuntime.bind(AsyncSequence.class); }
-    
+
     protected AsyncSequence() {}
     protected AsyncSequence(Handle h, long handle) { super(h, handle); }
     protected AsyncSequence(SkipInit skipInit) { super(skipInit); }

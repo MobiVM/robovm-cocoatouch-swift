@@ -22,6 +22,7 @@ import org.robovm.objc.ObjCRuntime;
 import org.robovm.objc.annotation.NativeClass;
 import org.robovm.objc.annotation.Property;
 import org.robovm.rt.bro.annotation.Library;
+import org.robovm.rt.bro.ptr.Ptr;
 
 public class FormatStyle {
     private FormatStyle() {}
@@ -31,12 +32,12 @@ public class FormatStyle {
      */
     @Library(Library.INTERNAL) @NativeClass("StoreKitRvm.RvmFormatStyle_Currency")
     public static class Currency extends NSObject {
+        public static class CurrencyPtr extends Ptr<Currency, CurrencyPtr> {}
         static { ObjCRuntime.bind(Currency.class); }
 
         protected Currency() {}
         protected Currency(Handle h, long handle) { super(h, handle); }
         protected Currency(SkipInit skipInit) { super(skipInit); }
-        
         
         @Property(selector = "currencyCode")
         public native String getCurrencyCode();

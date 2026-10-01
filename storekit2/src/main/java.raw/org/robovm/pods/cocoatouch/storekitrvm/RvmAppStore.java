@@ -61,6 +61,16 @@ import org.robovm.apple.coreanimation.*;
     @Method(selector = "deviceVerificationID")
     public static native NSUUID deviceVerificationID();
     /**
+     * @since Available in iOS 26.2 and later.
+     */
+    @Method(selector = "ageRatingCodeWithCompletionHandler:")
+    public static native RvmTask ageRatingCode(@Block VoidBlock1<NSNumber> completionHandler);
+    /**
+     * @since Available in iOS 26.0 and later.
+     */
+    @Method(selector = "presentMerchandising:from:completionHandler:")
+    public static native RvmTask presentMerchandising(RvmAppStoreMerchandisingKind kind, UIViewController controller, @Block VoidBlock2<RvmAppStoreMerchandisingKind_PresentationResult, NSError> completionHandler);
+    /**
      * @since Available in iOS 16.0 and later.
      */
     @Method(selector = "requestReviewIn:")
@@ -69,11 +79,16 @@ import org.robovm.apple.coreanimation.*;
     public static native RvmTask sync(@Block VoidBlock1<NSError> completionHandler);
     /**
      * @since Available in iOS 16.0 and later.
+     * @deprecated Deprecated in iOS 27.0. Use `presentOfferCodeRedeemSheet(from:options:)` instead.
      */
+    @Deprecated
     @Method(selector = "presentOfferCodeRedeemSheetIn:completionHandler:")
     public static native RvmTask presentOfferCodeRedeemSheet(UIWindowScene scene, @Block VoidBlock1<NSError> completionHandler);
-    @Method(selector = "StoreKitErrorDomain")
-    public static native String StoreKitErrorDomain();
+    /**
+     * @since Available in iOS 27.0 and later.
+     */
+    @Method(selector = "presentOfferCodeRedeemSheetFrom:options:completionHandler:")
+    public static native RvmTask presentOfferCodeRedeemSheet(UIViewController viewController, NSSet<RvmRedeemOption> options, @Block VoidBlock2<RvmVerificationResult_Transaction, NSError> completionHandler);
     /**
      * @since Available in iOS 15.0 and later.
      */
@@ -84,5 +99,9 @@ import org.robovm.apple.coreanimation.*;
      */
     @Method(selector = "showManageSubscriptionsIn:subscriptionGroupID:completionHandler:")
     public static native RvmTask showManageSubscriptions(UIWindowScene scene, String subscriptionGroupID, @Block VoidBlock1<NSError> completionHandler);
+    @Method(selector = "StoreKitErrorDomain")
+    public static native String StoreKitErrorDomain();
+    @Method(selector = "InvalidRequestErrorDomain")
+    public static native String InvalidRequestErrorDomain();
     /*</methods>*/
 }

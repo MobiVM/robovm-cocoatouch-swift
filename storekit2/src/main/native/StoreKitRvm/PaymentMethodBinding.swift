@@ -30,7 +30,7 @@ import StoreKit
         case failed
     }
 
-    @objc public static let PaymentMethodBindingErrorDomainRvm: String = "RvmPaymentMethodBinding.PaymentMethodBindingErrorDomain"
+    @objc public static let PaymentMethodBindingErrorDomain: String = "RvmPaymentMethodBinding.PaymentMethodBindingErrorDomain"
 
     ///The `inAppPinningId` returned from your server
     @objc public var id: String { raw.id }
@@ -66,3 +66,22 @@ import StoreKit
     }
 }
 
+// MARK: Converters
+
+@available(iOS 16.4, visionOS 1.0, *)
+extension PaymentMethodBinding.PaymentMethodBindingError {
+    func toRvmCode() -> Int {
+        switch self {
+        case .notEligible: return RvmPaymentMethodBinding.PaymentMethodBindingError.notEligible.rawValue
+        case .invalidPinningID: return RvmPaymentMethodBinding.PaymentMethodBindingError.invalidPinningID.rawValue
+        case .failed: return RvmPaymentMethodBinding.PaymentMethodBindingError.failed.rawValue
+        @unknown default:
+            return RvmPaymentMethodBinding.PaymentMethodBindingError.unknown.rawValue
+        }
+    }
+
+    func toRvm() -> NSError {
+        return NSError(domain: RvmPaymentMethodBinding.PaymentMethodBindingErrorDomain, code: toRvmCode(), userInfo: (self as NSError).userInfo)
+    }
+
+}

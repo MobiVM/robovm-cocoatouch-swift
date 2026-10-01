@@ -61,5 +61,7 @@ import org.robovm.apple.coreanimation.*;
     public static native RvmTransaction_Offer_PaymentMode payAsYouGo();
     @Method(selector = "payUpFront")
     public static native RvmTransaction_Offer_PaymentMode payUpFront();
+    @Method(selector = "oneTime")
+    public static native RvmTransaction_Offer_PaymentMode oneTime();
     /*</methods>*/
 }

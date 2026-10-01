@@ -59,6 +59,9 @@ import org.robovm.apple.coreanimation.*;
      */
     @Property(selector = "offer")
     public native RvmProduct_SubscriptionOffer getOffer();
+    /**
+     * @since Available in iOS 16.4 and later.
+     */
     @Property(selector = "id")
     public native String getId();
     /*</properties>*/

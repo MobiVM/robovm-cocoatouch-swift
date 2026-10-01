@@ -6,8 +6,8 @@
 
 
 ### CocoaTouch Swift frameworks:
-| Name                                  | Version  | Description                              |
-|---------------------------------------|----------|------------------------------------------|
-| [declaredagerange](declaredagerange/) | 26.1.0.0 | Java Bindings for DeclaredAgeRange       |
-| [StoreKit2](storekit2/)               | 18.2.0.1 | Java Bindings for StoreKit2              |
-| [StoreKit2kt](storekit2kt/)           | 18.2.0.1 | Kotlin extensions for StoreKit2 bindings |
+| Name                                  | Version           | Description                              |
+|---------------------------------------|-------------------|------------------------------------------|
+| [declaredagerange](declaredagerange/) | 26.1.0.0          | Java Bindings for DeclaredAgeRange       |
+| [StoreKit2](storekit2/)               | 27.0.0.0-SNAPSHOT | Java Bindings for StoreKit2              |
+| [StoreKit2kt](storekit2kt/)           | 27.0.0.0-SNAPSHOT | Kotlin extensions for StoreKit2 bindings |

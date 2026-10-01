@@ -50,13 +50,17 @@ import org.robovm.apple.coreanimation.*;
     protected RvmProduct_PurchaseOption(SkipInit skipInit) { super(skipInit); }
     /*</constructors>*/
     /*<properties>*/
-    @Property(selector = "debugDescription")
-    public native String getDebugDescription();
+    
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/
     @Method(selector = "appAccountToken:")
     public static native RvmProduct_PurchaseOption appAccountToken(NSUUID token);
+    /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Method(selector = "billingPlanType:")
+    public static native RvmProduct_PurchaseOption billingPlanType(RvmProduct_SubscriptionInfo_BillingPlanType type);
     @Method(selector = "customStringWithKey:value:")
     public static native RvmProduct_PurchaseOption customString(String key, String value);
     @Method(selector = "customNumberWithKey:value:")
@@ -67,13 +71,25 @@ import org.robovm.apple.coreanimation.*;
     public static native RvmProduct_PurchaseOption customData(String key, NSData value);
     @Method(selector = "onStorefrontChangeWithShouldContinuePurchase:")
     public static native RvmProduct_PurchaseOption onStorefrontChange(@Block Block1<RvmStorefront, Boolean> shouldContinuePurchase);
+    /**
+     * @since Available in iOS 15.0 and later.
+     * @deprecated Deprecated in iOS 26.0. Sign promotional offers with JWS and use promotionalOffer(_:compactJWS:) instead
+     */
+    @Deprecated
     @Method(selector = "promotionalOfferWithOfferID:keyID:nonce:signature:timestamp:")
     public static native RvmProduct_PurchaseOption promotionalOffer(String offerID, String keyID, NSUUID nonce, NSData signature, @MachineSizedSInt long timestamp);
     /**
      * @since Available in iOS 17.4 and later.
+     * @deprecated Deprecated in iOS 26.0. Sign promotional offers with JWS and use promotionalOffer(_:compactJWS:) instead
      */
+    @Deprecated
     @Method(selector = "promotionalOfferWithOfferID:signature:")
     public static native RvmProduct_PurchaseOption promotionalOffer(String offerID, RvmProduct_SubscriptionInfo_Signature signature);
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Method(selector = "promotionalOffer:compactJWS:")
+    public static native NSArray<RvmProduct_PurchaseOption> promotionalOffer(String offerID, String compactJWS);
     @Method(selector = "quantity:")
     public static native RvmProduct_PurchaseOption quantity(@MachineSizedSInt long quantity);
     @Method(selector = "simulatesAskToBuyInSandbox:")
@@ -83,5 +99,7 @@ import org.robovm.apple.coreanimation.*;
      */
     @Method(selector = "winBackOffer:")
     public static native RvmProduct_PurchaseOption winBackOffer(RvmProduct_SubscriptionOffer offer);
+    @Method(selector = "introductoryOfferEligibilityWithCompactJWS:")
+    public static native RvmProduct_PurchaseOption introductoryOfferEligibility(String compactJWS);
     /*</methods>*/
 }

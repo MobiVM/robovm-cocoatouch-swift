@@ -27,3 +27,24 @@ import StoreKit
 
 let VerificationErrorDomainRvm: String = "VerificationResult.VerificationErrorDomain"
 
+// MARK: Converters
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension VerificationResult.VerificationError{
+    func toRvmCode() -> Int {
+        return switch self {
+        case .revokedCertificate: VerificationErrorCode.revokedCertificate.rawValue
+        case .invalidCertificateChain: VerificationErrorCode.revokedCertificate.rawValue
+        case .invalidDeviceVerification: VerificationErrorCode.revokedCertificate.rawValue
+        case .invalidEncoding: VerificationErrorCode.revokedCertificate.rawValue
+        case .invalidSignature: VerificationErrorCode.revokedCertificate.rawValue
+        case .missingRequiredProperties: VerificationErrorCode.revokedCertificate.rawValue
+        @unknown default:
+            VerificationErrorCode.unknown.rawValue
+        }
+    }
+
+    func toRvm() -> NSError {
+        NSError(domain: VerificationErrorDomainRvm, code: toRvmCode(), userInfo: (self as NSError).userInfo)
+    }
+}

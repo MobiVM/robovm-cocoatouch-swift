@@ -56,6 +56,11 @@ import org.robovm.apple.coreanimation.*;
     public native NSData getJsonRepresentation();
     @Property(selector = "appID")
     public native NSNumber getAppID();
+    /**
+     * @since Available in iOS 16.0 and later.
+     */
+    @Property(selector = "appTransactionID")
+    public native String getAppTransactionID();
     @Property(selector = "appVersion")
     public native String getAppVersion();
     @Property(selector = "appVersionID")
@@ -68,14 +73,43 @@ import org.robovm.apple.coreanimation.*;
     public native String getOriginalAppVersion();
     @Property(selector = "originalPurchaseDate")
     public native NSDate getOriginalPurchaseDate();
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Property(selector = "originalPlatform")
+    public native RvmAppStore_Platform getOriginalPlatform();
+    /**
+     * @since Available in iOS 16.0 and later.
+     * @deprecated Deprecated in iOS 18.4. Use the originalPlatform property instead.
+     */
+    @Deprecated
+    @Property(selector = "originalPlatformStringRepresentation")
+    public native String getOriginalPlatformStringRepresentation();
     @Property(selector = "preorderDate")
     public native NSDate getPreorderDate();
     @Property(selector = "deviceVerification")
     public native NSData getDeviceVerification();
     @Property(selector = "deviceVerificationNonce")
     public native NSUUID getDeviceVerificationNonce();
+    /**
+     * @since Available in iOS 16.0 and later.
+     */
+    @Property(selector = "revocationDate")
+    public native NSDate getRevocationDate();
     @Property(selector = "signedDate")
     public native NSDate getSignedDate();
+    /**
+     * @since Available in iOS 27.0 and later.
+     */
+    @Property(selector = "storeType")
+    public native RvmAppTransaction_StoreType getStoreType();
+    /**
+     * @since Available in iOS 16.0 and later.
+     * @deprecated Deprecated in iOS 27.0. Use the storeType property instead.
+     */
+    @Deprecated
+    @Property(selector = "storeTypeStringRepresentation")
+    public native String getStoreTypeStringRepresentation();
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/
@@ -83,5 +117,7 @@ import org.robovm.apple.coreanimation.*;
     public static native RvmTask getShared(@Block VoidBlock2<RvmVerificationResult_AppTransaction, NSError> completionHandler);
     @Method(selector = "refreshWithCompletionHandler:")
     public static native RvmTask refresh(@Block VoidBlock2<RvmVerificationResult_AppTransaction, NSError> completionHandler);
+    @Method(selector = "all")
+    public static native RvmAsyncSequence<RvmVerificationResult_AppTransaction> all();
     /*</methods>*/
 }

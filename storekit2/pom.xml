@@ -7,9 +7,9 @@
     </parent>
 
     <artifactId>robopods-swift-storekit2</artifactId>
-    <name>CocoaTouch StoreKit Swift bindings (iOS 18.2.0) </name>
+    <name>CocoaTouch StoreKit Swift bindings (iOS 27.0.0) </name>
     <packaging>jar</packaging>
-    <version>18.2.0.1</version>
+    <version>27.0.0.0-SNAPSHOT</version>
 
     <licenses>
         <license>

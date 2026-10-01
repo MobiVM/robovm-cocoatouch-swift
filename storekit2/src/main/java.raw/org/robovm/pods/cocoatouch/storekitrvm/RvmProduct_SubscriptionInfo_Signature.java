@@ -36,9 +36,10 @@ import org.robovm.apple.coreanimation.*;
 /*<javadoc>*/
 /**
  * @since Available in iOS 17.4 and later.
+ * @deprecated Deprecated in iOS 26.0. Sign promotional offers with JWS and use PurchaseOption.promotionalOffer(_:compactJWS:) instead.
  */
 /*</javadoc>*/
-/*<annotations>*/@Library(Library.INTERNAL) @NativeClass/*</annotations>*/
+/*<annotations>*/@Library(Library.INTERNAL) @NativeClass @Deprecated/*</annotations>*/
 /*<visibility>*/public/*</visibility>*/ class /*<name>*/RvmProduct_SubscriptionInfo_Signature/*</name>*/ 
     extends /*<extends>*/NSObject/*</extends>*/ 
     /*<implements>*//*</implements>*/ {

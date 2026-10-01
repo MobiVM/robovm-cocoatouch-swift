@@ -22,7 +22,9 @@ import CryptoKit
 
 }
 
+// MARK: Converters
+
 @available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
 extension P256.Signing.ECDSASignature {
-    func toRvm() -> RvmECDSASignature { return RvmECDSASignature(raw: self) }
+    func toRvm() -> RvmECDSASignature { RvmECDSASignature(raw: self) }
 }

@@ -75,25 +75,32 @@ import org.robovm.apple.coreanimation.*;
     public native RvmTransaction_Offer getOffer();
     /**
      * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 18.0. 'offerID' has been renamed to 'offer.id': Use the offer property instead
+     * @deprecated Deprecated in iOS 18.0. 'offerID' has been renamed to 'offer.id': Use the offer property instead.
      */
     @Deprecated
     @Property(selector = "offerID")
     public native String getOfferID();
     /**
      * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 18.0. 'offerType' has been renamed to 'offer.type': Use the offer property instead
+     * @deprecated Deprecated in iOS 18.0. 'offerType' has been renamed to 'offer.type': Use the offer property instead.
      */
     @Deprecated
     @Property(selector = "offerType")
     public native RvmTransaction_OfferType getOfferType();
     /**
      * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 18.0. 'offerPaymentModeStringRepresentation' has been renamed to 'offer.paymentMode.rawValue': Use the offer property instead
+     * @deprecated Deprecated in iOS 18.0. 'offerPaymentModeStringRepresentation' has been renamed to 'offer.paymentMode.rawValue': Use the offer property instead.
      */
     @Deprecated
     @Property(selector = "offerPaymentModeStringRepresentation")
     public native String getOfferPaymentModeStringRepresentation();
+    /**
+     * @since Available in iOS 15.0 and later.
+     * @deprecated Deprecated in iOS 18.4. Use the offer property instead.
+     */
+    @Deprecated
+    @Property(selector = "offerPeriodStringRepresentation")
+    public native String getOfferPeriodStringRepresentation();
     /**
      * @since Available in iOS 16.0 and later.
      */
@@ -101,7 +108,7 @@ import org.robovm.apple.coreanimation.*;
     public native RvmAppStore_Environment getEnvironment();
     /**
      * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 16.0. Use the environment property instead
+     * @deprecated Deprecated in iOS 16.0. Use the environment property instead.
      */
     @Deprecated
     @Property(selector = "environmentStringRepresentation")
@@ -128,7 +135,7 @@ import org.robovm.apple.coreanimation.*;
     public native String getCurrencyIdentifier();
     /**
      * @since Available in iOS 15.0 and later.
-     * @deprecated Deprecated in iOS 16.0. 'currencyCode' has been renamed to 'currency.identifier': Use the currency property instead
+     * @deprecated Deprecated in iOS 16.0. 'currencyCode' has been renamed to 'currency.identifier': Use the currency property instead.
      */
     @Deprecated
     @Property(selector = "currencyCode")
@@ -138,14 +145,57 @@ import org.robovm.apple.coreanimation.*;
      */
     @Property(selector = "eligibleWinBackOfferIDs")
     public native NSArray<NSString> getEligibleWinBackOfferIDs();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "bundleProductID")
+    public native String getBundleProductID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "bundleSubscriptionGroupID")
+    public native String getBundleSubscriptionGroupID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "bundleOriginalTransactionID")
+    public native String getBundleOriginalTransactionID();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "willUnbundle")
+    public native boolean isWillUnbundle();
     @Property(selector = "deviceVerification")
     public native NSData getDeviceVerification();
     @Property(selector = "deviceVerificationNonce")
     public native NSUUID getDeviceVerificationNonce();
     @Property(selector = "signedDate")
     public native NSDate getSignedDate();
-    @Property(selector = "debugDescription")
-    public native String getDebugDescription();
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Property(selector = "advancedCommerceInfo")
+    public native RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo getAdvancedCommerceInfo();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "appAccountToken")
+    public native NSUUID getAppAccountToken();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Property(selector = "appTransactionID")
+    public native String getAppTransactionID();
+    /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Property(selector = "commitmentInfo")
+    public native RvmProduct_SubscriptionInfo_RenewalInfo_CommitmentInfo getCommitmentInfo();
+    /**
+     * @since Available in iOS 26.4 and later.
+     */
+    @Property(selector = "renewalBillingPlanType")
+    public native RvmProduct_SubscriptionInfo_BillingPlanType getRenewalBillingPlanType();
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/

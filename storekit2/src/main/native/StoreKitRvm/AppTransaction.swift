@@ -6,25 +6,44 @@ import StoreKit
 @objc public class RvmAppTransaction: NSObject {
     private var raw: AppTransaction!
     
-    fileprivate init(raw: AppTransaction!) {
+    init(raw: AppTransaction!) {
         super.init()
         self.raw = raw
     }
     
     private override init() {
     }
-    
+
     public override func isEqual(_ object: Any?) -> Bool {
         return if let other = object as? RvmAppTransaction { self.raw == other.raw } else { false }
     }
 
     public override var hash: Int { raw.hashValue }
 
+    @available(iOS 27.0, macOS 27.0, tvOS 27.0, watchOS 27.0, *)
+    @objc(RvmAppTransaction_StoreType)
+    public final class StoreType: NSObject {
+        let raw: AppTransaction.StoreType
+        init(raw: AppTransaction.StoreType) { self.raw = raw }
+        public override func isEqual(_ object: Any?) -> Bool {
+            (object as? StoreType)?.raw == raw
+        }
+        public override var hash: Int { raw.hashValue }
+        @objc public var rawValue: String { raw.rawValue }
+        @objc public init(rawValue: String) { raw = .init(rawValue: rawValue) }
+        @objc public static var consumer: StoreType { .init(raw: .consumer) }
+        @objc public static var education: StoreType { .init(raw: .education) }
+        @objc public static var enterprise: StoreType { .init(raw: .enterprise) }
+    }
+
     /// The JSON representation of the transaction.
     @objc public var jsonRepresentation: Data { raw.jsonRepresentation }
 
     /// A number the App Store uses to uniquely identify the application.
     @objc public var appID: NSNumber? { raw.appID as NSNumber? }
+
+    @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, visionOS 1.0, *)
+    @objc public var appTransactionID: String { raw.appTransactionID }
 
     /// The application version the transaction is for.
     @objc public var appVersion: String { raw.appVersion }
@@ -44,6 +63,20 @@ import StoreKit
     /// The date this original app purchase occurred on.
     @objc public var originalPurchaseDate: Date { raw.originalPurchaseDate }
 
+    /// The platform where the original purchase of the app.
+    @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+    @objc public var originalPlatform: RvmAppStore.Platform { raw.originalPlatform.toRvm() }
+
+    /// The string representation of the platform where the original purchase of the app was made.
+    @available(iOS, introduced: 16.0, deprecated: 18.4, message: "Use the originalPlatform property instead.")
+    @available(macOS, introduced: 13.0, deprecated: 15.4, message: "Use the originalPlatform property instead.")
+    @available(tvOS, introduced: 16.0, deprecated: 18.4, message: "Use the originalPlatform property instead.")
+    @available(watchOS, introduced: 9.0, deprecated: 11.4, message: "Use the originalPlatform property instead.")
+    @available(visionOS, introduced: 1.0, deprecated: 2.4, message: "Use the originalPlatform property instead.")
+    @objc public var originalPlatformStringRepresentation: String {
+        raw.originalPlatformStringRepresentation
+    }
+
     /// The date this app was preordered.
     @objc public var preorderDate: Date? { raw.preorderDate }
 
@@ -55,8 +88,32 @@ import StoreKit
     /// - SeeAlso: `AppStore.deviceVerificationID`
     @objc public var deviceVerificationNonce: UUID { raw.deviceVerificationNonce }
 
+    /// The revocation date of the app purchase.
+    @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, visionOS 1.0, *)
+    @objc public var revocationDate: Date? { raw.revocationDate }
+
     /// The date this transaction was generated and signed.
     @objc public var signedDate: Date { raw.signedDate }
+
+    /// The store where the original purchase of the app was made.
+    @available(iOS 27.0, macOS 27.0, tvOS 27.0, watchOS 27.0, *)
+    @objc public var storeType: StoreType { raw.storeType.toRvm() }
+
+    /// The string representation of the store where the original purchase of the app was made.
+    @available(iOS, introduced: 16.0, deprecated: 27.0, message: "Use the storeType property instead.")
+    @available(macOS, introduced: 13.0, deprecated: 27.0, message: "Use the storeType property instead.")
+    @available(tvOS, introduced: 16.0, deprecated: 27.0, message: "Use the storeType property instead.")
+    @available(watchOS, introduced: 9.0, deprecated: 27.0, message: "Use the storeType property instead.")
+    @available(visionOS, introduced: 1.0, deprecated: 27.0, message: "Use the storeType property instead.")
+    @objc public var storeTypeStringRepresentation: String {
+        raw.storeTypeStringRepresentation
+    }
+
+    /// Returns all the `AppTransaction`s for this version of the app.
+    @available(iOS 27.0, macOS 27.0, tvOS 27.0, watchOS 27.0, *)
+    @objc public static var all: RvmAsyncSequence<VerificationResultAppTransaction> {
+        AppTransaction.all.toRvm()
+    }
 
     /// Get the cached `AppTransaction` for this version of the app or make
     /// a request to get one from the App Store server if one has not been cached yet.
@@ -86,15 +143,9 @@ import StoreKit
 }
 
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, visionOS 1.0, *)
-extension AppTransaction{
-    func toRvm() -> RvmAppTransaction { RvmAppTransaction(raw: self) }
+extension RvmAppTransaction {
+    @objc public override var debugDescription: String { raw.debugDescription }
 }
-
-@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, visionOS 1.0, *)
-extension VerificationResult<AppTransaction> {
-    func toRvm() -> VerificationResultAppTransaction { return VerificationResultAppTransaction(raw: self) }
-}
-
 
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, visionOS 1.0, *)
 @objc(RvmVerificationResult_AppTransaction)
@@ -155,3 +206,34 @@ public class VerificationResultAppTransaction: NSObject {
     public override var description: String { raw.debugDescription }
 }
 
+@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, visionOS 1.0, *)
+extension VerificationResultAppTransaction {
+    @objc public override var debugDescription: String { raw.debugDescription }
+}
+
+// MARK: Converters
+
+@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, visionOS 1.0, *)
+extension AppTransaction {
+    func toRvm() -> RvmAppTransaction { RvmAppTransaction(raw: self) }
+}
+
+
+@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, visionOS 1.0, *)
+extension VerificationResult<AppTransaction> {
+    func toRvm() -> VerificationResultAppTransaction { VerificationResultAppTransaction(raw: self) }
+}
+
+
+@available(iOS 27.0, macOS 27.0, tvOS 27.0, watchOS 27.0, *)
+extension AppTransaction.StoreType {
+    func toRvm() -> RvmAppTransaction.StoreType { RvmAppTransaction.StoreType(raw: self) }
+}
+
+
+@available(iOS 27.0, macOS 27.0, tvOS 27.0, watchOS 27.0, *)
+extension AppTransaction.AppTransactions {
+    func toRvm() -> RvmAsyncSequence<VerificationResultAppTransaction> {
+        self.toRvm { $0?.toRvm() }
+    }
+}

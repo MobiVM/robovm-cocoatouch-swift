@@ -110,3 +110,21 @@ extension RvmMessage.Reason {
     @objc public override var description: String { raw.localizedDescription }
 }
 
+// MARK: Converters
+
+@available(iOS 16.0, visionOS 1.0, *)
+extension Message {
+    func toRvm() -> RvmMessage { RvmMessage(raw: self) }
+}
+
+
+@available(iOS 16.0, visionOS 1.0, *)
+extension Message.Reason {
+    func toRvm() -> RvmMessage.Reason { RvmMessage.Reason(raw: self) }
+}
+
+
+@available(iOS 16.0, visionOS 1.0, *)
+extension Message.Messages {
+    func toRvm() -> RvmAsyncSequence<RvmMessage> { self.toRvm { $0?.toRvm() } }
+}

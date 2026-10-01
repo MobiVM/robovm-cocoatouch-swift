@@ -58,6 +58,11 @@ import org.robovm.apple.coreanimation.*;
     public native RvmTransaction_OfferType getType();
     @Property(selector = "paymentMode")
     public native RvmTransaction_Offer_PaymentMode getPaymentMode();
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Property(selector = "period")
+    public native RvmProduct_SubscriptionPeriod getPeriod();
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/

@@ -59,7 +59,5 @@ import org.robovm.apple.coreanimation.*;
     public static native RvmProduct_PurchaseResult userCancelled();
     @Method(selector = "pending")
     public static native RvmProduct_PurchaseResult pending();
-    @Method(selector = "unknown")
-    public static native RvmProduct_PurchaseResult unknown();
     /*</methods>*/
 }

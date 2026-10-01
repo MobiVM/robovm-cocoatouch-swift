@@ -18,7 +18,9 @@ import CryptoKit
     
 }
 
+// MARK: Converters
+
 @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension Decimal.FormatStyle.Currency {
-    func toRvm() -> RvmFormatStyle_Currency { return RvmFormatStyle_Currency(raw: self) }
+    func toRvm() -> RvmFormatStyle_Currency { RvmFormatStyle_Currency(raw: self) }
 }

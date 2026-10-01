@@ -17,7 +17,9 @@ import Foundation
     @objc public func cancel() { task.cancel() }
 }
 
+// MARK: Converters
+
 @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
 extension Task<Any, Error> {
-    func toRvm() -> RvmTask { return RvmTask(task: self) }
+    func toRvm() -> RvmTask { RvmTask(task: self) }
 }

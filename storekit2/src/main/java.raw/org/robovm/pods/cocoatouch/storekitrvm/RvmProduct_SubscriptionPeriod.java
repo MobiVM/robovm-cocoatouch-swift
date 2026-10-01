@@ -54,8 +54,6 @@ import org.robovm.apple.coreanimation.*;
     public native RvmProduct_SubscriptionPeriod_Unit getUnit();
     @Property(selector = "value")
     public native @MachineSizedSInt long getValue();
-    @Property(selector = "debugDescription")
-    public native String getDebugDescription();
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/
@@ -64,6 +62,8 @@ import org.robovm.apple.coreanimation.*;
      */
     @Method(selector = "dateRangeWithReferenceDate:")
     public native NSArray<NSDate> getDateRange(NSDate referenceDate);
+    @Method(selector = "debugDescriptionForUnit:")
+    public static native String debugDescriptionForUnit(RvmProduct_SubscriptionPeriod_Unit unit);
     @Method(selector = "weekly")
     public static native RvmProduct_SubscriptionPeriod weekly();
     @Method(selector = "monthly")

@@ -70,10 +70,16 @@ import org.robovm.apple.coreanimation.*;
     public native boolean isFamilyShareable();
     @Property(selector = "subscription")
     public native RvmProduct_SubscriptionInfo getSubscription();
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Property(selector = "currentEntitlements")
+    public native RvmAsyncSequence<RvmVerificationResult_Transaction> getCurrentEntitlements();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
     @Property(selector = "priceFormatStyle")
     public native RvmFormatStyle_Currency getPriceFormatStyle();
-    @Property(selector = "debugDescription")
-    public native String getDebugDescription();
     /*</properties>*/
     /*<members>*//*</members>*/
     /*<methods>*/
@@ -81,6 +87,11 @@ import org.robovm.apple.coreanimation.*;
     public static native RvmTask getProducts(NSArray<NSString> identifiers, @Block VoidBlock2<NSArray<RvmProduct>, NSError> completionHandler);
     @Method(selector = "latestTransactionWithCompletionHandler:")
     public native RvmTask getLatestTransaction(@Block VoidBlock1<RvmVerificationResult_Transaction> completionHandler);
+    /**
+     * @since Available in iOS 15.0 and later.
+     * @deprecated Deprecated in iOS 18.4. Use the currentEntitlements property instead.
+     */
+    @Deprecated
     @Method(selector = "currentEntitlementWithCompletionHandler:")
     public native RvmTask getCurrentEntitlement(@Block VoidBlock1<RvmVerificationResult_Transaction> completionHandler);
     /**

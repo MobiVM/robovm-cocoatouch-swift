@@ -41,7 +41,8 @@ public enum /*<name>*/RvmTransaction_RefundRequestError/*</name>*/ implements NS
     /*<values>*/
     Unknown(-1L),
     DuplicateRequest(0L),
-    Failed(1L);
+    Failed(1L),
+    Ineligible(2L);
     /*</values>*/
 
     /*<bind>*/

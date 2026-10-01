@@ -1,0 +1,8 @@
+key.request: source.request.editor.open.interface
+key.name: "storekit-interface"
+key.modulename: "StoreKit"
+key.compilerargs:
+  - "-target"
+  - "arm64-apple-ios27"
+  - "-sdk"
+  - "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk"

@@ -15,17 +15,12 @@
  */
 package org.robovm.pods.cocoatouch.storekitrvm;
 
-
-
+import org.robovm.objc.*;
+import org.robovm.objc.annotation.*;
+import org.robovm.objc.block.*;
+import org.robovm.rt.bro.annotation.*;
+import org.robovm.rt.bro.ptr.*;
 import org.robovm.apple.foundation.*;
-import org.robovm.objc.ObjCRuntime;
-import org.robovm.objc.annotation.Block;
-import org.robovm.objc.annotation.Method;
-import org.robovm.objc.annotation.NativeClass;
-import org.robovm.objc.annotation.Property;
-import org.robovm.objc.block.VoidBlock2;
-import org.robovm.rt.bro.annotation.Library;
-import org.robovm.rt.bro.ptr.Ptr;
 
 /**
  * @since Available in iOS 16.0 and later.
@@ -44,6 +39,11 @@ public class AppTransaction extends NSObject {
     public native NSData getJsonRepresentation();
     @Property(selector = "appID")
     public native NSNumber getAppID();
+    /**
+     * @since Available in iOS 16.0 and later.
+     */
+    @Property(selector = "appTransactionID")
+    public native String getAppTransactionID();
     @Property(selector = "appVersion")
     public native String getAppVersion();
     @Property(selector = "appVersionID")
@@ -56,17 +56,78 @@ public class AppTransaction extends NSObject {
     public native String getOriginalAppVersion();
     @Property(selector = "originalPurchaseDate")
     public native NSDate getOriginalPurchaseDate();
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Property(selector = "originalPlatform")
+    public native AppStore.Platform getOriginalPlatform();
+    /**
+     * @since Available in iOS 16.0 and later.
+     * @deprecated Deprecated in iOS 18.4. Use the originalPlatform property instead.
+     */
+    @Deprecated
+    @Property(selector = "originalPlatformStringRepresentation")
+    public native String getOriginalPlatformStringRepresentation();
     @Property(selector = "preorderDate")
     public native NSDate getPreorderDate();
     @Property(selector = "deviceVerification")
     public native NSData getDeviceVerification();
     @Property(selector = "deviceVerificationNonce")
     public native NSUUID getDeviceVerificationNonce();
+    /**
+     * @since Available in iOS 16.0 and later.
+     */
+    @Property(selector = "revocationDate")
+    public native NSDate getRevocationDate();
     @Property(selector = "signedDate")
     public native NSDate getSignedDate();
+    /**
+     * @since Available in iOS 27.0 and later.
+     */
+    @Property(selector = "storeType")
+    public native StoreType getStoreType();
+
+    /**
+     * @since Available in iOS 16.0 and later.
+     * @deprecated Deprecated in iOS 27.0. Use the storeType property instead.
+     */
+    @Deprecated
+    @Property(selector = "storeTypeStringRepresentation")
+    public native String getStoreTypeStringRepresentation();
 
     @Method(selector = "getSharedWithCompletionHandler:")
     public static native Task getShared(@Block VoidBlock2<VerificationResult.AppTransaction, NSError> completionHandler);
     @Method(selector = "refreshWithCompletionHandler:")
     public static native Task refresh(@Block VoidBlock2<VerificationResult.AppTransaction, NSError> completionHandler);
+
+    @Method(selector = "all")
+    public static native AsyncSequence<VerificationResult.AppTransaction> all();
+
+    /**
+     * @since Available in iOS 27.0 and later.
+     */
+    @Library(Library.INTERNAL) @NativeClass("RvmAppTransaction_StoreType")
+    public static class StoreType extends NSObject {
+        public static class StoreTypePtr extends Ptr<StoreType, StoreTypePtr> {}
+        static { ObjCRuntime.bind(StoreType.class); }
+
+        protected StoreType() {}
+        protected StoreType(Handle h, long handle) { super(h, handle); }
+        protected StoreType(SkipInit skipInit) { super(skipInit); }
+        @Method(selector = "initWithRawValue:")
+        public StoreType(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
+
+        @Property(selector = "rawValue")
+        public native String getRawValue();
+
+        @Method(selector = "initWithRawValue:")
+        protected native @Pointer long init(String rawValue);
+
+        @Method(selector = "consumer")
+        public static native StoreType consumer();
+        @Method(selector = "education")
+        public static native StoreType education();
+        @Method(selector = "enterprise")
+        public static native StoreType enterprise();
+    }
 }
