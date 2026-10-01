@@ -137,6 +137,34 @@ import StoreKit
         @objc public static var other: RvmTransaction.RevocationReason {
             return Transaction.RevocationReason.other.toRvm()
         }
+
+        /// The transaction was revoked because the customer switched to a subscription bundle.
+        @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+        @objc public static var upgradedToBundle: RevocationReason {
+            Transaction.RevocationReason.upgradedToBundle.toRvm()
+        }
+    }
+
+    @available(iOS 26.4, macOS 26.4, tvOS 26.4, watchOS 26.4, *)
+    @objc(RvmTransaction_RevocationType)
+    public final class RevocationType: NSObject {
+        let raw: Transaction.RevocationType
+        init(raw: Transaction.RevocationType) { self.raw = raw }
+        public override func isEqual(_ object: Any?) -> Bool { (object as? RevocationType)?.raw == raw }
+        public override var hash: Int { raw.hashValue }
+        @objc public var rawValue: String { raw.rawValue }
+        @objc public init(rawValue: String) { raw = .init(rawValue: rawValue) }
+        /// The transaction was revoked due to a family sharing revocation.
+        @objc public static var familyRevocation: RevocationType { Transaction.RevocationType.familyRevocation.toRvm() }
+        /// The transaction was fully refunded.
+        @objc public static var fullRefund: RevocationType { Transaction.RevocationType.fullRefund.toRvm() }
+        /// The transaction was partially refunded based on consumption.
+        @objc public static var proratedRefund: RevocationType { Transaction.RevocationType.proratedRefund.toRvm() }
+        /// The transaction was revoked by the organization administrator.
+        @available(iOS 26.4, macOS 26.4, tvOS 26.4, watchOS 26.4, *)
+        @objc public static var assignmentRevocation: RevocationType {
+            RevocationType(raw: .assignmentRevocation)
+        }
     }
 
     @objc(RvmTransaction_OfferType)
@@ -256,6 +284,12 @@ import StoreKit
 
         /// The user has access to this transaction through family sharing.
         @objc public static var familyShared: RvmTransaction.OwnershipType { return Transaction.OwnershipType.familyShared.toRvm() }
+
+        /// The user has access to this transaction through an organization.
+        @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+        @objc public static var assigned: OwnershipType {
+            Transaction.OwnershipType.assigned.toRvm()
+        }
     }
 
     /// Details for the offer applied to this transaction.
@@ -336,6 +370,10 @@ import StoreKit
             @objc public static var payUpFront: RvmTransaction.Offer.PaymentMode {
                 Transaction.Offer.PaymentMode.payUpFront.toRvm()
             }
+
+            @objc public static var oneTime: RvmTransaction.Offer.PaymentMode {
+                PaymentMode(raw: .oneTime)
+            }
         }
 
         /// Identifies the offer applied to this transaction for `promotional` and `code` offer types.
@@ -352,6 +390,25 @@ import StoreKit
         /// - Note: The payment mode may be unknown for transactions created before the release of App Store Server API 1.10.
         ///         If the payment mode is unknown, the property is nil.
         @objc public var paymentMode: RvmTransaction.Offer.PaymentMode? { raw.paymentMode?.toRvm() }
+
+        /// The duration of the offer applied to a transaction.
+        @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+        @objc public var period: RvmProduct.SubscriptionPeriod? { raw.period?.toRvm() }
+    }
+
+    @available(iOS 26.4, macOS 26.4, tvOS 26.4, watchOS 26.4, *)
+    @objc(RvmTransaction_CommitmentInfo)
+    public final class CommitmentInfo: NSObject {
+        let raw: Transaction.CommitmentInfo
+        init(raw: Transaction.CommitmentInfo) { self.raw = raw }
+        public override func isEqual(_ object: Any?) -> Bool {
+            (object as? CommitmentInfo)?.raw == raw
+        }
+        public override var hash: Int { raw.hashValue }
+        @objc public var billingPeriodNumber: UInt64 { raw.billingPeriodNumber }
+        @objc public var totalBillingPeriods: UInt64 { raw.totalBillingPeriods }
+        @objc public var expirationDate: Date { raw.expirationDate }
+        @objc public var price: NSDecimalNumber { raw.price as NSDecimalNumber }
     }
 
     /// The JSON representation of the transaction.
@@ -405,11 +462,11 @@ import StoreKit
 
     /// The type of subscription offer applied to this transaction.
     /// - Note: Only for subscriptions.
-    @available(iOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.type", message: "Use the offer property instead")
-    @available(macOS, introduced: 12.0, deprecated: 14.2, renamed: "offer.type", message: "Use the offer property instead")
-    @available(tvOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.type", message: "Use the offer property instead")
-    @available(watchOS, introduced: 8.0, deprecated: 10.2, renamed: "offer.type", message: "Use the offer property instead")
-    @available(visionOS, introduced: 1.0, deprecated: 1.1, renamed: "offer.type", message: "Use the offer property instead")
+    @available(iOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.type", message: "Use the offer property instead.")
+    @available(macOS, introduced: 12.0, deprecated: 14.2, renamed: "offer.type", message: "Use the offer property instead.")
+    @available(tvOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.type", message: "Use the offer property instead.")
+    @available(watchOS, introduced: 8.0, deprecated: 10.2, renamed: "offer.type", message: "Use the offer property instead.")
+    @available(visionOS, introduced: 1.0, deprecated: 1.1, renamed: "offer.type", message: "Use the offer property instead.")
     @objc public var offerType: RvmTransaction.OfferType? { raw.offerType?.toRvm() }
 
     /// Identifies the offer applied to this transaction for `promotional` and `code` offer types.
@@ -418,11 +475,11 @@ import StoreKit
     /// this will be the offer code reference name. This will be `nil` for `introductory` offers and if
     /// there is no offer applied.
     /// - Note: Only for subscriptions.
-    @available(iOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.id", message: "Use the offer property instead")
-    @available(macOS, introduced: 12.0, deprecated: 14.2, renamed: "offer.id", message: "Use the offer property instead")
-    @available(tvOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.id", message: "Use the offer property instead")
-    @available(watchOS, introduced: 8.0, deprecated: 10.2, renamed: "offer.id", message: "Use the offer property instead")
-    @available(visionOS, introduced: 1.0, deprecated: 1.1, renamed: "offer.id", message: "Use the offer property instead")
+    @available(iOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.id", message: "Use the offer property instead.")
+    @available(macOS, introduced: 12.0, deprecated: 14.2, renamed: "offer.id", message: "Use the offer property instead.")
+    @available(tvOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.id", message: "Use the offer property instead.")
+    @available(watchOS, introduced: 8.0, deprecated: 10.2, renamed: "offer.id", message: "Use the offer property instead.")
+    @available(visionOS, introduced: 1.0, deprecated: 1.1, renamed: "offer.id", message: "Use the offer property instead.")
     @objc public var offerID: String? { raw.offerID }
 
     /// The string representation of the payment mode applied to the subscription offer for this transaction.
@@ -434,18 +491,82 @@ import StoreKit
     /// - Important: The property may return a sentinel nil value in some uncommon cases:
     ///              (1) StoreKit Testing in Xcode (workaround: test your app on a device running a more recent OS),
     ///              or (2) a critical server error.
-    @available(iOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.paymentMode.rawValue", message: "Use the offer property instead")
-    @available(macOS, introduced: 12.0, deprecated: 14.2, renamed: "offer.paymentMode.rawValue", message: "Use the offer property instead")
-    @available(tvOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.paymentMode.rawValue", message: "Use the offer property instead")
-    @available(watchOS, introduced: 8.0, deprecated: 10.2, renamed: "offer.paymentMode.rawValue", message: "Use the offer property instead")
-    @available(visionOS, introduced: 1.0, deprecated: 1.1, renamed: "offer.paymentMode.rawValue", message: "Use the offer property instead")
+    @available(iOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.paymentMode.rawValue", message: "Use the offer property instead.")
+    @available(macOS, introduced: 12.0, deprecated: 14.2, renamed: "offer.paymentMode.rawValue", message: "Use the offer property instead.")
+    @available(tvOS, introduced: 15.0, deprecated: 17.2, renamed: "offer.paymentMode.rawValue", message: "Use the offer property instead.")
+    @available(watchOS, introduced: 8.0, deprecated: 10.2, renamed: "offer.paymentMode.rawValue", message: "Use the offer property instead.")
+    @available(visionOS, introduced: 1.0, deprecated: 1.1, renamed: "offer.paymentMode.rawValue", message: "Use the offer property instead.")
     @objc public var offerPaymentModeStringRepresentation: String? { raw.offerPaymentModeStringRepresentation }
+
+    /// The string representation of the offer period applied to the subscription offer for this transaction.
+    ///
+    /// - Note: Only for subscriptions and when there is an `offer`.
+    ///
+    /// - Important: The property may return a sentinel nil value in some uncommon cases:
+    ///              (1) StoreKit Testing in Xcode (workaround: test your app on a device running a more recent OS),
+    ///              or (2) a critical server error.
+    /// @DeprecationSummary { Use the ``offer`` property instead. }
+    @available(iOS, introduced: 15.0, deprecated: 18.4, message: "Use the offer property instead.")
+    @available(macOS, introduced: 12.0, deprecated: 15.4, message: "Use the offer property instead.")
+    @available(tvOS, introduced: 15.0, deprecated: 18.4, message: "Use the offer property instead.")
+    @available(watchOS, introduced: 8.0, deprecated: 11.4, message: "Use the offer property instead.")
+    @available(visionOS, introduced: 1.0, deprecated: 2.4, message: "Use the offer property instead.")
+    @objc public var offerPeriodStringRepresentation: String? {
+        raw.offerPeriodStringRepresentation
+    }
 
     /// The date the transaction was revoked, or `nil` if it was not revoked.
     @objc public var revocationDate: Date? { raw.revocationDate }
 
     /// The reason the transaction was revoked, or `nil` if it was not revoked.
     @objc public var revocationReason: RvmTransaction.RevocationReason? { raw.revocationReason?.toRvm() }
+
+    ///	 The type of refund or revocation that applies to the transaction.
+    ///
+    ///	 This property indicates whether the transaction has a full refund, a prorated refund, or is revoked from Family Sharing.
+    ///	 This property is `nil` for transactions that are not revoked.
+    ///
+    ///	 - Note: This property is not present for Advanced Commerce transactions, which use
+    ///	         ``AdvancedCommerceInfo/Item/refunds`` instead.
+    @available(iOS 26.4, macOS 26.4, tvOS 26.4, watchOS 26.4, *)
+    @objc public var revocationType: RevocationType? { raw.revocationType?.toRvm() }
+
+    /// The string representation of the ``revocationType``, or `nil` if the transaction was not revoked.
+    /// @DeprecationSummary { Use the ``revocationType`` property instead. }
+    @available(iOS, introduced: 15.0, deprecated: 26.4, message: "Use the revocationType property instead")
+    @available(macOS, introduced: 12.0, deprecated: 26.4, message: "Use the revocationType property instead")
+    @available(tvOS, introduced: 15.0, deprecated: 26.4, message: "Use the revocationType property instead")
+    @available(watchOS, introduced: 8.0, deprecated: 26.4, message: "Use the revocationType property instead")
+    @available(visionOS, introduced: 1.0, deprecated: 26.4, message: "Use the revocationType property instead")
+    @objc public var revocationTypeStringRepresentation: String? {
+        raw.revocationTypeStringRepresentation
+    }
+
+    ///     The percentage of the transaction amount that the App Store has refunded or revoked, expressed as a decimal.
+    ///
+    ///     This property indicates the rounded percentage of the purchase amount that the App Store has refunded or revoked.
+    ///
+    ///     The value is present only for transactions with a non-reversed refund. Valid values range from 0.0 to 100.0:
+    ///     - For auto-renewable subscriptions: 0.0-100.0% based on time remaining in the subscription period
+    ///     - For consumables, non-consumables, and non-renewing subscriptions: 0.0-100.0% based on consumption data
+    ///
+    ///     If the purchase had a quantity greater than 1, this percentage applies to the full quantity.
+    ///     For example, if 1 of 3 items was refunded, the value would be approximately 33.333.
+    /**
+         The following table shows several examples of revocation percentages, and their milliunit equivalents:
+
+         | Percentage | Integer equivalent, in milliunits |
+         |-----------|---------------------------|
+         | 67.932%  | 67932 |
+         | 0.015%  | 15  |
+         | 40%    | 40000 |
+         | 100%   | 100000|     **/
+    ///     - Note: This property is not present for Advanced Commerce transactions, which use
+    ///             ``AdvancedCommerceInfo/Refund/amount`` instead.
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+    @objc public var revocationPercentage: NSDecimalNumber? {
+        raw.revocationPercentage as NSDecimalNumber?
+    }
 
     /// The type of `productID`.
     @objc public var productType: RvmProduct.ProductType { raw.productType.toRvm() }
@@ -509,7 +630,6 @@ import StoreKit
     ///              (1) StoreKit Testing in Xcode (workaround: test your app on a device running a
     ///              more recent OS) or (2) a critical server error. If possible, use the
     ///              ``Transaction/storefront`` property to guarantee a valid value.
-    @available(iOS, introduced: 15.0, deprecated: 17.0, message: "Use the storefront property instead")
     @available(macOS, introduced: 12.0, deprecated: 14.0, message: "Use the storefront property instead")
     @available(tvOS, introduced: 15.0, deprecated: 17.0, message: "Use the storefront property instead")
     @available(watchOS, introduced: 8.0, deprecated: 10.0, message: "Use the storefront property instead")
@@ -541,6 +661,38 @@ import StoreKit
     @available(visionOS, introduced: 1.0, deprecated: 1.1, renamed: "currency.identifier", message: "Use the currency property instead")
     @objc public var currencyCode: String? { raw.currencyCode }
 
+    /// Identifies the bundle product the transaction is for.
+    /// If this transaction is created as a result of a subscription bundle purchase or renewal, this field will be populated with the product ID of the bundle.
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+    @objc public var bundleProductID: String? { raw.bundleProductID }
+
+    /// Identifies the subscription bundle group the transaction is for.
+    /// - Note: Only for transactions of subscriptions included in a bundle.
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+    @objc public var bundleSubscriptionGroupID: String? {
+        raw.bundleSubscriptionGroupID
+    }
+
+    /// The original transaction ID of the subscription this one replaced when a customer switched between a standalone auto-renewable subscription and a subscription bundle (in either direction).
+    ///
+    /// For a bundle transaction, this is the standalone subscription's original transaction ID, while for a standalone transaction, this is the bundle's original transaction ID.
+    /// This field is `nil` if no such switch occurred.
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+    @objc public var previousOriginalTransactionID: NSNumber? {
+        raw.previousOriginalTransactionID.map { NSNumber(value: $0) }
+    }
+
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+    @objc public var bundleTransactionID: String? { raw.bundleTransactionID }
+
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+    @objc public var bundleOriginalTransactionID: String? {
+        raw.bundleOriginalTransactionID
+    }
+
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+    @objc public var appTransactionID: String { raw.appTransactionID }
+
     /// A SHA-384 hash of `AppStore.deviceVerificationID` appended after
     /// `deviceVerificationNonce` (both lowercased UUID strings).
     @objc public var deviceVerification: Data { raw.deviceVerification }
@@ -554,6 +706,18 @@ import StoreKit
 
     /// The date this transaction was generated and signed.
     @objc public var signedDate: Date { raw.signedDate }
+
+    /// Metadata specific to Advanced Commerce.
+    @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+    @objc public var advancedCommerceInfo: AdvancedCommerceInfo? { raw.advancedCommerceInfo?.toRvm() }
+
+    @available(iOS 26.4, macOS 26.4, tvOS 26.4, watchOS 26.4, *)
+    @objc public var billingPlanType: RvmProduct.SubscriptionInfo.BillingPlanType? {
+        raw.billingPlanType?.toRvm()
+    }
+
+    @available(iOS 26.4, macOS 26.4, tvOS 26.4, watchOS 26.4, *)
+    @objc public var commitmentInfo: CommitmentInfo? { raw.commitmentInfo?.toRvm() }
 
     /// Call this method after giving the user access to `productID`.
     @objc public func finish(completionHandler: @escaping () -> Void) -> RvmTask {
@@ -594,6 +758,154 @@ extension RvmTransaction {
     public override var debugDescription: String { raw.debugDescription }
 }
 
+extension RvmTransaction {
+    @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+    @objc(RvmTransaction_AdvancedCommerceInfo)
+    public final class AdvancedCommerceInfo: NSObject {
+        let raw: Transaction.AdvancedCommerceInfo
+        init(raw: Transaction.AdvancedCommerceInfo) { self.raw = raw }
+        public override func isEqual(_ object: Any?) -> Bool {
+            (object as? AdvancedCommerceInfo)?.raw == raw
+        }
+        public override var hash: Int { raw.hashValue }
+        @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+        @objc(RvmTransaction_AdvancedCommerceInfo_Item)
+        public final class Item: NSObject {
+            let raw: Transaction.AdvancedCommerceInfo.Item
+            init(raw: Transaction.AdvancedCommerceInfo.Item) { self.raw = raw }
+            public override func isEqual(_ object: Any?) -> Bool {
+                (object as? Item)?.raw == raw
+            }
+            public override var hash: Int { raw.hashValue }
+            @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+            @objc(RvmTransaction_AdvancedCommerceInfo_Item_Details)
+            public final class Details: NSObject {
+                let raw: Transaction.AdvancedCommerceInfo.Item.Details
+                init(raw: Transaction.AdvancedCommerceInfo.Item.Details) { self.raw = raw }
+                public override func isEqual(_ object: Any?) -> Bool {
+                    (object as? Details)?.raw == raw
+                }
+                public override var hash: Int { raw.hashValue }
+                @objc public var sku: String { raw.sku }
+                @objc public var displayName: String { raw.displayName }
+                @objc public var productDescription: String { raw.description }
+                @objc public var offer: Offer? { raw.offer?.toRvm() }
+                @objc public var price: NSDecimalNumber { raw.price as NSDecimalNumber }
+
+                /// The partners associated with this item.
+                @available(iOS 27.0, macOS 27.0, tvOS 27.0, watchOS 27.0, *)
+                @objc public var partners: [Partner] { raw.partners.map { $0.toRvm() } }
+            }
+
+            @objc public var details: Details { raw.details.toRvm() }
+            @objc public var refunds: [Refund]? { raw.refunds?.map { $0.toRvm() } }
+            @objc public var revocationDate: Date? { raw.revocationDate }
+        }
+
+        @available(iOS 27.0, macOS 27.0, tvOS 27.0, watchOS 27.0, *)
+        @objc(RvmTransaction_AdvancedCommerceInfo_Partner)
+        public final class Partner: NSObject {
+            let raw: Transaction.AdvancedCommerceInfo.Partner
+            init(raw: Transaction.AdvancedCommerceInfo.Partner) { self.raw = raw }
+            public override func isEqual(_ object: Any?) -> Bool {
+                (object as? Partner)?.raw == raw
+            }
+            public override var hash: Int { raw.hashValue }
+
+            /// The unique identifier you set for the app partner across your developer account.
+            @objc public var id: String { raw.id }
+
+            /// The unique identifier you set for the app partner across your developer account.
+            @objc public var name: String? { raw.name }
+        }
+
+        @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+        @objc(RvmTransaction_AdvancedCommerceInfo_Offer)
+        public final class Offer: NSObject {
+            let raw: Transaction.AdvancedCommerceInfo.Offer
+            init(raw: Transaction.AdvancedCommerceInfo.Offer) { self.raw = raw }
+            public override func isEqual(_ object: Any?) -> Bool {
+                (object as? Offer)?.raw == raw
+            }
+            public override var hash: Int { raw.hashValue }
+            @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+            @objc(RvmTransaction_AdvancedCommerceInfo_Offer_Reason)
+            public final class Reason: NSObject {
+            let raw: Transaction.AdvancedCommerceInfo.Offer.Reason
+            init(raw: Transaction.AdvancedCommerceInfo.Offer.Reason) { self.raw = raw }
+                public override func isEqual(_ object: Any?) -> Bool { (object as? Reason)?.raw == raw }
+                public override var hash: Int { raw.hashValue }
+                @objc public var rawValue: String { raw.rawValue }
+                @objc public init(rawValue: String) { raw = .init(rawValue: rawValue) }
+                @objc public static var acquisition: Reason { Reason(raw: .acquisition) }
+                @objc public static var retention: Reason { Reason(raw: .retention) }
+                @objc public static var winBack: Reason { Reason(raw: .winBack) }
+            }
+
+            @objc public var price: NSDecimalNumber { raw.price as NSDecimalNumber }
+            @objc public var period: RvmProduct.SubscriptionPeriod { raw.period.toRvm() }
+            @objc public var periodCount: Int { raw.periodCount }
+            @objc public var reason: Reason { raw.reason.toRvm() }
+        }
+
+        @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+        @objc(RvmTransaction_AdvancedCommerceInfo_Refund)
+        public final class Refund: NSObject {
+            let raw: Transaction.AdvancedCommerceInfo.Refund
+            init(raw: Transaction.AdvancedCommerceInfo.Refund) { self.raw = raw }
+            public override func isEqual(_ object: Any?) -> Bool {
+                (object as? Refund)?.raw == raw
+            }
+            public override var hash: Int { raw.hashValue }
+            @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+            @objc(RvmTransaction_AdvancedCommerceInfo_Refund_Reason)
+            public final class Reason: NSObject {
+                let raw: Transaction.AdvancedCommerceInfo.Refund.Reason
+                init(raw: Transaction.AdvancedCommerceInfo.Refund.Reason) { self.raw = raw }
+                public override func isEqual(_ object: Any?) -> Bool { (object as? Reason)?.raw == raw }
+                public override var hash: Int { raw.hashValue }
+                @objc public var rawValue: String { raw.rawValue }
+                @objc public init(rawValue: String) { raw = .init(rawValue: rawValue) }
+                @objc public static var legal: Reason { Transaction.AdvancedCommerceInfo.Refund.Reason.legal.toRvm() }
+                @objc public static var modifyItems: Reason { Reason(raw: .modifyItems) }
+                @objc public static var unintended: Reason { Reason(raw: .unintended) }
+                @objc public static var unfulfilled: Reason { Reason(raw: .unfulfilled) }
+                @objc public static var unsatisfied: Reason { Reason(raw: .unsatisfied) }
+                @objc public static var other: Reason { Transaction.AdvancedCommerceInfo.Refund.Reason.other.toRvm() }
+            }
+
+            @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+            @objc(RvmTransaction_AdvancedCommerceInfo_Refund_RefundType)
+            public final class RefundType: NSObject {
+                let raw: Transaction.AdvancedCommerceInfo.Refund.RefundType
+                init(raw: Transaction.AdvancedCommerceInfo.Refund.RefundType) { self.raw = raw }
+                public override func isEqual(_ object: Any?) -> Bool { (object as? RefundType)?.raw == raw }
+                public override var hash: Int { raw.hashValue }
+                @objc public var rawValue: String { raw.rawValue }
+                @objc public init(rawValue: String) { raw = .init(rawValue: rawValue) }
+                @objc public static var custom: RefundType { RefundType(raw: .custom) }
+                @objc public static var proRated: RefundType { RefundType(raw: .proRated) }
+                @objc public static var full: RefundType { RefundType(raw: .full) }
+            }
+
+            @objc public var reason: Reason { raw.reason.toRvm() }
+            @objc public var type: RefundType { raw.type.toRvm() }
+            @objc public var date: Date { raw.date }
+            @objc public var amount: NSDecimalNumber { raw.amount as NSDecimalNumber }
+        }
+
+        @objc public var requestReferenceID: String { raw.requestReferenceID }
+        @objc public var estimatedTax: NSDecimalNumber { raw.estimatedTax as NSDecimalNumber }
+        @objc public var taxRate: NSDecimalNumber { raw.taxRate as NSDecimalNumber }
+        @objc public var taxCode: String { raw.taxCode }
+        @objc public var taxExclusivePrice: NSDecimalNumber { raw.taxExclusivePrice as NSDecimalNumber }
+        @objc public var productDescription: String? { raw.description }
+        @objc public var displayName: String? { raw.displayName }
+        @objc public var period: RvmProduct.SubscriptionPeriod? { raw.period?.toRvm() }
+        @objc public var items: [Item] { raw.items.map { $0.toRvm() } }
+    }
+}
+
 @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
 extension RvmTransaction {
 
@@ -608,6 +920,11 @@ extension RvmTransaction {
     /// Get the transaction that entitles the user to a product.
     /// - Parameter productID: Identifies the product to check entitlements for.
     /// - Returns: A transaction if the user is entitled to the product, or `nil` if they are not.
+    @available(iOS, introduced: 15.0, deprecated: 18.4, message: "Use the currentEntitlements(for:) method instead.")
+    @available(macOS, introduced: 12.0, deprecated: 15.4, message: "Use the currentEntitlements(for:) method instead.")
+    @available(tvOS, introduced: 15.0, deprecated: 18.4, message: "Use the currentEntitlements(for:) method instead.")
+    @available(watchOS, introduced: 8.0, deprecated: 11.4, message: "Use the currentEntitlements(for:) method instead.")
+    @available(visionOS, introduced: 1.0, deprecated: 2.4, message: "Use the currentEntitlements(for:) method instead.")
     @objc public static func currentEntitlement(for productID: String, completionHandler: @escaping (VerificationResultTransaction?) -> Void) -> RvmTask {
         return Task.detached { completionHandler(await Transaction.currentEntitlement(for: productID)?.toRvm()) }.toRvm()
     }
@@ -636,6 +953,32 @@ extension RvmTransaction {
     @objc public static var updates: RvmAsyncSequence<VerificationResultTransaction> { return Transaction.updates.toRvm() }
 }
 
+extension RvmTransaction {
+    /// Gets all the transactions associated with this product ID.
+    /// - Parameter productID: Identifies the product to filter the transaction cache against.
+    /// - Returns: A sequence containing all transactions for the given product.
+    @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+    @objc public static func all(for productID: String) -> RvmAsyncSequence<VerificationResultTransaction> {
+        Transaction.all(for: productID).toRvm()
+    }
+
+    /// Gets the transactions that entitle the user to items purchased under a product ID.
+    ///
+    /// If a generic SKU is provided, the returned sequence will yield all transactions that entitle the user
+    /// to Advanced Commerce Items purchased using the generic product's ID.
+    ///
+    /// If an ID for a regular IAP is provided, the returned sequence will contain no more than one transaction.
+    ///
+    /// - Parameter productID: Identifies the product to check entitlements for.
+    /// - Returns: A sequence containing all transactions that entitle the user to the product.
+    @available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+    @objc public static func currentEntitlements(
+        for productID: String
+    ) -> RvmAsyncSequence<VerificationResultTransaction> {
+        Transaction.currentEntitlements(for: productID).toRvm()
+    }
+}
+
 @available(iOS 15.0, macOS 12.0, tvOS 17.0, watchOS 10.0, visionOS 1.0, *)
 extension RvmTransaction {
 
@@ -648,6 +991,9 @@ extension RvmTransaction {
 
         case duplicateRequest
         case failed
+
+        @available(iOS 27.0, macOS 27.0, tvOS 27.0, watchOS 27.0, *)
+        case ineligible
     }
 
     @available(iOS 15.0, macOS 12.0, tvOS 17.0, watchOS 10.0, visionOS 1.0, *)
@@ -832,4 +1178,169 @@ public class VerificationResultTransaction: NSObject {
     public override var description: String { raw.debugDescription }
 }
 
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension VerificationResultTransaction {
+    @objc public override var debugDescription: String { raw.debugDescription }
+}
 
+// MARK: Converters
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension Transaction.RefundRequestError {
+    func toRvm() -> NSError {
+        let code = switch self {
+            case .duplicateRequest: RvmTransaction.RefundRequestError.duplicateRequest.rawValue
+            case .failed: RvmTransaction.RefundRequestError.failed.rawValue
+            default:
+                if #available(iOS 27.0, macOS 27.0, tvOS 27.0, watchOS 27.0, *),
+                   case .ineligible = self {
+                    RvmTransaction.RefundRequestError.ineligible.rawValue
+                } else {
+                    RvmTransaction.RefundRequestError.unknown.rawValue
+                }
+        }
+        return NSError(domain: RvmTransaction.RefundRequestErrorDomain, code: code, userInfo: (self as NSError).userInfo)
+    }
+}
+
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension Transaction.RefundRequestStatus {
+    func toRvm() -> RvmTransaction.RefundRequestStatus {
+        switch self {
+        case .success: return RvmTransaction.RefundRequestStatus.success
+        case .userCancelled: return RvmTransaction.RefundRequestStatus.userCancelled
+        @unknown default: return RvmTransaction.RefundRequestStatus.unknown
+        }
+    }
+}
+
+
+@available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
+extension Transaction.Reason {
+    func toRvm() -> RvmTransaction.Reason { RvmTransaction.Reason(raw: self) }
+}
+
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension Transaction.RevocationReason {
+    func toRvm() -> RvmTransaction.RevocationReason { RvmTransaction.RevocationReason(raw: self) }
+}
+
+
+@available(iOS 17.2, macOS 14.2, tvOS 17.2, watchOS 10.2, visionOS 1.1, *)
+extension Transaction.Offer {
+    func toRvm() -> RvmTransaction.Offer { RvmTransaction.Offer(raw: self) }
+}
+
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension Transaction.OfferType {
+    func toRvm() -> RvmTransaction.OfferType { RvmTransaction.OfferType(raw: self) }
+}
+
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension Transaction.OwnershipType {
+    func toRvm() -> RvmTransaction.OwnershipType { RvmTransaction.OwnershipType(raw: self) }
+}
+
+
+@available(iOS 17.2, macOS 14.2, tvOS 17.2, watchOS 10.2, visionOS 1.1, *)
+extension Transaction.Offer.PaymentMode {
+    func toRvm() -> RvmTransaction.Offer.PaymentMode { RvmTransaction.Offer.PaymentMode(raw: self) }
+}
+
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension Transaction {
+    func toRvm() -> RvmTransaction { RvmTransaction(raw: self) }
+}
+
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension VerificationResult<Transaction> {
+    func toRvm() -> VerificationResultTransaction { VerificationResultTransaction(raw: self) }
+}
+
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension Transaction.Transactions {
+    func toRvm() -> RvmAsyncSequence<VerificationResultTransaction> { self.toRvm { $0?.toRvm() } }
+}
+
+
+@available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+extension Transaction.AdvancedCommerceInfo {
+    func toRvm() -> RvmTransaction.AdvancedCommerceInfo { RvmTransaction.AdvancedCommerceInfo(raw: self) }
+}
+
+
+@available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+extension Transaction.AdvancedCommerceInfo.Item {
+    func toRvm() -> RvmTransaction.AdvancedCommerceInfo.Item { RvmTransaction.AdvancedCommerceInfo.Item(raw: self) }
+}
+
+
+@available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+extension Transaction.AdvancedCommerceInfo.Item.Details {
+    func toRvm() -> RvmTransaction.AdvancedCommerceInfo.Item.Details {
+        RvmTransaction.AdvancedCommerceInfo.Item.Details(raw: self)
+    }
+}
+
+
+@available(iOS 27.0, macOS 27.0, tvOS 27.0, watchOS 27.0, *)
+extension Transaction.AdvancedCommerceInfo.Partner {
+    func toRvm() -> RvmTransaction.AdvancedCommerceInfo.Partner {
+        RvmTransaction.AdvancedCommerceInfo.Partner(raw: self)
+    }
+}
+
+
+@available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+extension Transaction.AdvancedCommerceInfo.Offer {
+    func toRvm() -> RvmTransaction.AdvancedCommerceInfo.Offer { RvmTransaction.AdvancedCommerceInfo.Offer(raw: self) }
+}
+
+
+@available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+extension Transaction.AdvancedCommerceInfo.Offer.Reason {
+    func toRvm() -> RvmTransaction.AdvancedCommerceInfo.Offer.Reason {
+        RvmTransaction.AdvancedCommerceInfo.Offer.Reason(raw: self)
+    }
+}
+
+
+@available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+extension Transaction.AdvancedCommerceInfo.Refund {
+    func toRvm() -> RvmTransaction.AdvancedCommerceInfo.Refund { RvmTransaction.AdvancedCommerceInfo.Refund(raw: self) }
+}
+
+
+@available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+extension Transaction.AdvancedCommerceInfo.Refund.Reason {
+    func toRvm() -> RvmTransaction.AdvancedCommerceInfo.Refund.Reason {
+        RvmTransaction.AdvancedCommerceInfo.Refund.Reason(raw: self)
+    }
+}
+
+
+@available(iOS 18.4, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *)
+extension Transaction.AdvancedCommerceInfo.Refund.RefundType {
+    func toRvm() -> RvmTransaction.AdvancedCommerceInfo.Refund.RefundType {
+        RvmTransaction.AdvancedCommerceInfo.Refund.RefundType(raw: self)
+    }
+}
+
+
+@available(iOS 26.4, macOS 26.4, tvOS 26.4, watchOS 26.4, *)
+extension Transaction.RevocationType {
+    func toRvm() -> RvmTransaction.RevocationType { RvmTransaction.RevocationType(raw: self) }
+}
+
+
+@available(iOS 26.4, macOS 26.4, tvOS 26.4, watchOS 26.4, *)
+extension Transaction.CommitmentInfo {
+    func toRvm() -> RvmTransaction.CommitmentInfo { RvmTransaction.CommitmentInfo(raw: self) }
+}

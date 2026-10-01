@@ -66,3 +66,22 @@ import StoreKit
     }
 }
 
+// MARK: Converters
+
+@available(iOS 16.4, visionOS 1.0, *)
+extension PaymentMethodBinding.PaymentMethodBindingError {
+    func toRvmCode() -> Int {
+        switch self {
+        case .notEligible: return RvmPaymentMethodBinding.PaymentMethodBindingError.notEligible.rawValue
+        case .invalidPinningID: return RvmPaymentMethodBinding.PaymentMethodBindingError.invalidPinningID.rawValue
+        case .failed: return RvmPaymentMethodBinding.PaymentMethodBindingError.failed.rawValue
+        @unknown default:
+            return RvmPaymentMethodBinding.PaymentMethodBindingError.unknown.rawValue
+        }
+    }
+
+    func toRvm() -> NSError {
+        return NSError(domain: RvmPaymentMethodBinding.PaymentMethodBindingErrorDomainRvm, code: toRvmCode(), userInfo: (self as NSError).userInfo)
+    }
+
+}

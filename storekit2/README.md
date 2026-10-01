@@ -31,7 +31,7 @@ The bindings are available as the following artifact:
 
 ```groovy
 dependencies {
-    implementation "com.mobidevelop.robovm:robopods-swift-storekit2:18.2.0.1"
+    implementation "com.mobidevelop.robovm:robopods-swift-storekit2:26.0.0.0-SNAPSHOT"
 }
 ```
 

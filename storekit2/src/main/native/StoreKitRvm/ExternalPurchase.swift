@@ -38,14 +38,19 @@ import StoreKit
     
     @objc(RvmExternalPurchase_NoticeResult)
     public class NoticeResult: NSObject {
-        private override init() {}
+        let raw: ExternalPurchase.NoticeResult
+        fileprivate init(raw: ExternalPurchase.NoticeResult) { self.raw = raw }
+
+        public override func isEqual(_ object: Any?) -> Bool {
+            (object as? NoticeResult)?.raw == raw
+        }
+
+        public override var hash: Int { raw.hashValue }
         
         /// The user chose to cancel and **not** view external purchases.
         @objc(RvmExternalPurchase_NoticeResult_Canceled)
-        public class Canceled: NoticeResult {
-            fileprivate override init() { }
-        }
-        @objc public static let canceled = Canceled()
+        public class Canceled: NoticeResult {}
+        @objc public static let canceled = Canceled(raw: .cancelled)
 
         /// The user chose to continue to view external purchases.
         @available(iOS 17.4, macOS 14.4, tvOS 17.4, watchOS 10.4, visionOS 1.1, *)
@@ -54,13 +59,26 @@ import StoreKit
             @objc public let externalPurchaseToken: String
             init(externalPurchaseToken: String) {
                 self.externalPurchaseToken = externalPurchaseToken
+                super.init(raw: .continuedWithExternalPurchaseToken(token: externalPurchaseToken))
             }
-            public override func isEqual(_ object: Any?) -> Bool {
-                return if let other = object as? Continued { self.externalPurchaseToken == other.externalPurchaseToken } else { false }
-            }
-
-            public override var hash: Int { return externalPurchaseToken.hashValue }
         }
     }
 }
 
+// MARK: Converters
+
+@available(iOS 15.4, macOS 14.4, tvOS 17.4, watchOS 10.4, visionOS 1.1, *)
+extension ExternalPurchase.NoticeResult {
+    func toRvm() -> RvmExternalPurchase.NoticeResult {
+        switch self {
+        case .cancelled:
+            return RvmExternalPurchase.NoticeResult.canceled
+        default:
+            if #available(iOS 17.4, macOS 14.4, tvOS 17.4, watchOS 10.4, visionOS 1.1, *),
+               case .continuedWithExternalPurchaseToken(let token) = self {
+                return RvmExternalPurchase.NoticeResult.Continued(externalPurchaseToken: token)
+            }
+            return RvmExternalPurchase.NoticeResult(raw: self)
+        }
+    }
+}

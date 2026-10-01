@@ -35,3 +35,15 @@ extension RvmStorefront {
     @objc public static var updates: RvmAsyncSequence<RvmStorefront> { return Storefront.updates.toRvm() }
 }
 
+// MARK: Converters
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension Storefront {
+    func toRvm() -> RvmStorefront { RvmStorefront(raw: self) }
+}
+
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+extension Storefront.Storefronts {
+    func toRvm() -> RvmAsyncSequence<RvmStorefront> { self.toRvm { $0?.toRvm() } }
+}

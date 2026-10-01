@@ -101,4 +101,38 @@ import StoreKit
     }
 }
 
+// MARK: Converters
 
+@available(iOS 18.1, macOS 15.1, tvOS 18.1, watchOS 11.1, visionOS 2.1, *)
+extension RvmExternalPurchaseCustomLink.NoticeType {
+    func toRaw() throws -> ExternalPurchaseCustomLink.NoticeType {
+        switch self {
+        case .unknown:
+            throw fatalError()
+        case .withinApp:
+            return ExternalPurchaseCustomLink.NoticeType.withinApp
+        case .browser:
+            return ExternalPurchaseCustomLink.NoticeType.browser
+        }
+    }
+}
+
+
+@available(iOS 18.1, macOS 15.1, tvOS 18.1, watchOS 11.1, visionOS 2.1, *)
+extension ExternalPurchaseCustomLink.NoticeResult {
+    func toRvm() -> RvmExternalPurchaseCustomLink.NoticeResult {
+        switch self {
+            case .cancelled: return RvmExternalPurchaseCustomLink.NoticeResult.cancelled
+            case .continued: return RvmExternalPurchaseCustomLink.NoticeResult.continued
+            @unknown default: return RvmExternalPurchaseCustomLink.NoticeResult.unknown
+        }
+    }
+}
+
+
+@available(iOS 18.1, macOS 15.1, tvOS 18.1, watchOS 11.1, visionOS 2.1, *)
+extension ExternalPurchaseCustomLink.Token {
+    func toRvm() -> RvmExternalPurchaseCustomLink.Token {
+        return RvmExternalPurchaseCustomLink.Token(raw: self)
+    }
+}
