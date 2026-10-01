@@ -30,7 +30,7 @@ import StoreKit
         case failed
     }
 
-    @objc public static let PaymentMethodBindingErrorDomainRvm: String = "RvmPaymentMethodBinding.PaymentMethodBindingErrorDomain"
+    @objc public static let PaymentMethodBindingErrorDomain: String = "RvmPaymentMethodBinding.PaymentMethodBindingErrorDomain"
 
     ///The `inAppPinningId` returned from your server
     @objc public var id: String { raw.id }
@@ -81,7 +81,7 @@ extension PaymentMethodBinding.PaymentMethodBindingError {
     }
 
     func toRvm() -> NSError {
-        return NSError(domain: RvmPaymentMethodBinding.PaymentMethodBindingErrorDomainRvm, code: toRvmCode(), userInfo: (self as NSError).userInfo)
+        return NSError(domain: RvmPaymentMethodBinding.PaymentMethodBindingErrorDomain, code: toRvmCode(), userInfo: (self as NSError).userInfo)
     }
 
 }

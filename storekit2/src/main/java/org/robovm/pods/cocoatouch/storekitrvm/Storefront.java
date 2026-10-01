@@ -15,15 +15,13 @@
  */
 package org.robovm.pods.cocoatouch.storekitrvm;
 
-import org.robovm.apple.foundation.NSObject;
-import org.robovm.objc.ObjCRuntime;
-import org.robovm.objc.annotation.Block;
-import org.robovm.objc.annotation.Method;
-import org.robovm.objc.annotation.NativeClass;
-import org.robovm.objc.annotation.Property;
-import org.robovm.objc.block.VoidBlock1;
-import org.robovm.rt.bro.annotation.Library;
-import org.robovm.rt.bro.ptr.Ptr;
+
+import org.robovm.objc.*;
+import org.robovm.objc.annotation.*;
+import org.robovm.objc.block.*;
+import org.robovm.rt.bro.annotation.*;
+import org.robovm.rt.bro.ptr.*;
+import org.robovm.apple.foundation.*;
 
 /**
  * @since Available in iOS 15.0 and later.

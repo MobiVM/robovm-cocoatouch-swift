@@ -15,21 +15,10 @@
  */
 package org.robovm.pods.cocoatouch.storekitrvm;
 
-import java.io.*;
-import java.nio.*;
-import java.util.*;
-import org.robovm.objc.*;
-import org.robovm.objc.annotation.*;
-import org.robovm.objc.block.*;
-import org.robovm.rt.*;
 import org.robovm.rt.annotation.*;
 import org.robovm.rt.bro.*;
 import org.robovm.rt.bro.annotation.*;
-import org.robovm.rt.bro.ptr.*;
 import org.robovm.apple.foundation.*;
-import org.robovm.apple.uikit.*;
-import org.robovm.apple.coregraphics.*;
-import org.robovm.apple.coreanimation.*;
 
 @Marshaler(ValuedEnum.AsMachineSizedSIntMarshaler.class)
 public enum StoreKitError implements NSErrorCode {
@@ -39,7 +28,8 @@ public enum StoreKitError implements NSErrorCode {
     SystemError(3L),
     NotAvailableInStorefront(4L),
     NotEntitled(5L),
-    Unsupported(6L);
+    Unsupported(6L),
+    InvalidPresentationContext(7L);
 
     private final long n;
 
@@ -55,7 +45,7 @@ public enum StoreKitError implements NSErrorCode {
             + StoreKitError.class.getName());
     }
 
-    // bind wrap to include it in compilation as long as nserror enum is used 
+    // bind wrap to include it in compilation as long as nserror enum is used
     static { Bro.bind(NSErrorWrap.class); }
     @StronglyLinked
     public static class NSErrorWrap extends NSError {

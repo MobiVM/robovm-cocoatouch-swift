@@ -59,8 +59,8 @@ import org.robovm.apple.coreanimation.*;
     /*<methods>*/
     @Method(selector = "bindWithCompletionHandler:")
     public native RvmTask bind(@Block VoidBlock1<NSError> completionHandler);
-    @Method(selector = "PaymentMethodBindingErrorDomainRvm")
-    public static native String PaymentMethodBindingErrorDomainRvm();
+    @Method(selector = "PaymentMethodBindingErrorDomain")
+    public static native String PaymentMethodBindingErrorDomain();
     @Method(selector = "createWithId:completionHandler:")
     public static native RvmTask create(String id, @Block VoidBlock2<RvmPaymentMethodBinding, NSError> completionHandler);
     /*</methods>*/

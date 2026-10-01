@@ -16,19 +16,13 @@
 package org.robovm.pods.cocoatouch.storekitrvm;
 
 
-
-import org.robovm.apple.foundation.NSError;
-import org.robovm.apple.foundation.NSObject;
-import org.robovm.objc.ObjCRuntime;
-import org.robovm.objc.annotation.Block;
-import org.robovm.objc.annotation.Method;
-import org.robovm.objc.annotation.NativeClass;
-import org.robovm.objc.annotation.Property;
-import org.robovm.objc.block.VoidBlock2;
-import org.robovm.objc.block.VoidBooleanBlock;
+import org.robovm.objc.*;
+import org.robovm.objc.annotation.*;
+import org.robovm.objc.block.*;
 import org.robovm.rt.bro.ValuedEnum;
-import org.robovm.rt.bro.annotation.Library;
-import org.robovm.rt.bro.ptr.Ptr;
+import org.robovm.rt.bro.annotation.*;
+import org.robovm.rt.bro.ptr.*;
+import org.robovm.apple.foundation.*;
 
 
 
@@ -67,8 +61,8 @@ public class ExternalPurchaseCustomLink extends NSObject {
                     return v;
                 }
             }
-            throw new IllegalArgumentException("No constant with value " + n + " found in "
-                    + NoticeResult.class.getName());
+            throw new IllegalArgumentException("No constant with value " + n + " found in " 
+                + NoticeResult.class.getName());
         }
     }
 
@@ -88,8 +82,8 @@ public class ExternalPurchaseCustomLink extends NSObject {
                     return v;
                 }
             }
-            throw new IllegalArgumentException("No constant with value " + n + " found in "
-                    + NoticeType.class.getName());
+            throw new IllegalArgumentException("No constant with value " + n + " found in " 
+                + NoticeType.class.getName());
         }
     }
 

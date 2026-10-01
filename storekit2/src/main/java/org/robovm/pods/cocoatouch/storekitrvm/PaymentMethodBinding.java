@@ -16,24 +16,15 @@
 package org.robovm.pods.cocoatouch.storekitrvm;
 
 
-
-import org.robovm.apple.foundation.NSError;
-import org.robovm.apple.foundation.NSErrorCode;
-import org.robovm.apple.foundation.NSObject;
-import org.robovm.objc.ObjCRuntime;
-import org.robovm.objc.annotation.Block;
-import org.robovm.objc.annotation.Method;
-import org.robovm.objc.annotation.NativeClass;
-import org.robovm.objc.annotation.Property;
-import org.robovm.objc.block.VoidBlock1;
-import org.robovm.objc.block.VoidBlock2;
+import org.robovm.objc.*;
+import org.robovm.objc.annotation.*;
+import org.robovm.objc.block.*;
 import org.robovm.rt.annotation.StronglyLinked;
 import org.robovm.rt.bro.Bro;
 import org.robovm.rt.bro.ValuedEnum;
-import org.robovm.rt.bro.annotation.Library;
-import org.robovm.rt.bro.ptr.Ptr;
-
-
+import org.robovm.rt.bro.annotation.*;
+import org.robovm.rt.bro.ptr.*;
+import org.robovm.apple.foundation.*;
 
 /**
  * @since Available in iOS 16.4 and later.
@@ -52,39 +43,39 @@ public class PaymentMethodBinding extends NSObject {
     
     @Method(selector = "bindWithCompletionHandler:")
     public native Task bind(@Block VoidBlock1<NSError> completionHandler);
-    @Method(selector = "PaymentMethodBindingErrorDomainRvm")
-    public static native String PaymentMethodBindingErrorDomainRvm();
+    @Method(selector = "PaymentMethodBindingErrorDomain")
+    public static native String PaymentMethodBindingErrorDomain();
     @Method(selector = "createWithId:completionHandler:")
     public static native Task create(String id, @Block VoidBlock2<PaymentMethodBinding, NSError> completionHandler);
 
-     @org.robovm.rt.bro.annotation.Marshaler(ValuedEnum.AsMachineSizedSIntMarshaler.class)
-     public enum PaymentMethodBindingError implements NSErrorCode {
-         Unknown(-1L),
-         NotEligible(0L),
-         InvalidPinningID(1L),
-         Failed(2L);
+    @org.robovm.rt.bro.annotation.Marshaler(ValuedEnum.AsMachineSizedSIntMarshaler.class)
+    public enum PaymentMethodBindingError implements NSErrorCode {
+        Unknown(-1L),
+        NotEligible(0L),
+        InvalidPinningID(1L),
+        Failed(2L);
 
-         private final long n;
+        private final long n;
 
-         private PaymentMethodBindingError(long n) { this.n = n; }
-         public long value() { return n; }
-         public static PaymentMethodBindingError valueOf(long n) {
-             for (PaymentMethodBindingError v : values()) {
-                 if (v.n == n) {
-                     return v;
-                 }
-             }
-             throw new IllegalArgumentException("No constant with value " + n + " found in "
-                     + PaymentMethodBindingError.class.getName());
-         }
+        private PaymentMethodBindingError(long n) { this.n = n; }
+        public long value() { return n; }
+        public static PaymentMethodBindingError valueOf(long n) {
+            for (PaymentMethodBindingError v : values()) {
+                if (v.n == n) {
+                    return v;
+                }
+            }
+            throw new IllegalArgumentException("No constant with value " + n + " found in "
+                + PaymentMethodBindingError.class.getName());
+        }
 
-         // bind wrap to include it in compilation as long as nserror enum is used
-         static { Bro.bind(NSErrorWrap.class); }
-         @StronglyLinked
-         public static class NSErrorWrap extends NSError {
-             protected NSErrorWrap(SkipInit skipInit) {super(skipInit);}
+        // bind wrap to include it in compilation as long as nserror enum is used
+        static { Bro.bind(NSErrorWrap.class); }
+        @StronglyLinked
+        public static class NSErrorWrap extends NSError {
+            protected NSErrorWrap(SkipInit skipInit) {super(skipInit);}
 
-             @Override public NSErrorCode getErrorCode() {
+            @Override public NSErrorCode getErrorCode() {
                  try {
                      return  PaymentMethodBindingError.valueOf(getCode());
                  } catch (IllegalArgumentException e) {
@@ -92,11 +83,10 @@ public class PaymentMethodBinding extends NSObject {
                  }
              }
 
-             public static String getClassDomain() {
-                 /** must be inserted in value section */
-                 return PaymentMethodBinding.PaymentMethodBindingErrorDomainRvm();
-             }
-         }
-     }
-
- }
+            public static String getClassDomain() {
+                /** must be inserted in value section */
+                return PaymentMethodBinding.PaymentMethodBindingErrorDomain();
+            }
+        }
+    }
+}

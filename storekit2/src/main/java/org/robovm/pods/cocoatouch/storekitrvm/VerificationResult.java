@@ -62,12 +62,11 @@ public final class VerificationResult {
         @Property(selector = "deviceVerificationNonce")
         public native NSUUID getDeviceVerificationNonce();
 
-        @Method(selector = "getPayloadValueAndReturnError:")
         public org.robovm.pods.cocoatouch.storekitrvm.AppTransaction getPayloadValue() throws NSErrorException {
-            NSError.NSErrorPtr ptr = new NSError.NSErrorPtr();
+           NSError.NSErrorPtr ptr = new NSError.NSErrorPtr();
             org.robovm.pods.cocoatouch.storekitrvm.AppTransaction result = getPayloadValue(ptr);
-            if (ptr.get() != null) { throw new NSErrorException(ptr.get()); }
-            return result;
+           if (ptr.get() != null) { throw new NSErrorException(ptr.get()); }
+           return result;
         }
         @Method(selector = "getPayloadValueAndReturnError:")
         private native org.robovm.pods.cocoatouch.storekitrvm.AppTransaction getPayloadValue(NSError.NSErrorPtr error);
@@ -75,9 +74,56 @@ public final class VerificationResult {
 
     /**
      * @since Available in iOS 15.0 and later.
-     */    @Library(Library.INTERNAL) @NativeClass("RvmVerificationResult_Transaction")
-    public static class Transaction extends NSObject {
+     */
+    @Library(Library.INTERNAL) @NativeClass("RvmVerificationResult_RenewalInfo")
+    public static class RenewalInfo extends NSObject {
+        public static class RenewalInfoPtr extends Ptr<RenewalInfo, RenewalInfoPtr> {}
+        static { ObjCRuntime.bind(RenewalInfo.class); }
 
+        protected RenewalInfo() {}
+        protected RenewalInfo(Handle h, long handle) { super(h, handle); }
+        protected RenewalInfo(SkipInit skipInit) { super(skipInit); }
+
+        @Property(selector = "isVerified")
+        public native boolean isVerified();
+        @Property(selector = "unsafePayloadValue")
+        public native Product.SubscriptionInfo.RenewalInfo getUnsafePayloadValue();
+        @Property(selector = "error")
+        public native NSError getError();
+        @Property(selector = "jwsRepresentation")
+        public native String getJwsRepresentation();
+        @Property(selector = "headerData")
+        public native NSData getHeaderData();
+        @Property(selector = "payloadData")
+        public native NSData getPayloadData();
+        @Property(selector = "signatureData")
+        public native NSData getSignatureData();
+        @Property(selector = "signature")
+        public native ECDSASignature getSignature();
+        @Property(selector = "signedData")
+        public native NSData getSignedData();
+        @Property(selector = "signedDate")
+        public native NSDate getSignedDate();
+        @Property(selector = "deviceVerification")
+        public native NSData getDeviceVerification();
+        @Property(selector = "deviceVerificationNonce")
+        public native NSUUID getDeviceVerificationNonce();
+
+        public Product.SubscriptionInfo.RenewalInfo getPayloadValue() throws NSErrorException {
+           NSError.NSErrorPtr ptr = new NSError.NSErrorPtr();
+           Product.SubscriptionInfo.RenewalInfo result = getPayloadValue(ptr);
+           if (ptr.get() != null) { throw new NSErrorException(ptr.get()); }
+           return result;
+        }
+        @Method(selector = "getPayloadValueAndReturnError:")
+        private native Product.SubscriptionInfo.RenewalInfo getPayloadValue(NSError.NSErrorPtr error);
+    }
+
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
+    @Library(Library.INTERNAL) @NativeClass("RvmVerificationResult_Transaction")
+    public static class Transaction extends NSObject {
         public static class TransactionPtr extends Ptr<Transaction, TransactionPtr> {}
         static { ObjCRuntime.bind(Transaction.class); }
 
@@ -111,61 +157,13 @@ public final class VerificationResult {
         public native NSUUID getDeviceVerificationNonce();
 
         public org.robovm.pods.cocoatouch.storekitrvm.Transaction getPayloadValue() throws NSErrorException {
-            NSError.NSErrorPtr ptr = new NSError.NSErrorPtr();
+           NSError.NSErrorPtr ptr = new NSError.NSErrorPtr();
             org.robovm.pods.cocoatouch.storekitrvm.Transaction result = getPayloadValue(ptr);
-            if (ptr.get() != null) { throw new NSErrorException(ptr.get()); }
-            return result;
+           if (ptr.get() != null) { throw new NSErrorException(ptr.get()); }
+           return result;
         }
         @Method(selector = "getPayloadValueAndReturnError:")
         private native org.robovm.pods.cocoatouch.storekitrvm.Transaction getPayloadValue(NSError.NSErrorPtr error);
     }
-
-    /**
-     * @since Available in iOS 15.0 and later.
-     */
-
-    @Library(Library.INTERNAL) @NativeClass("RvmVerificationResult_RenewalInfo")
-    public static class RenewalInfo extends NSObject {
-        static { ObjCRuntime.bind(RenewalInfo.class); }
-
-        protected RenewalInfo() {}
-        protected RenewalInfo(Handle h, long handle) { super(h, handle); }
-        protected RenewalInfo(SkipInit skipInit) { super(skipInit); }
-
-        @Property(selector = "isVerified")
-        public native boolean isVerified();
-        @Property(selector = "unsafePayloadValue")
-        public native Product.SubscriptionInfo.RenewalInfo getUnsafePayloadValue();
-        @Property(selector = "error")
-        public native NSError getError();
-        @Property(selector = "jwsRepresentation")
-        public native String getJwsRepresentation();
-        @Property(selector = "headerData")
-        public native NSData getHeaderData();
-        @Property(selector = "payloadData")
-        public native NSData getPayloadData();
-        @Property(selector = "signatureData")
-        public native NSData getSignatureData();
-        @Property(selector = "signature")
-        public native ECDSASignature getSignature();
-        @Property(selector = "signedData")
-        public native NSData getSignedData();
-        @Property(selector = "signedDate")
-        public native NSDate getSignedDate();
-        @Property(selector = "deviceVerification")
-        public native NSData getDeviceVerification();
-        @Property(selector = "deviceVerificationNonce")
-        public native NSUUID getDeviceVerificationNonce();
-
-        public Product.SubscriptionInfo.RenewalInfo getPayloadValue() throws NSErrorException {
-            NSError.NSErrorPtr ptr = new NSError.NSErrorPtr();
-            Product.SubscriptionInfo.RenewalInfo result = getPayloadValue(ptr);
-            if (ptr.get() != null) { throw new NSErrorException(ptr.get()); }
-            return result;
-        }
-        @Method(selector = "getPayloadValueAndReturnError:")
-        private native Product.SubscriptionInfo.RenewalInfo getPayloadValue(NSError.NSErrorPtr error);
-    }
-
 }
 

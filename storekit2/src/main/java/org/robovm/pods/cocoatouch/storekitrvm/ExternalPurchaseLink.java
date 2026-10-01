@@ -15,26 +15,20 @@
  */
 package org.robovm.pods.cocoatouch.storekitrvm;
 
+import org.robovm.objc.*;
+import org.robovm.objc.annotation.*;
+import org.robovm.objc.block.*;
+import org.robovm.rt.bro.annotation.*;
+import org.robovm.rt.bro.ptr.*;
+import org.robovm.apple.foundation.*;
 
-
-import org.robovm.apple.foundation.NSArray;
-import org.robovm.apple.foundation.NSError;
-import org.robovm.apple.foundation.NSObject;
-import org.robovm.apple.foundation.NSURL;
-import org.robovm.objc.ObjCRuntime;
-import org.robovm.objc.annotation.Block;
-import org.robovm.objc.annotation.Method;
-import org.robovm.objc.annotation.NativeClass;
-import org.robovm.objc.block.VoidBlock1;
-import org.robovm.objc.block.VoidBooleanBlock;
-import org.robovm.rt.bro.annotation.Library;
 
 /**
  * @since Available in iOS 15.4 and later.
  */
 @Library(Library.INTERNAL) @NativeClass("StoreKitRvm.RvmExternalPurchaseLink")
 public class ExternalPurchaseLink extends NSObject {
-
+    public static class ExternalPurchaseLinkPtr extends Ptr<ExternalPurchaseLink, ExternalPurchaseLinkPtr> {}
     static { ObjCRuntime.bind(ExternalPurchaseLink.class); }
 
     protected ExternalPurchaseLink() {}

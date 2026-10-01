@@ -15,41 +15,29 @@
  */
 package org.robovm.pods.cocoatouch.storekitrvm;
 
-
-
-import org.robovm.apple.foundation.*;
-import org.robovm.apple.uikit.UIScene;
-import org.robovm.apple.uikit.UIViewController;
-import org.robovm.objc.ObjCRuntime;
-import org.robovm.objc.annotation.Block;
-import org.robovm.objc.annotation.Method;
-import org.robovm.objc.annotation.NativeClass;
-import org.robovm.objc.annotation.Property;
-import org.robovm.objc.block.Block1;
-import org.robovm.objc.block.VoidBlock1;
-import org.robovm.objc.block.VoidBlock2;
-import org.robovm.objc.block.VoidBooleanBlock;
+import org.robovm.objc.*;
+import org.robovm.objc.annotation.*;
+import org.robovm.objc.block.*;
 import org.robovm.rt.annotation.StronglyLinked;
 import org.robovm.rt.bro.Bro;
 import org.robovm.rt.bro.ValuedEnum;
-import org.robovm.rt.bro.annotation.ByVal;
-import org.robovm.rt.bro.annotation.Library;
-import org.robovm.rt.bro.annotation.MachineSizedSInt;
-import org.robovm.rt.bro.ptr.Ptr;
-
+import org.robovm.rt.bro.annotation.*;
+import org.robovm.rt.bro.ptr.*;
+import org.robovm.apple.foundation.*;
+import org.robovm.apple.uikit.*;
 
 /**
  * @since Available in iOS 15.0 and later.
  */
 @Library(Library.INTERNAL) @NativeClass("StoreKitRvm.RvmProduct")
 public class Product extends NSObject {
-    public static class RvmProductPtr extends Ptr<Product, RvmProductPtr> {}
+    public static class ProductPtr extends Ptr<Product, ProductPtr> {}
     static { ObjCRuntime.bind(Product.class); }
-    
+
     protected Product() {}
     protected Product(Handle h, long handle) { super(h, handle); }
     protected Product(SkipInit skipInit) { super(skipInit); }
-    
+
     @Property(selector = "jsonRepresentation")
     public native NSData getJsonRepresentation();
     @Property(selector = "id")
@@ -68,15 +56,26 @@ public class Product extends NSObject {
     public native boolean isFamilyShareable();
     @Property(selector = "subscription")
     public native SubscriptionInfo getSubscription();
+    /**
+     * @since Available in iOS 18.4 and later.
+     */
+    @Property(selector = "currentEntitlements")
+    public native AsyncSequence<VerificationResult.Transaction> getCurrentEntitlements();
+    /**
+     * @since Available in iOS 15.0 and later.
+     */
     @Property(selector = "priceFormatStyle")
     public native FormatStyle.Currency getPriceFormatStyle();
-    @Property(selector = "debugDescription")
-    public native String getDebugDescription();
 
     @Method(selector = "productsFor:completionHandler:")
     public static native Task getProducts(NSArray<NSString> identifiers, @Block VoidBlock2<NSArray<Product>, NSError> completionHandler);
     @Method(selector = "latestTransactionWithCompletionHandler:")
     public native Task getLatestTransaction(@Block VoidBlock1<VerificationResult.Transaction> completionHandler);
+    /**
+     * @since Available in iOS 15.0 and later.
+     * @deprecated Deprecated in iOS 18.4. Use the currentEntitlements property instead.
+     */
+    @Deprecated
     @Method(selector = "currentEntitlementWithCompletionHandler:")
     public native Task getCurrentEntitlement(@Block VoidBlock1<VerificationResult.Transaction> completionHandler);
     /**
@@ -117,6 +116,10 @@ public class Product extends NSObject {
         public static native ProductType nonRenewable();
         @Method(selector = "autoRenewable")
         public static native ProductType autoRenewable();
+        @Method(selector = "subscriptionBundle")
+        public static native ProductType subscriptionBundle();
+        @Method(selector = "subscriptionSuite")
+        public static native ProductType subscriptionSuite();
     }
 
     /**
@@ -159,13 +162,13 @@ public class Product extends NSObject {
             private Visibility(long n) { this.n = n; }
             public long value() { return n; }
             public static Visibility valueOf(long n) {
-                for (Visibility v : values()) {
+                for (Visibility v : Visibility.values()) {
                     if (v.n == n) {
                         return v;
                     }
                 }
                 throw new IllegalArgumentException("No constant with value " + n + " found in "
-                        + Visibility.class.getName());
+                    + Visibility.class.getName());
             }
         }
     }
@@ -180,7 +183,8 @@ public class Product extends NSObject {
         InvalidOfferIdentifier(4L),
         InvalidOfferPrice(5L),
         InvalidOfferSignature(6L),
-        MissingOfferParameters(7L);
+        MissingOfferParameters(7L),
+        PaymentMethodBindingConfigurationRequired(8L);
 
         private final long n;
 
@@ -226,11 +230,13 @@ public class Product extends NSObject {
         protected PurchaseOption(Handle h, long handle) { super(h, handle); }
         protected PurchaseOption(SkipInit skipInit) { super(skipInit); }
 
-        @Property(selector = "debugDescription")
-        public native String getDebugDescription();
-
         @Method(selector = "appAccountToken:")
         public static native PurchaseOption appAccountToken(NSUUID token);
+        /**
+         * @since Available in iOS 26.4 and later.
+         */
+        @Method(selector = "billingPlanType:")
+        public static native PurchaseOption billingPlanType(SubscriptionInfo.BillingPlanType type);
         @Method(selector = "customStringWithKey:value:")
         public static native PurchaseOption customString(String key, String value);
         @Method(selector = "customNumberWithKey:value:")
@@ -241,13 +247,25 @@ public class Product extends NSObject {
         public static native PurchaseOption customData(String key, NSData value);
         @Method(selector = "onStorefrontChangeWithShouldContinuePurchase:")
         public static native PurchaseOption onStorefrontChange(@Block Block1<Storefront, Boolean> shouldContinuePurchase);
+        /**
+         * @since Available in iOS 15.0 and later.
+         * @deprecated Deprecated in iOS 26.0. Sign promotional offers with JWS and use promotionalOffer(_:compactJWS:) instead
+         */
+        @Deprecated
         @Method(selector = "promotionalOfferWithOfferID:keyID:nonce:signature:timestamp:")
         public static native PurchaseOption promotionalOffer(String offerID, String keyID, NSUUID nonce, NSData signature, @MachineSizedSInt long timestamp);
         /**
          * @since Available in iOS 17.4 and later.
+         * @deprecated Deprecated in iOS 26.0. Sign promotional offers with JWS and use promotionalOffer(_:compactJWS:) instead
          */
+        @Deprecated
         @Method(selector = "promotionalOfferWithOfferID:signature:")
         public static native PurchaseOption promotionalOffer(String offerID, SubscriptionInfo.Signature signature);
+        /**
+         * @since Available in iOS 15.0 and later.
+         */
+        @Method(selector = "promotionalOffer:compactJWS:")
+        public static native NSArray<PurchaseOption> promotionalOffer(String offerID, String compactJWS);
         @Method(selector = "quantity:")
         public static native PurchaseOption quantity(@MachineSizedSInt long quantity);
         @Method(selector = "simulatesAskToBuyInSandbox:")
@@ -257,10 +275,12 @@ public class Product extends NSObject {
          */
         @Method(selector = "winBackOffer:")
         public static native PurchaseOption winBackOffer(SubscriptionOffer offer);
+        @Method(selector = "introductoryOfferEligibilityWithCompactJWS:")
+        public static native PurchaseOption introductoryOfferEligibility(String compactJWS);
     }
 
     @Library(Library.INTERNAL) @NativeClass("RvmProduct_PurchaseResult")
-    public static class PurchaseResult extends NSObject {
+    public static class PurchaseResult extends NSObject{
         public static class PurchaseResultPtr extends Ptr<PurchaseResult, PurchaseResultPtr> {}
         static { ObjCRuntime.bind(PurchaseResult.class); }
 
@@ -272,12 +292,9 @@ public class Product extends NSObject {
         public static native PurchaseResult userCancelled();
         @Method(selector = "pending")
         public static native PurchaseResult pending();
-        @Method(selector = "unknown")
-        public static native PurchaseResult unknown();
 
         @Library(Library.INTERNAL) @NativeClass("RvmProduct_PurchaseResult_success")
-        public static class success extends Product.PurchaseResult {
-            public static class successPtr extends Ptr<success, successPtr> {}
+        public static class success extends PurchaseResult {
             static { ObjCRuntime.bind(success.class); }
 
             protected success() {}
@@ -288,11 +305,9 @@ public class Product extends NSObject {
             public native VerificationResult.Transaction getTransaction();
 
             @Method(selector = "userCancelled")
-            public static native Product.PurchaseResult userCancelled();
+            public static native PurchaseResult userCancelled();
             @Method(selector = "pending")
-            public static native Product.PurchaseResult pending();
-            @Method(selector = "unknown")
-            public static native Product.PurchaseResult unknown();
+            public static native PurchaseResult pending();
         }
     }
 
@@ -319,6 +334,16 @@ public class Product extends NSObject {
         @Property(selector = "subscriptionPeriod")
         public native SubscriptionPeriod getSubscriptionPeriod();
         /**
+         * @since Available in iOS 26.4 and later.
+         */
+        @Property(selector = "pricingTerms")
+        public native NSArray<PricingTerms> getPricingTerms();
+        /**
+         * @since Available in iOS 27.0 and later.
+         */
+        @Property(selector = "bundledSubscriptions")
+        public native NSArray<BundledSubscription> getBundledSubscriptions();
+        /**
          * @since Available in iOS 16.4 and later.
          */
         @Property(selector = "groupLevel")
@@ -337,6 +362,117 @@ public class Product extends NSObject {
         public native Task getStatus(@Block VoidBlock2<NSArray<Status>, NSError> completionHandler);
         @Method(selector = "statusFor:completionHandler:")
         public static native Task getStatus(String groupID, @Block VoidBlock2<NSArray<Status>, NSError> completionHandler);
+        /**
+         * @since Available in iOS 18.4 and later.
+         */
+        @Method(selector = "statusWithTransactionID:completionHandler:")
+        public static native Task status(long transactionID, @Block VoidBlock2<Status, NSError> completionHandler);
+
+        /**
+         * @since Available in iOS 26.4 and later.
+         */
+        @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_BillingPlanType")
+        public static class BillingPlanType extends NSObject {
+            public static class BillingPlanTypePtr extends Ptr<BillingPlanType, BillingPlanTypePtr> {}
+            static { ObjCRuntime.bind(BillingPlanType.class); }
+
+            protected BillingPlanType() {}
+            protected BillingPlanType(Handle h, long handle) { super(h, handle); }
+            protected BillingPlanType(SkipInit skipInit) { super(skipInit); }
+            @Method(selector = "initWithRawValue:")
+            public BillingPlanType(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
+
+            @Property(selector = "rawValue")
+            public native String getRawValue();
+
+            @Method(selector = "initWithRawValue:")
+            protected native @Pointer long init(String rawValue);
+            @Method(selector = "monthly")
+            public static native BillingPlanType monthly();
+            @Method(selector = "upFront")
+            public static native BillingPlanType upFront();
+        }
+
+        /**
+         * @since Available in iOS 27.0 and later.
+         */
+        @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_BundledSubscription")
+        public static class BundledSubscription extends NSObject {
+            public static class BundledSubscriptionPtr extends Ptr<BundledSubscription, BundledSubscriptionPtr> {}
+            static { ObjCRuntime.bind(BundledSubscription.class); }
+
+            protected BundledSubscription() {}
+            protected BundledSubscription(Handle h, long handle) { super(h, handle); }
+            protected BundledSubscription(SkipInit skipInit) { super(skipInit); }
+
+            @Property(selector = "id")
+            public native String getId();
+            @Property(selector = "displayName")
+            public native String getDisplayName();
+            @Property(selector = "productDescription")
+            public native String getProductDescription();
+            @Property(selector = "price")
+            public native NSDecimalNumber getPrice();
+            @Property(selector = "displayPrice")
+            public native String getDisplayPrice();
+            @Property(selector = "isFamilyShareable")
+            public native boolean isFamilyShareable();
+            @Property(selector = "subscriptionGroupID")
+            public native String getSubscriptionGroupID();
+            @Property(selector = "subscriptionGroupLevel")
+            public native @MachineSizedSInt long getSubscriptionGroupLevel();
+            @Property(selector = "subscriptionGroupDisplayName")
+            public native String getSubscriptionGroupDisplayName();
+        }
+
+        /**
+         * @since Available in iOS 26.4 and later.
+         */
+        @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_CommitmentInfo")
+        public static class CommitmentInfo extends NSObject {
+            public static class CommitmentInfoPtr extends Ptr<CommitmentInfo, CommitmentInfoPtr> {}
+            static { ObjCRuntime.bind(CommitmentInfo.class); }
+
+            protected CommitmentInfo() {}
+            protected CommitmentInfo(Handle h, long handle) { super(h, handle); }
+            protected CommitmentInfo(SkipInit skipInit) { super(skipInit); }
+
+            @Property(selector = "price")
+            public native NSDecimalNumber getPrice();
+            @Property(selector = "displayPrice")
+            public native String getDisplayPrice();
+            @Property(selector = "period")
+            public native SubscriptionPeriod getPeriod();
+        }
+
+        /**
+         * @since Available in iOS 26.4 and later.
+         */
+        @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_PricingTerms")
+        public static class PricingTerms extends NSObject {
+            public static class PricingTermsPtr extends Ptr<PricingTerms, PricingTermsPtr> {}
+            static { ObjCRuntime.bind(PricingTerms.class); }
+
+            protected PricingTerms() {}
+            protected PricingTerms(Handle h, long handle) { super(h, handle); }
+            protected PricingTerms(SkipInit skipInit) { super(skipInit); }
+
+            @Property(selector = "billingPrice")
+            public native NSDecimalNumber getBillingPrice();
+            @Property(selector = "billingDisplayPrice")
+            public native String getBillingDisplayPrice();
+            @Property(selector = "billingPeriod")
+            public native SubscriptionPeriod getBillingPeriod();
+            @Property(selector = "billingPlanType")
+            public native BillingPlanType getBillingPlanType();
+            @Property(selector = "commitmentInfo")
+            public native CommitmentInfo getCommitmentInfo();
+            @Property(selector = "subscriptionOffers")
+            public native NSArray<SubscriptionOffer> getSubscriptionOffers();
+
+            @Method(selector = "offersOfType:")
+            public native NSArray<SubscriptionOffer> offersOfType(SubscriptionOffer.OfferType type);
+        }
 
         @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_RenewalInfo")
         public static class RenewalInfo extends NSObject {
@@ -372,25 +508,32 @@ public class Product extends NSObject {
             public native Transaction.Offer getOffer();
             /**
              * @since Available in iOS 15.0 and later.
-             * @deprecated Deprecated in iOS 18.0. 'offerID' has been renamed to 'offer.id': Use the offer property instead
+             * @deprecated Deprecated in iOS 18.0. 'offerID' has been renamed to 'offer.id': Use the offer property instead.
              */
             @Deprecated
             @Property(selector = "offerID")
             public native String getOfferID();
             /**
              * @since Available in iOS 15.0 and later.
-             * @deprecated Deprecated in iOS 18.0. 'offerType' has been renamed to 'offer.type': Use the offer property instead
+             * @deprecated Deprecated in iOS 18.0. 'offerType' has been renamed to 'offer.type': Use the offer property instead.
              */
             @Deprecated
             @Property(selector = "offerType")
             public native Transaction.OfferType getOfferType();
             /**
              * @since Available in iOS 15.0 and later.
-             * @deprecated Deprecated in iOS 18.0. 'offerPaymentModeStringRepresentation' has been renamed to 'offer.paymentMode.rawValue': Use the offer property instead
+             * @deprecated Deprecated in iOS 18.0. 'offerPaymentModeStringRepresentation' has been renamed to 'offer.paymentMode.rawValue': Use the offer property instead.
              */
             @Deprecated
             @Property(selector = "offerPaymentModeStringRepresentation")
             public native String getOfferPaymentModeStringRepresentation();
+            /**
+             * @since Available in iOS 15.0 and later.
+             * @deprecated Deprecated in iOS 18.4. Use the offer property instead.
+             */
+            @Deprecated
+            @Property(selector = "offerPeriodStringRepresentation")
+            public native String getOfferPeriodStringRepresentation();
             /**
              * @since Available in iOS 16.0 and later.
              */
@@ -398,7 +541,7 @@ public class Product extends NSObject {
             public native AppStore.Environment getEnvironment();
             /**
              * @since Available in iOS 15.0 and later.
-             * @deprecated Deprecated in iOS 16.0. Use the environment property instead
+             * @deprecated Deprecated in iOS 16.0. Use the environment property instead.
              */
             @Deprecated
             @Property(selector = "environmentStringRepresentation")
@@ -425,7 +568,7 @@ public class Product extends NSObject {
             public native String getCurrencyIdentifier();
             /**
              * @since Available in iOS 15.0 and later.
-             * @deprecated Deprecated in iOS 16.0. 'currencyCode' has been renamed to 'currency.identifier': Use the currency property instead
+             * @deprecated Deprecated in iOS 16.0. 'currencyCode' has been renamed to 'currency.identifier': Use the currency property instead.
              */
             @Deprecated
             @Property(selector = "currencyCode")
@@ -435,14 +578,177 @@ public class Product extends NSObject {
              */
             @Property(selector = "eligibleWinBackOfferIDs")
             public native NSArray<NSString> getEligibleWinBackOfferIDs();
+            /**
+             * @since Available in iOS 15.0 and later.
+             */
+            @Property(selector = "bundleProductID")
+            public native String getBundleProductID();
+            /**
+             * @since Available in iOS 15.0 and later.
+             */
+            @Property(selector = "bundleSubscriptionGroupID")
+            public native String getBundleSubscriptionGroupID();
+            /**
+             * @since Available in iOS 15.0 and later.
+             */
+            @Property(selector = "bundleOriginalTransactionID")
+            public native String getBundleOriginalTransactionID();
+            /**
+             * @since Available in iOS 15.0 and later.
+             */
+            @Property(selector = "willUnbundle")
+            public native boolean isWillUnbundle();
             @Property(selector = "deviceVerification")
             public native NSData getDeviceVerification();
             @Property(selector = "deviceVerificationNonce")
             public native NSUUID getDeviceVerificationNonce();
             @Property(selector = "signedDate")
             public native NSDate getSignedDate();
-            @Property(selector = "debugDescription")
-            public native String getDebugDescription();
+            /**
+             * @since Available in iOS 18.4 and later.
+             */
+            @Property(selector = "advancedCommerceInfo")
+            public native AdvancedCommerceInfo getAdvancedCommerceInfo();
+            /**
+             * @since Available in iOS 15.0 and later.
+             */
+            @Property(selector = "appAccountToken")
+            public native NSUUID getAppAccountToken();
+            /**
+             * @since Available in iOS 15.0 and later.
+             */
+            @Property(selector = "appTransactionID")
+            public native String getAppTransactionID();
+            /**
+             * @since Available in iOS 26.4 and later.
+             */
+            @Property(selector = "commitmentInfo")
+            public native CommitmentInfo getCommitmentInfo();
+            /**
+             * @since Available in iOS 26.4 and later.
+             */
+            @Property(selector = "renewalBillingPlanType")
+            public native BillingPlanType getRenewalBillingPlanType();
+
+            /**
+             * @since Available in iOS 18.4 and later.
+             */
+            @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo")
+            public static class AdvancedCommerceInfo extends NSObject {
+                public static class AdvancedCommerceInfoPtr extends Ptr<AdvancedCommerceInfo, AdvancedCommerceInfoPtr> {}
+                static { ObjCRuntime.bind(AdvancedCommerceInfo.class); }
+
+                protected AdvancedCommerceInfo() {}
+                protected AdvancedCommerceInfo(Handle h, long handle) { super(h, handle); }
+                protected AdvancedCommerceInfo(SkipInit skipInit) { super(skipInit); }
+
+                @Property(selector = "consistencyToken")
+                public native String getConsistencyToken();
+                @Property(selector = "requestReferenceID")
+                public native String getRequestReferenceID();
+                @Property(selector = "taxCode")
+                public native String getTaxCode();
+                @Property(selector = "productDescription")
+                public native String getProductDescription();
+                @Property(selector = "displayName")
+                public native String getDisplayName();
+                @Property(selector = "period")
+                public native SubscriptionPeriod getPeriod();
+                @Property(selector = "items")
+                public native NSArray<Item> getItems();
+
+                /**
+                 * @since Available in iOS 18.4 and later.
+                 */
+                @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item")
+                public static class Item extends NSObject {
+                    public static class ItemPtr extends Ptr<Item, ItemPtr> {}
+                    static { ObjCRuntime.bind(Item.class); }
+
+                    protected Item() {}
+                    protected Item(Handle h, long handle) { super(h, handle); }
+                    protected Item(SkipInit skipInit) { super(skipInit); }
+
+                    @Property(selector = "details")
+                    public native Transaction.AdvancedCommerceInfo.Item.Details getDetails();
+                    /**
+                     * @since Available in iOS 26.2 and later.
+                     */
+                    @Property(selector = "priceIncreaseInfo")
+                    public native PriceIncreaseInfo getPriceIncreaseInfo();
+
+                    /**
+                     * @since Available in iOS 26.2 and later.
+                     */
+                    @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo")
+                    public static class PriceIncreaseInfo extends NSObject {
+                        public static class PriceIncreaseInfoPtr extends Ptr<PriceIncreaseInfo, PriceIncreaseInfoPtr> {}
+                        static { ObjCRuntime.bind(PriceIncreaseInfo.class); }
+
+                        protected PriceIncreaseInfo() {}
+                        protected PriceIncreaseInfo(Handle h, long handle) { super(h, handle); }
+                        protected PriceIncreaseInfo(SkipInit skipInit) { super(skipInit); }
+
+                        @Property(selector = "status")
+                        public native Status getStatus();
+                        @Property(selector = "price")
+                        public native NSDecimalNumber getPrice();
+                        @Property(selector = "dependentSKUs")
+                        public native NSArray<NSString> getDependentSKUs();
+
+                        /**
+                         * @since Available in iOS 26.2 and later.
+                         */
+                        @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_RenewalInfo_AdvancedCommerceInfo_Item_PriceIncreaseInfo_Status")
+                        public static class Status extends NSObject {
+                            public static class StatusPtr extends Ptr<Status, StatusPtr> {}
+                            static { ObjCRuntime.bind(Status.class); }
+
+                            protected Status() {}
+                            protected Status(Handle h, long handle) { super(h, handle); }
+                            protected Status(SkipInit skipInit) { super(skipInit); }
+                            @Method(selector = "initWithRawValue:")
+                            public Status(String rawValue) { super((SkipInit) null); initObject(init(rawValue)); }
+
+                            @Property(selector = "rawValue")
+                            public native String getRawValue();
+
+                            @Method(selector = "initWithRawValue:")
+                            protected native @Pointer long init(String rawValue);
+                            @Method(selector = "pending")
+                            public static native Status pending();
+                            @Method(selector = "accepted")
+                            public static native Status accepted();
+                            @Method(selector = "scheduled")
+                            public static native Status scheduled();
+                        }
+                    }
+                }
+            }
+
+            /**
+             * @since Available in iOS 26.4 and later.
+             */
+            @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_RenewalInfo_CommitmentInfo")
+            public static class CommitmentInfo extends NSObject {
+                public static class CommitmentInfoPtr extends Ptr<CommitmentInfo, CommitmentInfoPtr> {}
+                static { ObjCRuntime.bind(CommitmentInfo.class); }
+
+                protected CommitmentInfo() {}
+                protected CommitmentInfo(Handle h, long handle) { super(h, handle); }
+                protected CommitmentInfo(SkipInit skipInit) { super(skipInit); }
+
+                @Property(selector = "autoRenewPreference")
+                public native String getAutoRenewPreference();
+                @Property(selector = "renewalBillingPlanType")
+                public native BillingPlanType getRenewalBillingPlanType();
+                @Property(selector = "renewalDate")
+                public native NSDate getRenewalDate();
+                @Property(selector = "renewalPrice")
+                public native NSDecimalNumber getRenewalPrice();
+                @Property(selector = "willAutoRenew")
+                public native boolean isWillAutoRenew();
+            }
 
             @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_RenewalInfo_ExpirationReason")
             public static class ExpirationReason extends NSObject {
@@ -458,7 +764,6 @@ public class Product extends NSObject {
                 @Property(selector = "localizedDescription")
                 public native String getLocalizedDescription();
 
-
                 @Method(selector = "autoRenewDisabled")
                 public static native ExpirationReason autoRenewDisabled();
                 @Method(selector = "billingError")
@@ -469,6 +774,8 @@ public class Product extends NSObject {
                 public static native ExpirationReason productUnavailable();
                 @Method(selector = "unknown")
                 public static native ExpirationReason unknown();
+                @Method(selector = "unbundled")
+                public static native ExpirationReason unbundled();
             }
 
             @org.robovm.rt.bro.annotation.Marshaler(ValuedEnum.AsMachineSizedSIntMarshaler.class)
@@ -489,7 +796,7 @@ public class Product extends NSObject {
                         }
                     }
                     throw new IllegalArgumentException("No constant with value " + n + " found in "
-                            + PriceIncreaseStatus.class.getName());
+                        + PriceIncreaseStatus.class.getName());
                 }
             }
         }
@@ -520,8 +827,9 @@ public class Product extends NSObject {
 
         /**
          * @since Available in iOS 17.4 and later.
+         * @deprecated Deprecated in iOS 26.0. Sign promotional offers with JWS and use PurchaseOption.promotionalOffer(_:compactJWS:) instead.
          */
-        @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_Signature")
+        @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_Signature") @Deprecated
         public static class Signature extends NSObject {
             public static class SignaturePtr extends Ptr<Signature, SignaturePtr> {}
             static { ObjCRuntime.bind(Signature.class); }
@@ -563,6 +871,7 @@ public class Product extends NSObject {
 
             @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionInfo_Status_Pair")
             public static class Pair extends NSObject {
+                public static class PairPtr extends Ptr<Pair, PairPtr> {}
                 static { ObjCRuntime.bind(Pair.class); }
 
                 protected Pair() {}
@@ -581,11 +890,11 @@ public class Product extends NSObject {
     public static class SubscriptionOffer extends NSObject {
         public static class SubscriptionOfferPtr extends Ptr<SubscriptionOffer, SubscriptionOfferPtr> {}
         static { ObjCRuntime.bind(SubscriptionOffer.class); }
-        
+
         protected SubscriptionOffer() {}
         protected SubscriptionOffer(Handle h, long handle) { super(h, handle); }
         protected SubscriptionOffer(SkipInit skipInit) { super(skipInit); }
-        
+
         @Property(selector = "id")
         public native String getId();
         @Property(selector = "type")
@@ -600,21 +909,21 @@ public class Product extends NSObject {
         public native @MachineSizedSInt long getPeriodCount();
         @Property(selector = "paymentMode")
         public native PaymentMode getPaymentMode();
-    
+
         @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionOffer_OfferType")
         public static class OfferType extends NSObject {
             public static class OfferTypePtr extends Ptr<OfferType, OfferTypePtr> {}
             static { ObjCRuntime.bind(OfferType.class); }
-    
+
             protected OfferType() {}
             protected OfferType(Handle h, long handle) { super(h, handle); }
             protected OfferType(SkipInit skipInit) { super(skipInit); }
-    
+
             @Property(selector = "rawValue")
             public native String getRawValue();
             @Property(selector = "localizedDescription")
             public native String getLocalizedDescription();
-    
+
             @Method(selector = "introductory")
             public static native OfferType introductory();
             @Method(selector = "promotional")
@@ -622,21 +931,21 @@ public class Product extends NSObject {
             @Method(selector = "winBack")
             public static native OfferType winBack();
         }
-    
+
         @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionOffer_PaymentMode")
         public static class PaymentMode extends NSObject {
             public static class PaymentModePtr extends Ptr<PaymentMode, PaymentModePtr> {}
             static { ObjCRuntime.bind(PaymentMode.class); }
-    
+
             protected PaymentMode() {}
             protected PaymentMode(Handle h, long handle) { super(h, handle); }
             protected PaymentMode(SkipInit skipInit) { super(skipInit); }
-    
+
             @Property(selector = "rawValue")
             public native String getRawValue();
             @Property(selector = "localizedDescription")
             public native String getLocalizedDescription();
-    
+
             @Method(selector = "payAsYouGo")
             public static native PaymentMode payAsYouGo();
             @Method(selector = "payUpFront")
@@ -644,7 +953,6 @@ public class Product extends NSObject {
             @Method(selector = "freeTrial")
             public static native PaymentMode freeTrial();
         }
-    
     }
 
     @Library(Library.INTERNAL) @NativeClass("RvmProduct_SubscriptionPeriod")
@@ -660,14 +968,14 @@ public class Product extends NSObject {
         public native Unit getUnit();
         @Property(selector = "value")
         public native @MachineSizedSInt long getValue();
-        @Property(selector = "debugDescription")
-        public native String getDebugDescription();
 
         /**
          * @since Available in iOS 15.0 and later.
          */
         @Method(selector = "dateRangeWithReferenceDate:")
         public native NSArray<NSDate> getDateRange(NSDate referenceDate);
+        @Method(selector = "debugDescriptionForUnit:")
+        public static native String debugDescriptionForUnit(Unit unit);
         @Method(selector = "weekly")
         public static native SubscriptionPeriod weekly();
         @Method(selector = "monthly")
@@ -685,27 +993,27 @@ public class Product extends NSObject {
         @Method(selector = "everySixMonths")
         public static native SubscriptionPeriod everySixMonths();
 
-         @org.robovm.rt.bro.annotation.Marshaler(ValuedEnum.AsMachineSizedSIntMarshaler.class)
-         public enum Unit implements ValuedEnum {
-             Unknown(-1L),
-             Day(0L),
-             Week(1L),
-             Month(2L),
-             Year(3L);
+        @org.robovm.rt.bro.annotation.Marshaler(ValuedEnum.AsMachineSizedSIntMarshaler.class)
+        public enum Unit implements ValuedEnum {
+            Unknown(-1L),
+            Day(0L),
+            Week(1L),
+            Month(2L),
+            Year(3L);
 
-             private final long n;
+            private final long n;
 
-             private Unit(long n) { this.n = n; }
-             public long value() { return n; }
-             public static Unit valueOf(long n) {
-                 for (Unit v : Unit.values()) {
-                     if (v.n == n) {
-                         return v;
-                     }
-                 }
-                 throw new IllegalArgumentException("No constant with value " + n + " found in "
-                         + Unit.class.getName());
-             }
-         }
+            private Unit(long n) { this.n = n; }
+            public long value() { return n; }
+            public static Unit valueOf(long n) {
+                for (Unit v : Unit.values()) {
+                    if (v.n == n) {
+                        return v;
+                    }
+                }
+                throw new IllegalArgumentException("No constant with value " + n + " found in "
+                    + Unit.class.getName());
+            }
+        }
     }
 }

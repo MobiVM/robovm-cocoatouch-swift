@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2025 The MobiVM Contributors
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,19 +21,12 @@ import org.robovm.rt.bro.annotation.*;
 import org.robovm.rt.bro.ptr.*;
 import org.robovm.apple.foundation.*;
 
-/**
- * @since Available in iOS 13.0 and later.
- */
-@Library(Library.INTERNAL) @NativeClass("StoreKitRvm.RvmECDSASignature")
-public class ECDSASignature extends NSObject {
-    static { ObjCRuntime.bind(ECDSASignature.class); }
+@Library(Library.INTERNAL) @NativeClass("RvmRedeemOption")
+public class RedeemOption extends NSObject {
+    public static class RedeemOptionPtr extends Ptr<RedeemOption, RedeemOptionPtr> {}
+    static { ObjCRuntime.bind(RedeemOption.class); }
 
-    protected ECDSASignature() {}
-    protected ECDSASignature(Handle h, long handle) { super(h, handle); }
-    protected ECDSASignature(SkipInit skipInit) { super(skipInit); }
-
-    @Property(selector = "rawRepresentation")
-    public native NSData getRawRepresentation();
-    @Property(selector = "derRepresentation")
-    public native NSData getDerRepresentation();
+    protected RedeemOption() {}
+    protected RedeemOption(Handle h, long handle) { super(h, handle); }
+    protected RedeemOption(SkipInit skipInit) { super(skipInit); }
 }
