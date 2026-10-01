@@ -8,6 +8,7 @@ package org.robovm.pods.cocoatouch.storekitrvm
 //    fun ProductKt.sync         // <--- extension on kt object
 
 object AppStoreKt
+object AdvancedCommerceProductKt
 object ProductKt {
     object PromotionInfoKt
     object SubscriptionInfoKt
